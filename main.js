@@ -387,7 +387,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -29: return 3010;
     // Honk
     case -14:
-    case -15: return 4008;
+    case -15: return 4014;
     // Singularity
     case -16:
     case -17:
