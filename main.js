@@ -1989,7 +1989,7 @@ function mapsetcreat(){
             $(this).children("a").attr("href", document.getElementById("downloaddrawing").toDataURL("image/png"));
             var campaignname = $("#campaignselect").find("option:selected").text()
             var missionname = $("#missionselect").find("option:selected").text();
-            var othername = ($("#layerselect").parent().css("display") != "none") ? (" " + $("#layerselect").find("option:selected")) : "";
+            var othername = ($("#layerselect").parent().css("display") != "none") ? (" " + $("#layerselect").find("option:selected").text()) : "";
             $(this).children("a").attr("download",campaignname + " " + missionname + othername + ".png");
             mapwidth = 1200; mapheight = 675;
             return;
