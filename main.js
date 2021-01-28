@@ -550,9 +550,24 @@ function getMissionOptionsForCampaign(campaign) {
 }
 
 function updatemap() {
-  const params = new URLSearchParams(window.location.search);
+  console.trace();
+  
+  const params = new URLSearchParams(window.location.hash.slice(1));
   const campaign = params.get("campaign") || $("#campaignselect").val();
   const mission = params.get("mission") || $("#missionselect").val();
+  
+  if (campaign != $("#campaignselect").val()) {
+    $("#campaignselect").val(campaign);
+    const missionOptions = getMissionOptionsForCampaign(campaign);
+    console.log(missionOptions);
+    missionOptions.forEach((option) => {
+      var elem = document.createElement("OPTION");
+      elem.value = option.value;
+      elem.innerHTML = option.innerHTML;
+      $("#missionselect").append(elem);
+    });
+  }
+  $("#missionselect").val(mission);
   
   if(campaign == 2008){ traindisplay(); return;}
   else if(campaign >= 6000 && campaign < 7000){ theaterdisplay(); return;}
@@ -569,7 +584,7 @@ function missioncreat(){
     const availableCampaigns = [...new Set(Mission.map((m) => m.campaign))];
     const missionsToCampaign = Object.fromEntries(Mission.map((m) => [m.id, m.campaign]));
 
-    const initialParams = new URLSearchParams(window.location.search);
+    const initialParams = new URLSearchParams(window.location.hash.slice(1));
     let initialCampaign = initialParams.get("campaign");
     if (!initialCampaign || !(initialCampaign in UI_TEXT["campaigns"])) {
       initialCampaign = 1001;
@@ -590,12 +605,9 @@ function missioncreat(){
         } else {
           // Unable to find. Changing the mission to the first mission of the campaign.
           initialMission = missionOptions.length > 0 ? missionOptions[0].value : null;
-        }
         // Correct the URL search string.
-        const url = new URL(window.location);
-        url.searchParams.set('campaign', initialCampaign);
-        url.searchParams.set('mission', initialMission);
-        window.history.pushState({}, '', url);
+        }
+        window.history.pushState({}, '', `#campaign=${initialCampaign}&mission=${initialMission}`);
         // Get the updated mission options for the new campaign.
         missionOptions = getMissionOptionsForCampaign(initialCampaign);
       } else {
@@ -632,10 +644,8 @@ function missioncreat(){
         });
 
         // CHANGE FROM GFWIKI: Campaign/map select now goes through URL state.
-        const url = new URL(window.location);
-        url.searchParams.set('campaign', campaign);
-        url.searchParams.set('mission', $("#missionselect").val());
-        window.history.pushState({}, '', url);
+        const mission = $("#missionselect").val();
+        window.history.pushState({}, '', `#campaign=${campaign}&mission=${mission}`);
       
         updatemap();
     });
@@ -643,13 +653,13 @@ function missioncreat(){
     /*-- 地图的显示 --*/
     $("#missionselect").change(function(){
       // CHANGE FROM GFWIKI: Campaign/map select now goes through URL state.
-      const url = new URL(window.location);
-      url.searchParams.set('mission', $("#missionselect").val());
-      window.history.pushState({}, '', url);
+      const campaign = $("#campaignselect").val();
+      const mission = $("#missionselect").val();
+      window.history.pushState({}, '', `#campaign=${campaign}&mission=${mission}`);
       
       updatemap();
     });
-    $(window).on('popstate', function() {
+    $(window).on('hashchange', function() {
       updatemap();
     });
 
