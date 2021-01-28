@@ -550,8 +550,6 @@ function getMissionOptionsForCampaign(campaign) {
 }
 
 function updatemap() {
-  console.trace();
-  
   const params = new URLSearchParams(window.location.hash.slice(1));
   const campaign = params.get("campaign") || $("#campaignselect").val();
   const mission = params.get("mission") || $("#missionselect").val();
@@ -559,7 +557,6 @@ function updatemap() {
   if (campaign != $("#campaignselect").val()) {
     $("#campaignselect").val(campaign);
     const missionOptions = getMissionOptionsForCampaign(campaign);
-    console.log(missionOptions);
     missionOptions.forEach((option) => {
       var elem = document.createElement("OPTION");
       elem.value = option.value;
@@ -635,7 +632,6 @@ function missioncreat(){
         $("#missionselect").children().remove();
         var campaign = Number(this.value);
         const missionOptions = getMissionOptionsForCampaign(campaign);
-        console.log(missionOptions);
         missionOptions.forEach((option) => {
           var elem = document.createElement("OPTION");
           elem.value = option.value;
@@ -1115,7 +1111,7 @@ function drawmap(func){
     var singlespot = [];
     con.lineWidth = String(30 / coparameter);
     con.strokeStyle = "#cecece";
-    console.log("dspot", dspot);
+    // console.log("dspot", dspot);
     for(i in dspot){
         /*--  路径点的连接  --*/
         // CHANGE FROM GFWIKI: Use route instead of map_route.
