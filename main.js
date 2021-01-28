@@ -1524,26 +1524,22 @@ function efectcal(enemy_team_id){
 }
 
 function enemyoutcal(enemy_team_id){
-    var enemyout = "";
+    let enemies = {};
+    let enemies_ids_in_order = new Set();
     for(j in Enemy_in_team){
-        if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) continue;
+        if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) {
+          continue;
+        }
         var enemy_character_type_id = Number(Enemy_in_team[j]["enemy_character_type_id"]);
-        var name;
 
-        for(var k = 0; k < Enemy_charater_type.length; k++){
-            if(Enemy_charater_type[k]["id"] != enemy_character_type_id) continue;
-            name = Enemy_charater_type[k]["name"];
+        if (!(enemy_character_type_id in enemies)) {
+          let enemy_character_type = Enemy_charater_type.find((e) => e.id == enemy_character_type_id);
+          enemies[enemy_character_type_id] = {name: enemy_character_type ? enemy_character_type.name : "?", count: 0};
+          enemies_ids_in_order.add(enemy_character_type_id);
         }
-
-        if(enemyout.indexOf(name) == -1) enemyout += name + "×" + Enemy_in_team[j]["number"] + " ";
-        else{
-            var namepos = enemyout.indexOf(name);
-            var oldnum = enemyout.slice(namepos + name.length + 1, enemyout.indexOf(" ", namepos));
-            var newnum = Number(oldnum) + Number(Enemy_in_team[j]["number"]);
-            enemyout = enemyout.replace(name + "×" + oldnum + " ", name + "×" + newnum + " ");
-        }
+        enemies[enemy_character_type_id].count += Number(Enemy_in_team[j]["number"]);
     }
-    return enemyout;
+    return [...enemies_ids_in_order].map((id) => `${enemies[id].name} x${enemies[id].count}`).join(" ");
 }
 
 function enemyselectcreat(){
