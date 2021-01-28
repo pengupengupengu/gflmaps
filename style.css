@@ -1,0 +1,113 @@
+.eselect {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    padding: 0 20px 0 0;
+    overflow: hidden;
+    background-color: #E0E0E0;
+    transition: box-shadow 0.25s ease;
+    z-index: 2;
+}
+.eselect:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top-color: #000000ad;
+    top: 15px;
+    right: 10px;
+    cursor: pointer;
+    z-index: -2;
+}
+.eselect select {
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.eselect select:focus {
+    outline: none;
+}
+
+#packselect input[type="checkbox"]:checked + label{
+    color: black;
+    background: #E0E0E0;
+    border: double;
+    padding: 4.5px 3px;
+}
+
+#packselect input[type="checkbox"] + label{
+    position: relative;
+    vertical-align: middle;
+    padding: 5.5px 5px;
+    margin: 0px 2px;
+    display: inline-block;
+    font-size: 13px;
+    color: #E0E0E0;
+    border: 1px solid #E0E0E0;
+    width: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#packselect input[type="checkbox"]{
+    display: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: .99vw;
+  background-color: #333333;
+  font-family: 'Noto Sans', 'Noto Sans SC', sans-serif;
+  color: #EAEAEA;
+}
+th, td {
+  padding: 4px 0;
+}
+th {
+  vertical-align: middle;
+}
+#thisdiv {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#campaignchose, #mapsetdiv {
+  width: 100%; 
+}
+.mapsetbtncontainer {
+  display: inline-block;
+  margin: 3px 20px 3px 0;
+}
+.mapsetbtn {
+  margin: 2px 0;
+}
+header {
+  margin: 20px;
+}
+header > h1 {
+  display: inline-block;
+  color: rgb(244, 196, 48);
+  font-size: 4rem;
+  margin-right: 10px;
+}
+header .textboxcontainer {
+  display: inline-block;
+  margin: -5px 0;
+}
+header .textbox {
+  margin: 5px 0;
+  border: 1px solid rgb(234, 234, 234);
+  padding: 5px 10px;
+  background-color: rgb(244, 196, 48);
+  color: black;
+}
