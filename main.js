@@ -26,6 +26,7 @@ var Mission_txt;
 var Enemy_charater_type_txt;
 var Ally_team_txt;
 var Building_txt;
+var Gun_txt;
 var Team_ai_txt;
 var Mission_targettrain_enemy_txt;
 var Special_spot_config_txt;
@@ -152,6 +153,16 @@ xmlhttp_Building_txt.onreadystatechange = function() {
 };
 xmlhttp_Building_txt.open("GET", `./text/${config.langCode}/building.txt`, true);
 xmlhttp_Building_txt.send();
+
+var xmlhttp_Gun_txt = new XMLHttpRequest();
+xmlhttp_Gun_txt.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    Gun_txt = this.responseText;
+    loadstate++;
+  }
+};
+xmlhttp_Gun_txt.open("GET", `./text/${config.langCode}/gun.txt`, true);
+xmlhttp_Gun_txt.send();
 
 var xmlhttp_Mission_txt = new XMLHttpRequest();
 xmlhttp_Mission_txt.onreadystatechange = function() {
@@ -320,8 +331,8 @@ function trans() {
 firstcreat();
 loadjudge();
 function loadjudge(){
-  $("#loadtips").html(`Loading/文件加载进度: ${loadstate} / 20`);
-  if(loadstate < 20) {
+  $("#loadtips").html(`Loading/文件加载进度: ${loadstate} / 21`);
+  if(loadstate < 21) {
     setTimeout(function(){loadjudge();}, 100);
   } else {
     trans();
@@ -982,38 +993,48 @@ function missiondisplay(){
         var enemy_team_id;
         var ally_name = "";
         /*-- 如果是ally，要多套一层寻找enemyid --*/
-        if(Number(dspot[i]["enemy_team_id"])) enemy_team_id = Number(dspot[i]["enemy_team_id"]);
-        else if(Number(dspot[i]["ally_team_id"])){
-            var ally_tar;
-            for(j in Ally_team){
-                if(Ally_team[j].id == Number(dspot[i]["ally_team_id"])){
-                    ally_tar = j; break;}
+        if (Number(dspot[i]["enemy_team_id"])) {
+          enemy_team_id = Number(dspot[i]["enemy_team_id"]);
+        } else if(Number(dspot[i]["ally_team_id"])) {
+          var ally_tar;
+          for (j in Ally_team) {
+            if (Ally_team[j].id == Number(dspot[i]["ally_team_id"])) {
+              ally_tar = j; break;
             }
-            if(Ally_team[ally_tar].enemy_team_id){
-                enemy_team_id = Ally_team[ally_tar].enemy_team_id;
-                ally_name = Ally_team[ally_tar].name;
-            } else{
-                spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0});
-                continue;}
-        } else{
+          }
+          if (Ally_team[ally_tar].enemy_team_id) {
+            enemy_team_id = Ally_team[ally_tar].enemy_team_id;
+            ally_name = Ally_team[ally_tar].name;
+          } else {
             spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0});
-            continue;}
+            continue;
+          }
+        } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
+          const [doll_id, hp] = dspot[i]["hostage_info"].split(",");
+          const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
+          const doll_name = doll_name_match ? doll_name_match[2] : `[${doll_id}]`;
+          spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0, hostage_text: `[${UI_TEXT["map_hostage"]}] ${doll_name} (${hp} HP)`});
+          continue;
+        } else {
+          spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0});
+          continue;
+        }
 
         var enemy_leader;
         var enemy_ai_num;
         var enemy_ai_con;
         var efect = 0;
-        for(j in Enemy_team){
-            if(Enemy_team[j]["id"] != enemy_team_id) continue;
+        for (j in Enemy_team) {
+            if (Enemy_team[j]["id"] != enemy_team_id) continue;
             /*-- 效能欺诈 --*/
-            if(Enemy_team[j].effect_ext != 0) efect = Enemy_team[j].effect_ext;
+            if (Enemy_team[j].effect_ext != 0) efect = Enemy_team[j].effect_ext;
             enemy_leader = Enemy_team[j]["enemy_leader"];
             enemy_ai_num = Enemy_team[j]["ai"];
             enemy_ai_con = Enemy_team[j]["ai_content"];
         }
 
         var leader_name;
-        for(j in Enemy_charater_type){
+        for (j in Enemy_charater_type) {
             if(Enemy_charater_type[j]["id"] != enemy_leader) continue;
             leader_name = Enemy_charater_type[j]["name"];
         }
@@ -1254,22 +1275,31 @@ function drawmap(func){
     for(i in dspot){
         /*-- 敌方名称和效能的展示 --*/
         con.fillStyle = "#eaeaea";
-        if((Number(dspot[i]["enemy_team_id"]) || Number(dspot[i]["ally_team_id"])) && (setmessage.smapenemy == 1)){
+        if((Number(dspot[i]["enemy_team_id"]) || Number(dspot[i]["ally_team_id"]) || dspot[i]["hostage_info"]) && (setmessage.smapenemy == 1)){
             con.lineWidth= String(coorchange(3, 12));
             con.font = String(coorchange(3, 50)) + `px bold ${fontList}`;
             con.textAlign = "center";
             con.beginPath();
-            con.strokeText(((spotinfo[i]["sally"]) ? ("[" + spotinfo[i]["sally"] + "] ") : "") + spotinfo[i]["sename"], coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 125));
-            con.fillText(((spotinfo[i]["sally"]) ? ("[" + spotinfo[i]["sally"] + "] ") : "") + spotinfo[i]["sename"], coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 125));
+            let enemyTitle;
+            if (spotinfo[i]["hostage_text"]) {
+              enemyTitle = spotinfo[i]["hostage_text"];
+            } else {
+              enemyTitle = ((spotinfo[i]["sally"]) ? ("[" + spotinfo[i]["sally"] + "] ") : "") + spotinfo[i]["sename"];
+            }
+            con.strokeText(enemyTitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 125));
+            con.fillText(enemyTitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 125));
             con.stroke();
 
-            con.lineWidth= String(coorchange(3, 8));
-            con.font = String(coorchange(3, 30)) + `px bold ${fontList}`;
-            con.textAlign = "center";
-            con.beginPath();
-            con.strokeText("[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefect"], coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 165));
-            con.fillText("[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefect"], coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 165));
-            con.stroke();
+            if (!spotinfo[i]["hostage_text"]) {
+              con.lineWidth= String(coorchange(3, 8));
+              con.font = String(coorchange(3, 30)) + `px bold ${fontList}`;
+              con.textAlign = "center";
+              con.beginPath();
+              const enemySubtitle = "[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefect"];
+              con.strokeText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 165));
+              con.fillText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 165));
+              con.stroke();
+            }
         }
 
         /*-- 建筑名称的展示 --*/
@@ -1347,7 +1377,7 @@ function drawmap(func){
                 if(esign) continue;
 
                 var jsign = 0;
-                for(j in rangearray) if(rangearray[j].range == (rangenum - 1) && dspot[i].map_route.indexOf(rangearray[j].id) != -1){ jsign = 1; break;}
+                for(j in rangearray) if(rangearray[j].range == (rangenum - 1) && dspot[i].route.indexOf(rangearray[j].id) != -1){ jsign = 1; break;}
                 if(jsign) rangearray.push({id:dspot[i].id, num:i, range:rangenum});
             }
             rangenum ++;
