@@ -74,6 +74,8 @@
   "zone_select_all": "全选",
   "zone_select_none": "清空",
 
+  "map_hostage": "人质",
+
   "building_location": "点位",
   "building_name": "名称",
   "building_hp": "防护值",

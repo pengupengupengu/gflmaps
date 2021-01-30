@@ -74,6 +74,8 @@
   "zone_select_all": "All",
   "zone_select_none": "None",
 
+  "map_hostage": "HOSTAGE",
+
   "building_location": "Location",
   "building_name": "Name",
   "building_hp": "HP",
