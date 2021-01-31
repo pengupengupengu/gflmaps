@@ -76,6 +76,19 @@
 
   "map_hostage": "HOSTAGE",
 
+  "mission_info_environment": "Day/Night",
+  "mission_info_environment_day": "Day",
+  "mission_info_environment_night": "Night",
+  "mission_info_turn_limit": "Turn Limit",
+  "mission_info_gk_limit": "G&K Team Limit",
+  "mission_info_hoc_limit": "HOC Team Limit",
+  "mission_info_coalition_limit": "Coalition Team Limit",
+  "mission_info_banned": "0 (BANNED)",
+  "mission_info_unlimited": "∞",
+  "mission_info_total_team_limit": "Total Team Limit",
+  "mission_info_advantaged_dolls": "Advantaged Dolls",
+  "mission_info_no_advantaged_dolls": "None",
+
   "building_location": "Location",
   "building_name": "Name",
   "building_hp": "HP",

@@ -577,8 +577,54 @@ function updatemap() {
   }
   $("#missionselect").val(mission);
   
-  if(campaign == 2008){ traindisplay(); return;}
-  else if(campaign >= 6000 && campaign < 7000){ theaterdisplay(); return;}
+  if(campaign == 2008) {
+    traindisplay(); 
+    $("#missioninfo").html("");
+    return;
+  } else if(campaign >= 6000 && campaign < 7000) {
+    theaterdisplay();
+    $("#missioninfo").html("");
+    return;
+  }
+
+  const mission_info = Mission.find((m) => m.id == mission);
+  if (mission_info) {
+    const [gkTeamLimit, totalTeamLimit] = mission_info.limit_team.indexOf(",") != -1 ? mission_info.limit_team.split(",") : [mission_info.limit_team, 0];
+    let advantaged_doll_names = [];
+    if (mission_info.adaptive_gun) {
+      advantaged_doll_names = mission_info.adaptive_gun.split(",").map((doll_id) => {
+        const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
+        return doll_name_match ? doll_name_match[2] : `[${doll_id}]`;
+      });
+    }
+    $("#missioninfo").html(`
+        <div style="margin-top: 10px;">
+          Note: this mission info table is still a work-in-progress, and may have the wrong team limits for newer maps.
+        </div>
+        <table id="Missioninfotable" class="enemydata" style="table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+          <thead style="display: table-header-group; background-color:#f4c430; color:black;"><tr>
+            <th>${UI_TEXT["mission_info_environment"]}</th>
+            <th>${UI_TEXT["mission_info_turn_limit"]}</th>
+            <th>${UI_TEXT["mission_info_gk_limit"]}</th>
+            <th>${UI_TEXT["mission_info_hoc_limit"]}</th>
+            <th>${UI_TEXT["mission_info_coalition_limit"]}</th>
+            <th>${UI_TEXT["mission_info_total_team_limit"]}</th>
+            <th>${UI_TEXT["mission_info_advantaged_dolls"]}</th>
+          </tr></thead>
+          <tbody><tr>
+            <td>${mission_info.special_type > 0 ? UI_TEXT["mission_info_environment_night"] : UI_TEXT["mission_info_environment_day"]}</td>
+            <td>${mission_info.turn_limit > 0 ? mission_info.turn_limit : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${gkTeamLimit != 0 ? gkTeamLimit : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${mission_info.limit_squad != 0 ? (mission_info.limit_squad != -1 ? mission_info.limit_squad : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${mission_info.limit_sangvis != 0 ? (mission_info.limit_sangvis != -1 ? mission_info.limit_sangvis : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${totalTeamLimit != 0 ? totalTeamLimit : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${advantaged_doll_names.length > 0 ? advantaged_doll_names.join(", ") : UI_TEXT["mission_info_no_advantaged_dolls"]}</td>
+          </tr></tbody>
+        </table>
+    `);
+  } else {
+    $("#missioninfo").html("");
+  }
 
   mspot = [];
   for(i in Spot) if(Spot[i].mission_id == mission) mspot.push(Spot[i]);
@@ -811,7 +857,6 @@ function buildingdisplay(){
         <th style="width:160px;">${UI_TEXT["building_name"]}<\/th>
         <th style="width:80px;">${UI_TEXT["building_hp"]}<\/th>
         <th style="width:140px;">${UI_TEXT["building_destruction_method"]}<\/th>
-        <th style="width:100px;">${UI_TEXT["building_initial_state"]}<\/th>
         <th style="width:80px;">${UI_TEXT["building_support_range"]}<\/th>
         <th style="width:560px;">${UI_TEXT["building_notes"]}<\/th>
         <\/tr><\/thead><tbody id="Buildingbody" style="height:200px; overflow-y:scroll; display:block;">`;
@@ -851,9 +896,9 @@ function buildingdisplay(){
         thisline += dspot[i].id + `<\/td><td width="160px">`;
         thisline += Building[buildnum].name + `<\/td><td width="80px">`;
         thisline += Building[buildnum].defender + `<\/td><td width="140px">`;
-        thisline += Building[buildnum].is_destroy.replace("0", UI_TEXT["building_indestructible"]).replace("1", UI_TEXT["building_destructible_by_hoc"]).replace("2", UI_TEXT["building_destructible_by_stepping_on"]) + `<\/td><td width="100px">`;
-        // CHANGE FROM GFWIKI: initial_state is a string in GFWiki's data file but is a number in GFLMap's files.
-        thisline += (Building[buildnum].initial_state == 0 ? UI_TEXT["building_state_open"] : /* initial_state==-1 */UI_TEXT["building_state_closed"]) + `<\/td><td width="80px">`;
+        thisline += Building[buildnum].is_destroy.replace("0", UI_TEXT["building_indestructible"]).replace("1", UI_TEXT["building_destructible_by_hoc"]).replace("2", UI_TEXT["building_destructible_by_stepping_on"]) + `<\/td><td width="80px">`;
+        // CHANGE FROM GFWIKI: Initial state is not displayed.
+        //thisline += (Building[buildnum].initial_state == 0 ? UI_TEXT["building_state_open"] : /* initial_state==-1 */UI_TEXT["building_state_closed"]) + `<\/td><td width="80px">`;
         thisline += Building[buildnum].battle_assist_range + `<\/td><td width="544px">`;
         thisline += ((buildsigndes) ? buildsigndes : UI_TEXT["building_notes_other"]) + "<\/td><\/tr>";
 
@@ -974,7 +1019,7 @@ function missiondisplay(){
 
     spotinfo = [];
     eteamspot = [];
-
+    
     var output = `<table id="Missiontable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
         <th style="width:100px;">${UI_TEXT["team_id"]}</th>
@@ -2246,6 +2291,7 @@ function firstcreat(){
                 <div id="mapsetdiv"></div>
                 <div id="mapexample"></div>
                 <div id="missionmap" style="max-width:1220px; overflow-y:scroll; overscroll-behavior-y:contain; border:1px #ffffff99 solid;"></div>
+                <div id="missioninfo" style="width: 100%;"></div>
                 <div id="spotsign"></div>
                 <div id="teleportshow" style="max-width:1222px;"></div>
                 <div id="buildingshow" style="max-width:1222px;"></div>

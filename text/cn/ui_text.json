@@ -75,6 +75,20 @@
   "zone_select_none": "清空",
 
   "map_hostage": "人质",
+  
+    "comment_mission_info_chinese": "please improve these :)",
+  "mission_info_environment": "环境",
+  "mission_info_environment_day": "昼战",
+  "mission_info_environment_night": "夜战",
+  "mission_info_turn_limit": "回合限制",
+  "mission_info_gk_limit": "人形梯队上限",
+  "mission_info_hoc_limit": "重装部队上限",
+  "mission_info_coalition_limit": "融合势力梯队上限",
+  "mission_info_banned": "0",
+  "mission_info_unlimited": "∞",
+  "mission_info_total_team_limit": "梯队总数上限",
+  "mission_info_advantaged_dolls": "优势人形",
+  "mission_info_no_advantaged_dolls": "-",
 
   "building_location": "点位",
   "building_name": "名称",

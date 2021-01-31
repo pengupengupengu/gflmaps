@@ -70,7 +70,7 @@ body {
   color: #EAEAEA;
 }
 th, td {
-  padding: 4px 0;
+  padding: 4px 3px;
 }
 th {
   vertical-align: middle;
@@ -111,3 +111,4 @@ header .textbox {
   background-color: rgb(244, 196, 48);
   color: black;
 }
+
