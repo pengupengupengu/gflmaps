@@ -614,7 +614,7 @@ function updatemap() {
           <tbody><tr>
             <td>${mission_info.special_type > 0 ? UI_TEXT["mission_info_environment_night"] : UI_TEXT["mission_info_environment_day"]}</td>
             <td>${mission_info.turn_limit > 0 ? mission_info.turn_limit : UI_TEXT["mission_info_unlimited"]}</td>
-            <td>${gkTeamLimit != 0 ? gkTeamLimit : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${gkTeamLimit != 0 ? (gkTeamLimit != -1 ? gkTeamLimit : "BANNED?") : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${mission_info.limit_squad != 0 ? (mission_info.limit_squad != -1 ? mission_info.limit_squad : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${mission_info.limit_sangvis != 0 ? (mission_info.limit_sangvis != -1 ? mission_info.limit_sangvis : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${totalTeamLimit != 0 ? totalTeamLimit : UI_TEXT["mission_info_unlimited"]}</td>
