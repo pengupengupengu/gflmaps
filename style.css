@@ -116,7 +116,7 @@ header .textbox {
 }
 #teleportshow, #buildingshow, #missionshow, #enemyshow {
   max-width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 @media only screen and (max-width: 1000px) {
