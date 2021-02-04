@@ -730,23 +730,33 @@ function missioncreat(){
 
     /*-- canvas内鼠标拖拽功能 --*/
     var missiondraw = document.querySelector("#missiondrawing");
-    missiondraw.onmousedown = function (event) {
+    $(missiondraw).on('mousedown touchstart', function (event) {
         dragging = true;
-        posa = windowToCanvas(event.clientX, event.clientY);
-    };
-    missiondraw.onmousemove = function (event) {
+        if (event.type == 'mousedown') {
+          posa = windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY);
+        } else if (event.originalEvent.touches.length > 0) {
+          posa = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
+          event.preventDefault();
+        }
+    });
+    $(missiondraw).on('mousemove touchmove', function (event) {
         if(dragging){
-            posb = windowToCanvas(event.clientX, event.clientY);
+            if (event.type == 'mousemove') {
+              posb = windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY);
+            } else if (event.originalEvent.touches.length > 0) {
+              posb = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
+              event.preventDefault();
+            }
             var x = posb.x - posa.x, y = posb.y - posa.y;
             xmove += x;
             ymove += y;
             posa = JSON.parse(JSON.stringify(posb));
             drawmap();
         }
-    };
-    missiondraw.onmouseup = function () {
+    });
+    $(missiondraw).on('mouseup touchend', function () {
         dragging = false;
-    };
+    });
 
     /*-- canvas内鼠标缩放功能 --*/
     $("#missionmap").on("wheel", function (event) {
