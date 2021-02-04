@@ -22,17 +22,19 @@ var Building;
 var Team_ai;
 var Mission_targettrain_enemy;
 
-var Mission_txt;
-var Enemy_charater_type_txt;
-var Ally_team_txt;
-var Building_txt;
-var Gun_txt;
+var Mission_txt, Mission_cn_txt;
+var Enemy_charater_type_txt, Enemy_charater_type_cn_txt;
+var Ally_team_txt, Ally_team_cn_txt;
+var Building_txt, Building_cn_txt;
+var Gun_txt, Gun_cn_txt;
 var Team_ai_txt;
-var Mission_targettrain_enemy_txt;
+var Mission_targettrain_enemy_txt, Mission_targettrain_enemy_cn_txt;
 var Special_spot_config_txt;
 
 var UI_TEXT = {};
 var INSTRUCTIONS = "";
+
+// TODO replace this all with promise and await/async.
 
 var xmlhttp_Spot = new XMLHttpRequest();
 xmlhttp_Spot.onreadystatechange = function() {
@@ -154,6 +156,16 @@ xmlhttp_Building_txt.onreadystatechange = function() {
 xmlhttp_Building_txt.open("GET", `./text/${config.langCode}/building.txt`, true);
 xmlhttp_Building_txt.send();
 
+var xmlhttp_Building_cn_txt = new XMLHttpRequest();
+xmlhttp_Building_cn_txt.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    Building_cn_txt = this.responseText;
+    loadstate++;
+  }
+};
+xmlhttp_Building_cn_txt.open("GET", `./text/cn/building.txt`, true);
+xmlhttp_Building_cn_txt.send();
+
 var xmlhttp_Gun_txt = new XMLHttpRequest();
 xmlhttp_Gun_txt.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -163,6 +175,16 @@ xmlhttp_Gun_txt.onreadystatechange = function() {
 };
 xmlhttp_Gun_txt.open("GET", `./text/${config.langCode}/gun.txt`, true);
 xmlhttp_Gun_txt.send();
+
+var xmlhttp_Gun_cn_txt = new XMLHttpRequest();
+xmlhttp_Gun_cn_txt.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    Gun_cn_txt = this.responseText;
+    loadstate++;
+  }
+};
+xmlhttp_Gun_cn_txt.open("GET", `./text/cn/gun.txt`, true);
+xmlhttp_Gun_cn_txt.send();
 
 var xmlhttp_Mission_txt = new XMLHttpRequest();
 xmlhttp_Mission_txt.onreadystatechange = function() {
@@ -174,6 +196,16 @@ xmlhttp_Mission_txt.onreadystatechange = function() {
 xmlhttp_Mission_txt.open("GET", `./text/${config.langCode}/mission.txt`, true);
 xmlhttp_Mission_txt.send();
 
+var xmlhttp_Mission_cn_txt = new XMLHttpRequest();
+xmlhttp_Mission_cn_txt.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    Mission_cn_txt = this.responseText;
+    loadstate++;
+  }
+};
+xmlhttp_Mission_cn_txt.open("GET", `./text/cn/mission.txt`, true);
+xmlhttp_Mission_cn_txt.send();
+
 var xmlhttp_Enemy_charater_type_txt = new XMLHttpRequest();
 xmlhttp_Enemy_charater_type_txt.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -184,6 +216,16 @@ xmlhttp_Enemy_charater_type_txt.onreadystatechange = function() {
 xmlhttp_Enemy_charater_type_txt.open("GET", `./text/${config.langCode}/enemy_character_type.txt`, true);
 xmlhttp_Enemy_charater_type_txt.send();
 
+var xmlhttp_Enemy_charater_type_cn_txt = new XMLHttpRequest();
+xmlhttp_Enemy_charater_type_cn_txt.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    Enemy_charater_type_cn_txt = this.responseText;
+    loadstate++;
+  }
+};
+xmlhttp_Enemy_charater_type_cn_txt.open("GET", `./text/cn/enemy_character_type.txt`, true);
+xmlhttp_Enemy_charater_type_cn_txt.send();
+
 var xmlhttp_Ally_team_txt = new XMLHttpRequest();
 xmlhttp_Ally_team_txt.onreadystatechange = function() {
   if (this.readyState == 4 && this.status == 200) {
@@ -193,6 +235,16 @@ xmlhttp_Ally_team_txt.onreadystatechange = function() {
 };
 xmlhttp_Ally_team_txt.open("GET", `./text/${config.langCode}/ally_team.txt`, true);
 xmlhttp_Ally_team_txt.send();
+
+var xmlhttp_Ally_team_cn_txt = new XMLHttpRequest();
+xmlhttp_Ally_team_cn_txt.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    Ally_team_cn_txt = this.responseText;
+    loadstate++;
+  }
+};
+xmlhttp_Ally_team_cn_txt.open("GET", `./text/cn/ally_team.txt`, true);
+xmlhttp_Ally_team_cn_txt.send();
 
 var xmlhttp_Team_ai_txt = new XMLHttpRequest();
 xmlhttp_Team_ai_txt.onreadystatechange = function() {
@@ -213,6 +265,16 @@ xmlhttp_Mission_targettrain_enemy_txt.onreadystatechange = function() {
 };
 xmlhttp_Mission_targettrain_enemy_txt.open("GET", `./text/${config.langCode}/mission_targettrain_enemy.txt`, true);
 xmlhttp_Mission_targettrain_enemy_txt.send();
+
+var xmlhttp_Mission_targettrain_enemy_cn_txt = new XMLHttpRequest();
+xmlhttp_Mission_targettrain_enemy_cn_txt.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    Mission_targettrain_enemy_cn_txt = this.responseText;
+    loadstate++;
+  }
+};
+xmlhttp_Mission_targettrain_enemy_cn_txt.open("GET", `./text/cn/mission_targettrain_enemy.txt`, true);
+xmlhttp_Mission_targettrain_enemy_cn_txt.send();
 
 var xmlhttp_Special_spot_config_txt = new XMLHttpRequest();
 xmlhttp_Special_spot_config_txt.onreadystatechange = function() {
@@ -254,7 +316,8 @@ function trans() {
     if (namestr && !namestr.match(/(?:don't|do not) translate/i)) {
       Building[i].name = namestr;
     } else {
-      Building[i].name = `[${Building[i].name}]`;
+      const fallback_match = Building_cn_txt.match(`${Building[i].name},(.*)`);
+      Building[i].name = fallback_match ? `[${Building[i].name}] ${fallback_match[1]}` : `[${Building[i].name}]`;
     }
   }
 
@@ -264,7 +327,8 @@ function trans() {
     if (namestr && !namestr.match(/(?:don't|do not) translate/i)) {
       Mission[i].name = namestr;
     } else {
-      Mission[i].name = `[${Mission[i].name}]`;
+      const fallback_match = Mission_cn_txt.match(`${Mission[i].name},(.*)`);
+      Mission[i].name = fallback_match ? `[${Mission[i].name}] ${fallback_match[1]}` : `[${Mission[i].name}]`;
     }
   }
 
@@ -273,12 +337,17 @@ function trans() {
     var namestr = namepos !== -1 ? Enemy_charater_type_txt.slice(namepos + Enemy_charater_type[i].name.length + 1, Enemy_charater_type_txt.indexOf("\n", namepos) - 1).trim().replace("//c", UI_TEXT["comma"]) : null;
     if (namestr) {
       Enemy_charater_type[i].name = namestr;
-    } else if (Enemy_charater_type[i].code) {
-      // CHANGE FROM GFWIKI: When dataSource=CN and langCode=EN, for enemy characters without names,
-      //     if they have a codename, then display the codename in square brackets.
-      Enemy_charater_type[i].name = `[${Enemy_charater_type[i].code}]`;
     } else {
-      Enemy_charater_type[i].name = `[${Enemy_charater_type[i].name}]`;
+      let prefix = "";
+      const fallback_match = Enemy_charater_type_cn_txt.match(`${Enemy_charater_type[i].name},(.*)`);
+      if (Enemy_charater_type[i].code) {
+        // CHANGE FROM GFWIKI: When dataSource=CN and langCode=EN, for enemy characters without names,
+        //     if they have a codename, then display the codename in square brackets.
+        prefix = `[${Enemy_charater_type[i].code}]`;
+      } else {
+        prefix = `[${Enemy_charater_type[i].name}]`;
+      }
+      Enemy_charater_type[i].name = fallback_match ? `${prefix} ${fallback_match[1]}` : prefix;
     }
   }
 
@@ -292,10 +361,10 @@ function trans() {
       //     teams can be enemies to the player. If the map just displayed "[ally_team-10000026]" as a placeholder,
       //     that might confuse people who assume that that team is allied with them. Here, we just truncate the "ally_"
       //     part and display "[team-10000026]".
-      var teamname = Ally_team[i].name.match(/team-\d+/);
-      if (teamname.length) {
-        Ally_team[i].name = `[${teamname[0]}]`;
-      }
+      const teamname_match = Ally_team[i].name.match(/team-\d+/);
+      const prefix = teamname_match.length ? `[${teamname_match[0]}]` : `[${Ally_team[i].name}]`;
+      const fallback_match = Ally_team_cn_txt.match(`${Ally_team[i].name},(.*)`);
+      Ally_team[i].name = fallback_match ? `${prefix} ${fallback_match[1]}` : prefix;
     }
   }
 
@@ -315,24 +384,21 @@ function trans() {
     if (namestr) {
       Mission_targettrain_enemy[i].name = namestr;
     } else {
-      Mission_targettrain_enemy[i].name = `[${Mission_targettrain_enemy[i].name}]`;
+      const fallback_match = Mission_targettrain_enemy_cn_txt.match(`${Mission_targettrain_enemy[i].name},(.*)`);
+      Mission_targettrain_enemy[i].name = fallback_match ? `[${Mission_targettrain_enemy[i].name}] ${fallback_match[1]}` : prefix;
     }
 
-    var despos = Mission_targettrain_enemy_txt.indexOf(Mission_targettrain_enemy[i].des);
-    var desstr = despos !== -1 ? Mission_targettrain_enemy_txt.slice(despos + Mission_targettrain_enemy[i].des.length + 1, Mission_targettrain_enemy_txt.indexOf("\n", despos) - 1).trim() : null;
-    if (desstr) {
-      Mission_targettrain_enemy[i].des = desstr.replace("//c", UI_TEXT["comma"]);
-    } else {
-      Mission_targettrain_enemy[i].des = "";
-    }
+    const desc_match = Mission_targettrain_enemy_txt.match(`${Mission_targettrain_enemy[i].des},(.*)`);
+    const desc_fallback_match = Mission_targettrain_enemy_cn_txt.match(`${Mission_targettrain_enemy[i].des},(.*)`);
+    Mission_targettrain_enemy[i].des = (desc_match || desc_fallback_match || ["", ""])[1].replace("//c", UI_TEXT["comma"]);
   }
 }
 
 firstcreat();
 loadjudge();
 function loadjudge(){
-  $("#loadtips").html(`Loading/文件加载进度: ${loadstate} / 21`);
-  if(loadstate < 21) {
+  $("#loadtips").html(`Loading/文件加载进度: ${loadstate} / 27`);
+  if(loadstate < 27) {
     setTimeout(function(){loadjudge();}, 100);
   } else {
     trans();
@@ -443,6 +509,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -42: return 5042;
     // The Division
     case -43: return 4043;
+    // MS
+    case -44: return 3044;
   }
 }
 
@@ -548,7 +616,7 @@ function getMissionOptionsForCampaign(campaign) {
       for (i in Mission) {
           /*-- 去除剧情关卡 --*/
           if(Mission[i].special_type == 8 || Mission[i].special_type == 9) continue;
-          if(Mission[i].campaign >= -43) continue;
+          if(Mission[i].campaign >= 0 || convertGameCampaignToUiCampaign(Mission[i].campaign) != null) continue;
           
           missionOptions.push({
             value: Number(Mission[i].id),
@@ -593,7 +661,7 @@ function updatemap() {
     let advantaged_doll_names = [];
     if (mission_info.adaptive_gun) {
       advantaged_doll_names = mission_info.adaptive_gun.split(",").map((doll_id) => {
-        const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
+        const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`) || Gun_cn_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
         return doll_name_match ? doll_name_match[2] : `[${doll_id}]`;
       });
     }
@@ -1088,7 +1156,7 @@ function missiondisplay(){
           }
         } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
           const [doll_id, hp] = dspot[i]["hostage_info"].split(",");
-          const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
+          const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`) || Gun_cn_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
           const doll_name = doll_name_match ? doll_name_match[2] : `[${doll_id}]`;
           spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0, hostage_text: `[${UI_TEXT["map_hostage"]}] ${doll_name} (${hp} HP)`});
           continue;
