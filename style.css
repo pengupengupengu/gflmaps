@@ -116,5 +116,8 @@ header .textbox {
   body {
     font-size: 24px;
   }
+  #missiondrawing {
+    width: 100% !important;
+  }
 }
 
