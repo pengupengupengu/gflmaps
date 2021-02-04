@@ -1754,7 +1754,7 @@ special_spot_config-54400004,[avg]-44-T4-1-EX
 special_spot_config-64400004,【标记】踩空气提示
 special_spot_config-54400005,【标记】任务目标计数_下半部
 special_spot_config-64400005,情报搜集
-special_spot_config-54400020,[avg]-42-3-2
+special_spot_config-54400020,
 special_spot_config-64400020,【标记】完成剧情
 special_spot_config-54400021,[avg]-44-T4-2-EX
 special_spot_config-64400021,【标记】提示操作另一边
