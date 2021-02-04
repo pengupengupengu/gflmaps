@@ -730,28 +730,50 @@ function missioncreat(){
 
     /*-- canvas内鼠标拖拽功能 --*/
     var missiondraw = document.querySelector("#missiondrawing");
+    let prevTouches = null;
     $(missiondraw).on('mousedown touchstart', function (event) {
         dragging = true;
         if (event.type == 'mousedown') {
-          posa = windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY);
+          prevTouches = [windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY)];
         } else if (event.originalEvent.touches.length > 0) {
-          posa = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
+          prevTouches = [...event.originalEvent.touches].map((touch) => windowToCanvas(touch.clientX, touch.clientY));
           event.preventDefault();
         }
     });
     $(missiondraw).on('mousemove touchmove', function (event) {
         if(dragging){
+          if (prevTouches.length == 1) {
             if (event.type == 'mousemove') {
               posb = windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY);
             } else if (event.originalEvent.touches.length > 0) {
               posb = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
               event.preventDefault();
             }
-            var x = posb.x - posa.x, y = posb.y - posa.y;
+            var x = posb.x - prevTouches[0].x, y = posb.y - prevTouches[0].y;
             xmove += x;
             ymove += y;
-            posa = JSON.parse(JSON.stringify(posb));
+            prevTouches = [Object.assign({}, posb)];
             drawmap();
+          } else if (prevTouches.length == 2 && event.originalEvent.touches.length == 2) {
+            // TODO improve.
+            const oldTouchDist = Math.sqrt(Math.pow(prevTouches[0].x - prevTouches[1].x, 2) + Math.pow(prevTouches[0].y - prevTouches[1].y, 2));
+            
+            const newTouch0 = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
+            const newTouch1 = windowToCanvas(event.originalEvent.touches[1].clientX, event.originalEvent.touches[1].clientY);
+            const newCenter = {x: (newTouch0.x + newTouch1.x) / 2, y: (newTouch0.y + newTouch1.y) / 2};
+            const newPos = {x:((newCenter.x - xmove)/scale).toFixed(2) , y:((newCenter.y - ymove)/scale).toFixed(2)};
+            const newTouchDist = Math.sqrt(Math.pow(newTouch0.x - newTouch1.x, 2) + Math.pow(newTouch0.y - newTouch1.y, 2));
+            const newScale = Math.max(0.2, scale * newTouchDist / oldTouchDist);
+            
+            scale = newScale;
+            xmove = (1-scale)*newPos.x + (newCenter.x - newPos.x);
+            ymove = (1-scale)*newPos.y + (newCenter.y - newPos.y);
+            //console.log({xmove, ymove, scale});
+
+            prevTouches = [newTouch0, newTouch1];
+            drawmap();
+            event.preventDefault();
+          }
         }
     });
     $(missiondraw).on('mouseup touchend', function () {
@@ -2303,12 +2325,12 @@ function firstcreat(){
                 <div id="missionmap" style="max-width:1220px; overflow-y:scroll; overscroll-behavior-y:contain; border:1px #ffffff99 solid;"></div>
                 <div id="missioninfo" style="width: 100%;"></div>
                 <div id="spotsign"></div>
-                <div id="teleportshow" style="max-width:1222px;"></div>
-                <div id="buildingshow" style="max-width:1222px;"></div>
-                <div id="missionshow" style="max-width:1222px;"></div>
+                <div id="teleportshow"></div>
+                <div id="buildingshow"></div>
+                <div id="missionshow"></div>
                 <div id="enemychose"></div>
-                <div id="enemyshow" style="max-width:1222px;"></div>
-                <div id="enemyposition" style="overflow-x:scroll; width:1222px;"></div>
+                <div id="enemyshow"></div>
+                <div id="enemyposition" style="overflow-x:scroll;"></div>
                 <div id="otherthing"></div>
                 <div id="downloaddraw"></div>`;
 

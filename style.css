@@ -111,13 +111,23 @@ header .textbox {
   background-color: rgb(244, 196, 48);
   color: black;
 }
+#enemyposition {
+  width: 100%;
+}
+#teleportshow, #buildingshow, #missionshow, #enemyshow {
+  max-width: 100%;
+  overflow-x: scroll;
+}
 
 @media only screen and (max-width: 1000px) {
   body {
-    font-size: 24px;
+    font-size: 28px;
   }
-  #missiondrawing {
+  #thisdiv, #missiondrawing, .staticbottomtext {
     width: 100% !important;
+  }
+  #otherthing, .staticbottomtext {
+    font-size: 20px;
   }
 }
 
