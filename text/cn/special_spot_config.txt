@@ -2096,6 +2096,10 @@ special_spot_config-16449973,【标记】秃洞减分标记
 special_spot_config-26449973,
 special_spot_config-16449974,【标记】炸弹8生效标记
 special_spot_config-26449974,
+special_spot_config-16449975,【标记】按钮次数累计
+special_spot_config-26449975,
+special_spot_config-16449976,[avg]-44-L-C-3-3_B1
+special_spot_config-26449976,
 special_spot_config-10440010,迷雾点1
 special_spot_config-20440010,
 special_spot_config-10440020,迷雾点2
