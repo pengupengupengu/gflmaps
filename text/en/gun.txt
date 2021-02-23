@@ -1206,7 +1206,7 @@ gun-10000299,HSM10
 gun-40000299,狂気の君//c木戸衣吹//c
 gun-50000299,Type                       Bullpup semi-automatic shotgun//nMass                       4.54 kg (10 lbs)//nLength                     660 mm (26 in)//nBarrel length              457 mm (18 in)                           //nCartridge                  12 gauge//nAction                     12 gauge//nEffective firing range     40 m (45 yards)//nFeed system                4+1 tube magazine//c 6+1 with tube extension//nSights                     Fixed; flip-up front//c notched rear
 gun-60000299,
-gun-10000300,
+gun-10000300,CAR
 gun-40000300,潮汐//c//c
 gun-50000300,Type                       Semi-automatic rifle/Light machine gun                           //nMass                       16 lb (7.3 kg)//c unloaded//nLength                     44.5 in (1150 mm)                         //nCartridge                  .303 British//nCalibre                    .303 British//nAction                     Gas-operated semi-automatic//nRate of fire               600 rounds/minute//nMuzzle velocity            2//c440 ft/s (744 m/s)//nEffective firing range     1//c000 yards (910 m)//nMaximum firing range       2//c000 yards (1830 m)//nFeed system                10-round magazine or modified (?) 30-round Bren gun magazine//nSights                     Sliding ramp rear sights//c fixed post front sights
 gun-60000300,
