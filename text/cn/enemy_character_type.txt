@@ -412,10 +412,10 @@ enemy_character_type-30012071,
 enemy_character_type-20012072,圣歌风琴
 enemy_character_type-10012072,普通
 enemy_character_type-30012072,
-enemy_character_type-20013001,胡蜂
+enemy_character_type-20013001,僵尸新娘
 enemy_character_type-10013001,强击
 enemy_character_type-30013001,
-enemy_character_type-20013002,残兽
+enemy_character_type-20013002,幽灵
 enemy_character_type-10013002,高速//c穿甲
 enemy_character_type-30013002,
 enemy_character_type-20013003,蟹防炮

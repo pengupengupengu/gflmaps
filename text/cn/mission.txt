@@ -3774,3 +3774,7 @@ mission-10090040,她不在的战场Ⅳ
 mission-20090040,
 mission-30090040,推荐妖精等级<Color=#FFB400FF>≥35</Color>，星级<Color=#FFB400FF>≥3</Color>
 mission-40090040,HG人形能在夜战中为队伍提供额外的1格视野，对梯队的探索起着重要的作用。//n<Color=#FFB400FF>请注意携带HG人形。</Color>
+mission-10010765,照相馆谜题∞
+mission-20010765,
+mission-30010765,
+mission-40010765,

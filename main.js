@@ -7,7 +7,7 @@ var config = {
 // TODO add TC, KR, JP
 var fontList = "Noto Sans, Noto Sans SC, Arial";
 
-var loadstate = 0;
+var data;
 
 var Enemy_team;
 var Enemy_in_team;
@@ -18,6 +18,8 @@ var Theater_area;
 var Mission;
 var Enemy_charater_type;
 var Ally_team;
+var Gun_in_ally;
+var equip_in_ally_info;
 var Building;
 var Team_ai;
 var Mission_targettrain_enemy;
@@ -26,6 +28,7 @@ var Mission_txt, Mission_cn_txt;
 var Enemy_charater_type_txt, Enemy_charater_type_cn_txt;
 var Ally_team_txt, Ally_team_cn_txt;
 var Building_txt, Building_cn_txt;
+var Equip_txt, Equip_cn_txt;
 var Gun_txt, Gun_cn_txt;
 var Team_ai_txt;
 var Mission_targettrain_enemy_txt, Mission_targettrain_enemy_cn_txt;
@@ -34,277 +37,18 @@ var Special_spot_config_txt;
 var UI_TEXT = {};
 var INSTRUCTIONS = "";
 
-// TODO replace this all with promise and await/async.
-
-var xmlhttp_Spot = new XMLHttpRequest();
-xmlhttp_Spot.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Spot = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_Spot.open("GET", `./data/${config.dataSource}/Spot.json`, true);
-xmlhttp_Spot.send();
-
-var xmlhttp_in_team = new XMLHttpRequest();
-xmlhttp_in_team.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Enemy_in_team = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_in_team.open("GET", `./data/${config.dataSource}/Enemy_in_team.json`, true);
-xmlhttp_in_team.send();
-
-var xmlhttp_standard_attribute = new XMLHttpRequest();
-xmlhttp_standard_attribute.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Enemy_standard_attribute = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_standard_attribute.open("GET", `./data/${config.dataSource}/Enemy_standard_attribute.json`, true);
-xmlhttp_standard_attribute.send();
-
-var xmlhttp_team = new XMLHttpRequest();
-xmlhttp_team.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Enemy_team = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_team.open("GET", `./data/${config.dataSource}/Enemy_team.json`, true);
-xmlhttp_team.send();
-
-var xmlhttp_Theater_area = new XMLHttpRequest();
-xmlhttp_Theater_area.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Theater_area = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_Theater_area.open("GET", `./data/${config.dataSource}/Theater_area.json`, true);
-xmlhttp_Theater_area.send();
-
-var xmlhttp_Building = new XMLHttpRequest();
-xmlhttp_Building.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Building = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_Building.open("GET", `./data/${config.dataSource}/Building.json`, true);
-xmlhttp_Building.send();
-
-var xmlhttp_Mission = new XMLHttpRequest();
-xmlhttp_Mission.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Mission = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_Mission.open("GET", `./data/${config.dataSource}/Mission.json`, true);
-xmlhttp_Mission.send();
-
-var xmlhttp_charater_type = new XMLHttpRequest();
-xmlhttp_charater_type.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Enemy_charater_type = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_charater_type.open("GET", `./data/${config.dataSource}/Enemy_character_type.json`, true);
-xmlhttp_charater_type.send();
-
-var xmlhttp_Ally_team = new XMLHttpRequest();
-xmlhttp_Ally_team.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Ally_team = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_Ally_team.open("GET", `./data/${config.dataSource}/Ally_team.json`, true);
-xmlhttp_Ally_team.send();
-
-var xmlhttp_Team_ai = new XMLHttpRequest();
-xmlhttp_Team_ai.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Team_ai = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_Team_ai.open("GET", `./data/${config.dataSource}/Team_ai.json`, true);
-xmlhttp_Team_ai.send();
-
-var xmlhttp_Mission_targettrain_enemy = new XMLHttpRequest();
-xmlhttp_Mission_targettrain_enemy.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Mission_targettrain_enemy = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_Mission_targettrain_enemy.open("GET", `./data/${config.dataSource}/Mission_targettrain_enemy.json`, true);
-xmlhttp_Mission_targettrain_enemy.send();
-
-var xmlhttp_Building_txt = new XMLHttpRequest();
-xmlhttp_Building_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Building_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Building_txt.open("GET", `./text/${config.langCode}/building.txt`, true);
-xmlhttp_Building_txt.send();
-
-var xmlhttp_Building_cn_txt = new XMLHttpRequest();
-xmlhttp_Building_cn_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Building_cn_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Building_cn_txt.open("GET", `./text/cn/building.txt`, true);
-xmlhttp_Building_cn_txt.send();
-
-var xmlhttp_Gun_txt = new XMLHttpRequest();
-xmlhttp_Gun_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Gun_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Gun_txt.open("GET", `./text/${config.langCode}/gun.txt`, true);
-xmlhttp_Gun_txt.send();
-
-var xmlhttp_Gun_cn_txt = new XMLHttpRequest();
-xmlhttp_Gun_cn_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Gun_cn_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Gun_cn_txt.open("GET", `./text/cn/gun.txt`, true);
-xmlhttp_Gun_cn_txt.send();
-
-var xmlhttp_Mission_txt = new XMLHttpRequest();
-xmlhttp_Mission_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Mission_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Mission_txt.open("GET", `./text/${config.langCode}/mission.txt`, true);
-xmlhttp_Mission_txt.send();
-
-var xmlhttp_Mission_cn_txt = new XMLHttpRequest();
-xmlhttp_Mission_cn_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Mission_cn_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Mission_cn_txt.open("GET", `./text/cn/mission.txt`, true);
-xmlhttp_Mission_cn_txt.send();
-
-var xmlhttp_Enemy_charater_type_txt = new XMLHttpRequest();
-xmlhttp_Enemy_charater_type_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Enemy_charater_type_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Enemy_charater_type_txt.open("GET", `./text/${config.langCode}/enemy_character_type.txt`, true);
-xmlhttp_Enemy_charater_type_txt.send();
-
-var xmlhttp_Enemy_charater_type_cn_txt = new XMLHttpRequest();
-xmlhttp_Enemy_charater_type_cn_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Enemy_charater_type_cn_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Enemy_charater_type_cn_txt.open("GET", `./text/cn/enemy_character_type.txt`, true);
-xmlhttp_Enemy_charater_type_cn_txt.send();
-
-var xmlhttp_Ally_team_txt = new XMLHttpRequest();
-xmlhttp_Ally_team_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Ally_team_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Ally_team_txt.open("GET", `./text/${config.langCode}/ally_team.txt`, true);
-xmlhttp_Ally_team_txt.send();
-
-var xmlhttp_Ally_team_cn_txt = new XMLHttpRequest();
-xmlhttp_Ally_team_cn_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Ally_team_cn_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Ally_team_cn_txt.open("GET", `./text/cn/ally_team.txt`, true);
-xmlhttp_Ally_team_cn_txt.send();
-
-var xmlhttp_Team_ai_txt = new XMLHttpRequest();
-xmlhttp_Team_ai_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Team_ai_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Team_ai_txt.open("GET", `./text/${config.langCode}/team_ai.txt`, true);
-xmlhttp_Team_ai_txt.send();
-
-var xmlhttp_Mission_targettrain_enemy_txt = new XMLHttpRequest();
-xmlhttp_Mission_targettrain_enemy_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Mission_targettrain_enemy_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Mission_targettrain_enemy_txt.open("GET", `./text/${config.langCode}/mission_targettrain_enemy.txt`, true);
-xmlhttp_Mission_targettrain_enemy_txt.send();
-
-var xmlhttp_Mission_targettrain_enemy_cn_txt = new XMLHttpRequest();
-xmlhttp_Mission_targettrain_enemy_cn_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Mission_targettrain_enemy_cn_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Mission_targettrain_enemy_cn_txt.open("GET", `./text/cn/mission_targettrain_enemy.txt`, true);
-xmlhttp_Mission_targettrain_enemy_cn_txt.send();
-
-var xmlhttp_Special_spot_config_txt = new XMLHttpRequest();
-xmlhttp_Special_spot_config_txt.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    Special_spot_config_txt = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_Special_spot_config_txt.open("GET", `./text/${config.langCode}/special_spot_config.txt`, true);
-xmlhttp_Special_spot_config_txt.send();
-
-var xmlhttp_UI_TEXT = new XMLHttpRequest();
-xmlhttp_UI_TEXT.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    UI_TEXT = JSON.parse(this.responseText);
-    loadstate++;
-  }
-};
-xmlhttp_UI_TEXT.open("GET", `./text/${config.langCode}/ui_text.json`, true);
-xmlhttp_UI_TEXT.send();
-
-var xmlhttp_INSTRUCTIONS = new XMLHttpRequest();
-xmlhttp_INSTRUCTIONS.onreadystatechange = function() {
-  if (this.readyState == 4 && this.status == 200) {
-    INSTRUCTIONS = this.responseText;
-    loadstate++;
-  }
-};
-xmlhttp_INSTRUCTIONS.open("GET", `./text/${config.langCode}/instructions.html`, true);
-xmlhttp_INSTRUCTIONS.send();
+// As of DR/Division/MS (up to client 2.07), if an allied team is controllable,
+// then its "ai" field's second part looks like "2010" or "2001:4,8".
+// Each digit after the initial "2" can be "0" or "1", and indicates a separate
+// attribute about the team. The digits are:
+//   * The second digit indicates whether or not the allied team can be retreated.
+//     No controllable allied team in DR/Division/MS has this set to true.
+//   * The third digit indicates whether or not the allied team can be repaired.
+//   * The fourth digit indicates whether or not the allied team can be resupplied.
+//     If this is set to zero, then the allied team has infinite ammo/MRE.
+//     If this is set to one, then there are two numbers after this digit and a colon.
+//     Those two numbers are the ammo count (out of 5) and MRE count (out of 10).
+const controllableAllyTeamRegex = /2([01])([01])(0|1:(\d+),(\d+))/;
 
 // CHANGES FROM GFWIKI: For most data, if the asset text file does not contain a name or the name is blank,
 //     then just use the table ID (i.e. "[mission-10000125]" for 13-1). This is so that names don't appear blank
@@ -356,6 +100,7 @@ function trans() {
     var namestr = namepos !== -1 ? Ally_team_txt.slice(namepos + Ally_team[i].name.length + 1, Ally_team_txt.indexOf("\n", namepos) - 1).trim().replace("//c", UI_TEXT["comma"]) : null;
     if (namestr) {
       Ally_team[i].name = namestr;
+      Ally_team[i].controllableAlliedTeamName = namestr;
     } else {
       // CHANGE FROM GFWIKI: Team names have table IDs in the format of "ally_team-10000026", even though these
       //     teams can be enemies to the player. If the map just displayed "[ally_team-10000026]" as a placeholder,
@@ -365,6 +110,7 @@ function trans() {
       const prefix = teamname_match.length ? `[${teamname_match[0]}]` : `[${Ally_team[i].name}]`;
       const fallback_match = Ally_team_cn_txt.match(`${Ally_team[i].name},(.*)`);
       Ally_team[i].name = fallback_match ? `${prefix} ${fallback_match[1]}` : prefix;
+      Ally_team[i].controllableAlliedTeamName = fallback_match ? fallback_match[1] : prefix;
     }
   }
 
@@ -395,26 +141,73 @@ function trans() {
 }
 
 firstcreat();
-loadjudge();
-function loadjudge(){
-  $("#loadtips").html(`Loading/文件加载进度: ${loadstate} / 27`);
-  if(loadstate < 27) {
-    setTimeout(function(){loadjudge();}, 100);
-  } else {
-    trans();
-    $("#loadtips").hide();
-    $("#otherthing").html(INSTRUCTIONS);
 
-    missioncreat();
-    mapsetcreat();
-    examplecreate();
-    spotsigncreat();
-    enemyselectcreat();
+const loadData = async () => {
+  const loadTextFile = (url) => fetch(url).then((result) => result.text());
+  const loadJsonFile = (url) => fetch(url).then((result) => result.json());
 
-    updatemap();
-    enemydisplay(221);
-  }
+  const loaders = {
+    "Spot": loadJsonFile(`./data/${config.dataSource}/Spot.json`).then((result) => Spot = result),
+    "Enemy_in_team": loadJsonFile(`./data/${config.dataSource}/Enemy_in_team.json`).then((result) => Enemy_in_team = result),
+    "Enemy_standard_attribute": loadJsonFile(`./data/${config.dataSource}/Enemy_standard_attribute.json`).then((result) => Enemy_standard_attribute = result),
+    "Enemy_team": loadJsonFile(`./data/${config.dataSource}/Enemy_team.json`).then((result) => Enemy_team = result),
+    "Theater_area": loadJsonFile(`./data/${config.dataSource}/Theater_area.json`).then((result) => Theater_area = result),
+    "Building": loadJsonFile(`./data/${config.dataSource}/Building.json`).then((result) => Building = result),
+    "Mission": loadJsonFile(`./data/${config.dataSource}/Mission.json`).then((result) => Mission = result),
+    "Enemy_character_type": loadJsonFile(`./data/${config.dataSource}/Enemy_character_type.json`).then((result) => Enemy_charater_type = result),
+    "Ally_team": loadJsonFile(`./data/${config.dataSource}/Ally_team.json`).then((result) => Ally_team = result),
+    "Gun_in_ally": loadJsonFile(`./data/${config.dataSource}/Gun_in_ally.json`).then((result) => Gun_in_ally = result),
+    "equip_in_ally_info": loadJsonFile(`./data/${config.dataSource}/equip_in_ally_info.json`).then((result) => equip_in_ally_info = result["equip_in_ally_info"]),
+    "Team_ai": loadJsonFile(`./data/${config.dataSource}/Team_ai.json`).then((result) => Team_ai = result),
+    "Mission_targettrain_enemy": loadJsonFile(`./data/${config.dataSource}/Mission_targettrain_enemy.json`).then((result) => Mission_targettrain_enemy = result),
+    "UI_TEXT": loadJsonFile(`./text/${config.langCode}/ui_text.json`).then((result) => UI_TEXT = result),
+
+    "Building_txt": loadTextFile(`./text/${config.langCode}/building.txt`).then((result) => Building_txt = result),
+    "Building_cn_txt": loadTextFile(`./text/cn/building.txt`).then((result) => Building_cn_txt = result),
+    "Equip_txt": loadTextFile(`./text/${config.langCode}/equip.txt`).then((result) => Equip_txt = result),
+    "Equip_cn_txt": loadTextFile(`./text/cn/equip.txt`).then((result) => Equip_cn_txt = result),
+    "Gun_txt": loadTextFile(`./text/${config.langCode}/gun.txt`).then((result) => Gun_txt = result),
+    "Gun_cn_txt": loadTextFile(`./text/cn/gun.txt`).then((result) => Gun_cn_txt = result),
+    "Mission_txt": loadTextFile(`./text/${config.langCode}/mission.txt`).then((result) => Mission_txt = result),
+    "Mission_cn_txt": loadTextFile(`./text/cn/mission.txt`).then((result) => Mission_cn_txt = result),
+    "Enemy_charater_type_txt": loadTextFile(`./text/${config.langCode}/enemy_character_type.txt`).then((result) => Enemy_charater_type_txt = result),
+    "Enemy_character_type_cn_txt": loadTextFile(`./text/cn/enemy_character_type.txt`).then((result) => Enemy_charater_type_cn_txt = result),
+    "Ally_team_txt": loadTextFile(`./text/${config.langCode}/ally_team.txt`).then((result) => Ally_team_txt = result),
+    "Ally_team_cn_txt": loadTextFile(`./text/cn/ally_team.txt`).then((result) => Ally_team_cn_txt = result),
+    "Team_ai_txt": loadTextFile(`./text/${config.langCode}/team_ai.txt`).then((result) => Team_ai_txt = result),
+    "Mission_targettrain_enemy_txt": loadTextFile(`./text/${config.langCode}/mission_targettrain_enemy.txt`).then((result) => Mission_targettrain_enemy_txt = result),
+    "Mission_targettrain_enemy_cn_txt": loadTextFile(`./text/cn/mission_targettrain_enemy.txt`).then((result) => Mission_targettrain_enemy_cn_txt = result),
+    "Special_spot_config_txt": loadTextFile(`./text/${config.langCode}/special_spot_config.txt`).then((result) => Special_spot_config_txt = result),
+    "INSTRUCTIONS": loadTextFile(`./text/${config.langCode}/instructions.html`).then((result) => INSTRUCTIONS = result),
+  };
+
+  let loadProgress = 0;
+  const loadTotal = Object.values(loaders).length;
+  const updateLoadProgress = () => $("#loadtips").html(`Loading/文件加载进度: ${loadProgress} / ${loadTotal}`);
+  updateLoadProgress();
+
+  data = await Object.entries(loaders).reduce(async (accumulatorPromise, [key, loader]) => {
+    (await accumulatorPromise)[key] = await loader;
+    loadProgress++;
+    updateLoadProgress();
+    return await accumulatorPromise;
+  }, Promise.resolve({}));
+  console.log(data);
+
+  trans();
+  $("#loadtips").hide();
+  $("#otherthing").html(INSTRUCTIONS);
+
+  missioncreat();
+  mapsetcreat();
+  examplecreate();
+  spotsigncreat();
+  enemyselectcreat();
+
+  updatemap();
+  enemydisplay(221);
 }
+loadData();
 
 /*-- 地图绘制事件的全局变量 --*/
 var mapwidth = 1200, mapheight = 675;
@@ -628,6 +421,36 @@ function getMissionOptionsForCampaign(campaign) {
   return missionOptions;
 }
 
+const getGunName = (gun_id) => {
+  const nativeLanguageMatch = Gun_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
+  if (nativeLanguageMatch) {
+    return nativeLanguageMatch[2];
+  } else {
+    const cnMatch = Gun_cn_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
+    return `[gun-${gun_id}]` + (cnMatch ? ` ${cnMatch[2]}` : "");
+  }
+  return null;
+};
+
+const getEquipName = (equip_id) => {
+  const nativeLanguageMatch = Equip_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
+  if (nativeLanguageMatch) {
+    return nativeLanguageMatch[2];
+  } else {
+    const cnMatch = Equip_cn_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
+    return `[equip-${equip_id}]` + (cnMatch ? ` ${cnMatch[2]}` : "");
+  }
+  return null;
+};
+
+const getAllyGuns = (gunInAllyIds) =>
+  gunInAllyIds.map(gunInAllyId => {
+    const gunInAllyRow = Gun_in_ally.find(row => row.id == gunInAllyId);
+    const equips = [gunInAllyRow.equip1, gunInAllyRow.equip2, gunInAllyRow.equip3].filter(id => !!id).map(equipInAllyId => equip_in_ally_info.find(equip => equip.id == equipInAllyId));
+    const numpadPosition = {7: 1, 8: 4, 9: 7, 12: 2, 13: 5, 14: 8, 17: 3, 18: 6, 19: 9}[gunInAllyRow.position] || "?";
+    return {gunInAllyRow, name: (gunInAllyRow ? getGunName(gunInAllyRow.gun_id) : null) || `[Gun_in_ally-${gunInAllyId}] ???`, equips, numpadPosition};
+  });
+
 function updatemap() {
   const params = new URLSearchParams(window.location.hash.slice(1));
   const campaign = params.get("campaign") || $("#campaignselect").val();
@@ -660,16 +483,10 @@ function updatemap() {
     const [gkTeamLimit, totalTeamLimit] = mission_info.limit_team.indexOf(",") != -1 ? mission_info.limit_team.split(",") : [mission_info.limit_team, 0];
     let advantaged_doll_names = [];
     if (mission_info.adaptive_gun) {
-      advantaged_doll_names = mission_info.adaptive_gun.split(",").map((doll_id) => {
-        const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`) || Gun_cn_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
-        return doll_name_match ? doll_name_match[2] : `[${doll_id}]`;
-      });
+      advantaged_doll_names = mission_info.adaptive_gun.split(",").map((gun_id) => getGunName(gun_id) || `[gun-${gun_id}]`);
     }
     $("#missioninfo").html(`
-        <div style="margin-top: 10px;">
-          Note: this mission info table is still a work-in-progress, and may have the wrong team limits for newer maps.
-        </div>
-        <table id="Missioninfotable" class="enemydata" style="table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+        <table id="Missioninfotable" class="enemydata" style="margin-top: 10px; table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
           <thead style="display: table-header-group; background-color:#f4c430; color:black;"><tr>
             <th>${UI_TEXT["mission_info_environment"]}</th>
             <th>${UI_TEXT["mission_info_turn_limit"]}</th>
@@ -682,7 +499,7 @@ function updatemap() {
           <tbody><tr>
             <td>${mission_info.special_type > 0 ? UI_TEXT["mission_info_environment_night"] : UI_TEXT["mission_info_environment_day"]}</td>
             <td>${mission_info.turn_limit > 0 ? mission_info.turn_limit : UI_TEXT["mission_info_unlimited"]}</td>
-            <td>${gkTeamLimit != 0 ? (gkTeamLimit != -1 ? gkTeamLimit : "BANNED?") : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${gkTeamLimit != 0 ? (gkTeamLimit != -1 ? gkTeamLimit : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${mission_info.limit_squad != 0 ? (mission_info.limit_squad != -1 ? mission_info.limit_squad : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${mission_info.limit_sangvis != 0 ? (mission_info.limit_sangvis != -1 ? mission_info.limit_sangvis : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${totalTeamLimit != 0 ? totalTeamLimit : UI_TEXT["mission_info_unlimited"]}</td>
@@ -798,54 +615,64 @@ function missioncreat(){
 
     /*-- canvas内鼠标拖拽功能 --*/
     var missiondraw = document.querySelector("#missiondrawing");
+    
     let prevTouches = null;
-    $(missiondraw).on('mousedown touchstart', function (event) {
-        dragging = true;
-        if (event.type == 'mousedown') {
-          prevTouches = [windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY)];
+    const moveMap = function (event) {
+      if (!dragging) {
+        return;
+      }
+      if (event.type == 'mousemove' || event.originalEvent.touches.length == 1) {
+        if (event.type == 'mousemove') {
+          posb = windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY);
         } else if (event.originalEvent.touches.length > 0) {
-          prevTouches = [...event.originalEvent.touches].map((touch) => windowToCanvas(touch.clientX, touch.clientY));
+          posb = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
           event.preventDefault();
         }
-    });
-    $(missiondraw).on('mousemove touchmove', function (event) {
-        if(dragging){
-          if (prevTouches.length == 1) {
-            if (event.type == 'mousemove') {
-              posb = windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY);
-            } else if (event.originalEvent.touches.length > 0) {
-              posb = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
-              event.preventDefault();
-            }
-            var x = posb.x - prevTouches[0].x, y = posb.y - prevTouches[0].y;
-            xmove += x;
-            ymove += y;
-            prevTouches = [Object.assign({}, posb)];
-            drawmap();
-          } else if (prevTouches.length == 2 && event.originalEvent.touches.length == 2) {
-            // TODO improve.
-            const oldTouchDist = Math.sqrt(Math.pow(prevTouches[0].x - prevTouches[1].x, 2) + Math.pow(prevTouches[0].y - prevTouches[1].y, 2));
-            
-            const newTouch0 = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
-            const newTouch1 = windowToCanvas(event.originalEvent.touches[1].clientX, event.originalEvent.touches[1].clientY);
-            const newCenter = {x: (newTouch0.x + newTouch1.x) / 2, y: (newTouch0.y + newTouch1.y) / 2};
-            const newPos = {x:((newCenter.x - xmove)/scale).toFixed(2) , y:((newCenter.y - ymove)/scale).toFixed(2)};
-            const newTouchDist = Math.sqrt(Math.pow(newTouch0.x - newTouch1.x, 2) + Math.pow(newTouch0.y - newTouch1.y, 2));
-            const newScale = Math.max(0.2, scale * newTouchDist / oldTouchDist);
-            
-            scale = newScale;
-            xmove = (1-scale)*newPos.x + (newCenter.x - newPos.x);
-            ymove = (1-scale)*newPos.y + (newCenter.y - newPos.y);
-            //console.log({xmove, ymove, scale});
-
-            prevTouches = [newTouch0, newTouch1];
-            drawmap();
-            event.preventDefault();
-          }
+        if (prevTouches.length == 1) {
+          var x = posb.x - prevTouches[0].x, y = posb.y - prevTouches[0].y;
+          xmove += x;
+          ymove += y;
+          drawmap();
         }
+        prevTouches = [Object.assign({}, posb)];
+      } else if (event.originalEvent.touches.length == 2) {
+        // TODO improve.
+        const newTouch0 = windowToCanvas(event.originalEvent.touches[0].clientX, event.originalEvent.touches[0].clientY);
+        const newTouch1 = windowToCanvas(event.originalEvent.touches[1].clientX, event.originalEvent.touches[1].clientY);
+
+        if (prevTouches.length == 2) {
+          const oldTouchDist = Math.sqrt(Math.pow(prevTouches[0].x - prevTouches[1].x, 2) + Math.pow(prevTouches[0].y - prevTouches[1].y, 2));
+
+          const newCenter = {x: (newTouch0.x + newTouch1.x) / 2, y: (newTouch0.y + newTouch1.y) / 2};
+          const newPos = {x:((newCenter.x - xmove)/scale).toFixed(2) , y:((newCenter.y - ymove)/scale).toFixed(2)};
+          const newTouchDist = Math.sqrt(Math.pow(newTouch0.x - newTouch1.x, 2) + Math.pow(newTouch0.y - newTouch1.y, 2));
+          const newScale = Math.max(0.2, scale * newTouchDist / oldTouchDist);
+
+          scale = newScale;
+          xmove = (1-scale)*newPos.x + (newCenter.x - newPos.x);
+          ymove = (1-scale)*newPos.y + (newCenter.y - newPos.y);
+
+          drawmap();
+        }
+
+        prevTouches = [newTouch0, newTouch1];
+        event.preventDefault();
+      }
+    };
+    
+    $(missiondraw).on('mousedown touchstart', function (event) {
+      dragging = true;
+      if (event.type == 'mousedown') {
+        prevTouches = [windowToCanvas(event.originalEvent.clientX, event.originalEvent.clientY)];
+      } else if (event.originalEvent.touches.length > 0) {
+        prevTouches = [...event.originalEvent.touches].map((touch) => windowToCanvas(touch.clientX, touch.clientY));
+        event.preventDefault();
+      }
+      $(missiondraw).on('mousemove touchmove', moveMap);
     });
     $(missiondraw).on('mouseup touchend', function () {
-        dragging = false;
+      dragging = false;
+      $(missiondraw).off('mousemove touchmove', moveMap);
     });
 
     /*-- canvas内鼠标缩放功能 --*/
@@ -886,7 +713,7 @@ function lspotcreat(){
     for(var i = 0; i < layernum.length; i++){
         var op = document.createElement("OPTION");
         op.value = i;
-        op.innerHTML = `${UI_TEXT["layer"]} ${i}`;
+        op.innerHTML = `${UI_TEXT["layer"]} ${i + 1}`;
         $("#layerselect").append(op);
     }
 
@@ -954,6 +781,7 @@ function buildingdisplay(){
     var output = `<table id="buildingtable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
         <th style="width:120px;">${UI_TEXT["building_location"]}<\/th>
+        <th style="width:150px;">${UI_TEXT["building_id"]}<\/th>
         <th style="width:160px;">${UI_TEXT["building_name"]}<\/th>
         <th style="width:80px;">${UI_TEXT["building_hp"]}<\/th>
         <th style="width:140px;">${UI_TEXT["building_destruction_method"]}<\/th>
@@ -993,7 +821,8 @@ function buildingdisplay(){
         }
 
         var thisline = `<tr class="buildingline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="120px">`;
-        thisline += dspot[i].id + `<\/td><td width="160px">`;
+        thisline += dspot[i].id + `<\/td><td width="150px">`;
+        thisline += Building[buildnum].id + `<\/td><td width="160px">`;
         thisline += Building[buildnum].name + `<\/td><td width="80px">`;
         thisline += Building[buildnum].defender + `<\/td><td width="140px">`;
         thisline += Building[buildnum].is_destroy.replace("0", UI_TEXT["building_indestructible"]).replace("1", UI_TEXT["building_destructible_by_hoc"]).replace("2", UI_TEXT["building_destructible_by_stepping_on"]) + `<\/td><td width="80px">`;
@@ -1025,74 +854,83 @@ function buildingdisplay(){
 }
 
 function teleportdisplay(){
-    var output = `<table id="teleporttable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-                <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-                <th style="width:100px;">${UI_TEXT["portal_source_layer"]}<\/th>
-                <th style="width:100px;">${UI_TEXT["portal_source_zone"]}<\/th>
-                <th style="width:100px;">${UI_TEXT["portal_source_location"]}<\/th>
-                <th style="width:100px;">${UI_TEXT["portal_to"]}<\/th>
-                <th style="width:100px;">${UI_TEXT["portal_dest_layer"]}<\/th>
-                <th style="width:100px;">${UI_TEXT["portal_dest_zone"]}<\/th>
-                <th style="width:100px;">${UI_TEXT["portal_dest_location"]}<\/th>
-                <th style="width:520px;"><\/th><\/tr><\/thead><tbody id="teleportbody" style="height:200px; overflow-y:scroll; display:block;">`;
+    var output = `
+      <table id="teleporttable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
+          <th style="width:100px;">${UI_TEXT["portal_source_layer"]}</th>
+          <th style="width:100px;">${UI_TEXT["portal_source_zone"]}</th>
+          <th style="width:150px;">${UI_TEXT["portal_source_location"]}</th>
+          <th style="width:100px;">${UI_TEXT["portal_to"]}</th>
+          <th style="width:100px;">${UI_TEXT["portal_dest_layer"]}</th>
+          <th style="width:100px;">${UI_TEXT["portal_dest_zone"]}</th>
+          <th style="width:150px;">${UI_TEXT["portal_dest_location"]}<\/th>
+          <th style="width:150px;">${UI_TEXT["portal_controlling_building_id"]}</th>
+          <th style="width:200px;">${UI_TEXT["portal_controlling_building_name"]}</th>
+          <th style="width:170px;"></th>
+        </tr></thead>
+        <tbody id="teleportbody" style="height:200px; overflow-y:scroll; display:block;">
+    `;
 
-    telespot = [{}];
+    telespot = [];
+    
+    // Introduced in DR.
+    // 1) "0:X,Y,Z": Nodes X, Y, and Z has portals that lead this node.
+    //   Parsing this seems to be unnecessary because patterns 2 and 3
+    //   on the source nodes already cover all portals.
+    // const fromXYZToThis = /^0:(\d+(?:,(?:\d+))*)$/;
+
+    // 2) "X:0": This node has portals that lead to node X.
+    const fromThisToX = /^(\d+):0$/;
+
+    // 3) Format introduced in MS: "X|Y?|1:A,B,C"
+    //   * X is the destination of the portal from this node.
+    //   * Y, if specified, is the building ID that can disable this portal.
+    //   * A,B,C are nodes with portals that lead to here.
+    const conditionalWarp = /^(\d+)\|(\d*)\|1:(\d+(?:,(?:\d+))*)$/;
+    
     for(i in mspot){
-        if(!(mspot[i].auto_teleport)) continue;
-
-        var thisline = `<tr class="teleportline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
-
-        /*-- from this to …… --*/
-        if(mspot[i].auto_teleport.indexOf("0:") == 0){
-            var nextmap, nextpack;
-            var nextid = Number(mspot[i].auto_teleport.replace("0:", ""));
-            for(j in mspot) if(mspot[j].id == nextid){
-                nextmap = mspot[j].map_num;
-                nextpack = mspot[j].package;
-            }
-
-            thisline += `${UI_TEXT["layer"]} ${mspot[i].map_num} <\/td><td width="100px">`;
-            thisline += mspot[i].package + `<\/td><td width="100px">`;
-            thisline += mspot[i].id + `<\/td><td width="100px">TO<\/td><td width="100px">`;
-
-            thisline += `${UI_TEXT["layer"]} ${nextmap} <\/td><td width="100px">`;
-            thisline += nextpack + `<\/td><td width="100px">`;
-            thisline += nextid + `<\/td><td width="500px"><\/td><\/tr>`;
-
-            var existsign = 0;
-            for(j in telespot) if(Number(mspot[i].id) == telespot[j].a && nextid == telespot[j].b){ existsign = 1; break;}
-            if(existsign) continue;
-            telespot.push({a:Number(mspot[i].id), b:nextid});
+      if(!(mspot[i].auto_teleport)) {
+        continue;
+      }
+      const fromThisToXMatch = mspot[i].auto_teleport.match(fromThisToX);
+      if (fromThisToXMatch) {
+        const srcNodeId = Number(mspot[i].id);
+        const destNodeId = Number(fromThisToXMatch[1]);
+        if (!telespot.find(t => t.srcNodeId == srcNodeId && t.destNodeId == destNodeId)) { 
+          telespot.push({srcNodeId, srcNode: mspot[i], destNodeId, destNode: mspot.find(spot => spot.id == destNodeId)});
         }
+        continue;
+      }
 
-        /*-- from …… to this --*/
-        else if(mspot[i].auto_teleport.indexOf(":0") != -1){
-            var nextmap, nextpack;
-            var nextid = Number(mspot[i].auto_teleport.replace(":0", ""));
-            for(j in mspot) if(mspot[j].id == nextid){
-                nextmap = mspot[j].map_num;
-                nextpack = mspot[j].package;
-            }
-
-            thisline += `${UI_TEXT["layer"]} ${nextmap} <\/td><td width="100px">`;
-            thisline += nextpack + `<\/td><td width="100px">`;
-            thisline += nextid + `<\/td><td width="100px">TO<\/td><td width="100px">`;
-
-            thisline += `${UI_TEXT["layer"]} ${mspot[i].map_num} <\/td><td width="100px">`;
-            thisline += mspot[i].package + `<\/td><td width="100px">`;
-            thisline += mspot[i].id + `<\/td><td width="500px"><\/td><\/tr>`;
-
-            var existsign = 0;
-            for(j in telespot) if(nextid == telespot[j].a && Number(mspot[i].id) == telespot[j].b){ existsign = 1; break;}
-            if(existsign) continue;
-            telespot.push({a:nextid, b:Number(mspot[i].id)});
+      const conditionalWarpMatch = mspot[i].auto_teleport.match(conditionalWarp);
+      if (conditionalWarpMatch) {
+        const srcNodeId = Number(mspot[i].id);
+        const destNodeId = Number(conditionalWarpMatch[1]);
+        const controllingBuildingId = conditionalWarpMatch[2] ? Number(conditionalWarpMatch[2]) : null;
+        const controllingBuilding = controllingBuildingId ? Building.find(b => b.id == controllingBuildingId) : null;
+        if (!telespot.find(t => t.srcNodeId == srcNodeId && t.destNodeId == destNodeId)) { 
+          telespot.push({srcNodeId, srcNode: mspot[i], destNodeId, destNode: mspot.find(spot => spot.id == destNodeId), controllingBuilding});
         }
-
-        output += thisline;
+        continue;
+      }
     }
+    output += telespot.map(({srcNode, destNode, controllingBuilding}) => `
+      <tr class="teleportline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
+        <td width="100px">${UI_TEXT["layer"]} ${srcNode.map_num + 1}<\/td>
+        <td width="100px">${srcNode.package}<\/td>
+        <td width="150px">${srcNode.id}<\/td>
+        <td width="100px">TO<\/td><td width="100px">${UI_TEXT["layer"]} ${destNode.map_num + 1}<\/td>
+        <td width="100px">${destNode.package}<\/td>
+        <td width="150px">${destNode.id}<\/td>
+        <td width="150px">${controllingBuilding ? controllingBuilding.id : ""}<\/td>
+        <td width="200px">${controllingBuilding ? controllingBuilding.name : ""}<\/td>
+        <td width="150px"><\/td>
+      <\/tr>
+    `).join("");
+    output += `</tbody></table>`;
 
     $("#teleportshow").css("display", "none");
-    if(setmessage.sporttable == 1 && telespot.length > 1) $("#teleportshow").css("display", "block");
+    if(setmessage.sporttable == 1 && telespot.length > 0) $("#teleportshow").css("display", "block");
     $("#teleportshow").html(output);
 
     $(".teleportline").mouseover(function(){
@@ -1125,47 +963,55 @@ function missiondisplay(){
         <th style="width:100px;">${UI_TEXT["team_id"]}</th>
         <th style="width:160px;">${UI_TEXT["team_leader"]}</th>
         <th style="width:100px;">${UI_TEXT["team_alignment"]}</th>
-        <th style="width:80px;">${UI_TEXT["team_ai"]}</th>
+        <th style="width:114px;">${UI_TEXT["team_ai"]}</th>
         <th style="width:100px;">${UI_TEXT["team_ce"]}</th>
         <th style="width:490px;">${UI_TEXT["team_composition"]}</th>
         <th class="cellacap" style="width:120px; display:table-cell;">${UI_TEXT["team_location"]}</th>
         <th class="cellbcap" style="width:120px; display:none;">${UI_TEXT["team_count"]}</th>
-        <th style="width:50px;">${UI_TEXT["team_other"]}</th>
+        <th style="width:14px;"></th>
         </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
+
+    
 
     /*-- 路径点的敌人站位 --*/
     for(var i = 0; i < dspot.length; i++){
         var enemy_team_id;
-        var ally_name = "";
+        let spotAllyTeam = null;
+        let controllableAllyTeamInfo = null;
         /*-- 如果是ally，要多套一层寻找enemyid --*/
         if (Number(dspot[i]["enemy_team_id"])) {
           enemy_team_id = Number(dspot[i]["enemy_team_id"]);
         } else if(Number(dspot[i]["ally_team_id"])) {
-          var ally_tar;
-          for (j in Ally_team) {
-            if (Ally_team[j].id == Number(dspot[i]["ally_team_id"])) {
-              ally_tar = j; break;
-            }
-          }
-          if (Ally_team[ally_tar].enemy_team_id) {
-            enemy_team_id = Ally_team[ally_tar].enemy_team_id;
-            ally_name = Ally_team[ally_tar].name;
+          const spotAllyTeamId = Number(dspot[i]["ally_team_id"]);
+          spotAllyTeam = Ally_team.find(t => t.id == spotAllyTeamId);
+          const controllableAllyTeamRegexMatch = spotAllyTeam ? spotAllyTeam.ai.match(controllableAllyTeamRegex) : null;
+
+          if (controllableAllyTeamRegexMatch) {
+            enemy_team_id = spotAllyTeam.enemy_team_id;
+            controllableAllyTeamInfo = {
+              canWithdraw: controllableAllyTeamRegexMatch[1] == "1",
+              canQuickFix: controllableAllyTeamRegexMatch[2] == "1",
+              canSupply: controllableAllyTeamRegexMatch[3] != "0",
+              initialAmmo: Number(controllableAllyTeamRegexMatch[4]),
+              initialMre: Number(controllableAllyTeamRegexMatch[5]),
+            };
+          } else if (spotAllyTeam && spotAllyTeam.enemy_team_id) {
+            enemy_team_id = spotAllyTeam.enemy_team_id;
           } else {
-            spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0});
+            spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
             continue;
           }
         } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
-          const [doll_id, hp] = dspot[i]["hostage_info"].split(",");
-          const doll_name_match = Gun_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`) || Gun_cn_txt.match(`(gun-1[0-9]*${doll_id},)(.*)`);
-          const doll_name = doll_name_match ? doll_name_match[2] : `[${doll_id}]`;
-          spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0, hostage_text: `[${UI_TEXT["map_hostage"]}] ${doll_name} (${hp} HP)`});
+          const [dollId, hp] = dspot[i]["hostage_info"].split(",");
+          const dollName = getGunName(dollId) || `[${dollId}]`;
+          spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}});
           continue;
         } else {
-          spotinfo.push({sename:0, sally:0, sefect:0, seai:0, sbuild:0});
+          spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
           continue;
         }
 
-        var enemy_leader;
+        var teamLeaderEnemyId;
         var enemy_ai_num;
         var enemy_ai_con;
         var efect = 0;
@@ -1173,15 +1019,9 @@ function missiondisplay(){
             if (Enemy_team[j]["id"] != enemy_team_id) continue;
             /*-- 效能欺诈 --*/
             if (Enemy_team[j].effect_ext != 0) efect = Enemy_team[j].effect_ext;
-            enemy_leader = Enemy_team[j]["enemy_leader"];
+            teamLeaderEnemyId = Enemy_team[j]["enemy_leader"];
             enemy_ai_num = Enemy_team[j]["ai"];
             enemy_ai_con = Enemy_team[j]["ai_content"];
-        }
-
-        var leader_name;
-        for (j in Enemy_charater_type) {
-            if(Enemy_charater_type[j]["id"] != enemy_leader) continue;
-            leader_name = Enemy_charater_type[j]["name"];
         }
 
         /*-- enemyai 敌方行动逻辑 --*/
@@ -1189,22 +1029,60 @@ function missiondisplay(){
         if(enemy_ai_num == 0) for(j in Mission) if(Mission[j].id == $("#missionselect").val()) {enemy_ai_num = Mission[j].enemy_ai_type; break;}
         for(j in Team_ai) if(enemy_ai_num == Team_ai[j].ai_type) {enemy_ai = Team_ai[j].name; break;}
 
+        let teamID = "";
+        let teamLeader = "";
+        let teamAI = "";
+        let teamAlignment = "";
+        let teamCE = "";
+        let teamComposition = "";
+
+        if (controllableAllyTeamInfo) {
+          teamID = `ally_team-${spotAllyTeam.id}`;
+
+          const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
+          if (allyGuns.length) {
+            teamLeader = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1).name;
+            teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
+          }
+
+          teamAI = UI_TEXT["team_ai_controllable"];
+          teamAlignment = UI_TEXT["team_alignment_ally"];
+          // TODO calculate controllable allied team CE? It's not very useful, though.
+        } else {
+          teamID = enemy_team_id;
+
+          const teamLeaderEnemyCharacterType = Enemy_charater_type.find(e => e.id == teamLeaderEnemyId);
+          teamLeader = teamLeaderEnemyCharacterType ? teamLeaderEnemyCharacterType.name : `[${teamLeaderEnemyId}]`;
+
+          teamAI = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
+          teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
+          teamCE = efect == 0 ? efectcal(enemy_team_id) : efect;
+          teamComposition = enemyoutcal(enemy_team_id);
+        }
+
+        const teamLocation = Number(dspot[i]["id"]);
+
         /*-- 利用数组存储效能数据以优化计算 --*/
-        spotinfo.push({sename:leader_name, sally:((ally_name) ? ally_name : 0), sefect:((efect == 0) ? efectcal(enemy_team_id) : efect), seai:enemy_ai, sbuild:0});
+        spotinfo.push({
+          sename: teamLeader,
+          sefect:((efect == 0) ? efectcal(enemy_team_id) : efect),
+          seai: enemy_ai,
+          sbuild: 0,
+          spotAllyTeam,
+          controllableAllyTeamInfo
+        });
         eteamspot.push(enemy_team_id);
 
-        var aioutput = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
-
-        var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
-        thisline += enemy_team_id + `<\/td><td width="160px">`;
-        thisline += leader_name + `<\/td><td width="100px">`;
-        thisline += ((ally_name) ? ally_name : UI_TEXT["team_alignment_enemy"]) + `<\/td><td width="80px">`;
-        thisline += aioutput + `<\/td><td width="100px">`;
-        thisline += ((efect == 0) ? efectcal(enemy_team_id) : efect) + `<\/td><td width="490px">`;
-        thisline += enemyoutcal(enemy_team_id) + `<\/td><td class="cella" width="120px" style="display:table-cell;">`;
-        thisline += Number(dspot[i]["id"]) + `<\/td><td class="cellb" width="120px" style="display:none;">`;
-        thisline += "team_num" + `<\/td><td width="34px">`;
-        thisline += "<\/td><\/tr>";
+        var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
+          <td width="100px">${teamID}<\/td>
+          <td width="160px">${teamLeader}<\/td>
+          <td width="100px">${teamAlignment}<\/td>
+          <td width="114px">${teamAI}<\/td>
+          <td width="100px">${teamCE}<\/td>
+          <td width="490px">${teamComposition}<\/td>
+          <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
+          <td class="cellb" width="120px" style="display:none;">team_num<\/td>
+        <\/tr>`;
 
         output += thisline;
     }
@@ -1426,25 +1304,43 @@ function drawmap(func){
             con.textAlign = "center";
             con.beginPath();
             let enemyTitle;
-            if (spotinfo[i]["hostage_text"]) {
-              enemyTitle = spotinfo[i]["hostage_text"];
+            if (spotinfo[i].hostageInfo) {
+              enemyTitle = `[${UI_TEXT["map_hostage"]}] ${spotinfo[i].hostageInfo.dollName}`;
+            } else if (spotinfo[i].controllableAllyTeamInfo) {
+              enemyTitle = `[${UI_TEXT["map_controllable_ally"]}] ${spotinfo[i].spotAllyTeam.controllableAlliedTeamName}`;
+            } else if (spotinfo[i].spotAllyTeam) {
+              enemyTitle = `[${spotinfo[i].spotAllyTeam.name}] ${spotinfo[i].sename}`;
             } else {
-              enemyTitle = ((spotinfo[i]["sally"]) ? ("[" + spotinfo[i]["sally"] + "] ") : "") + spotinfo[i]["sename"];
+              enemyTitle = spotinfo[i].sename;
             }
             con.strokeText(enemyTitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 125));
             con.fillText(enemyTitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 125));
             con.stroke();
 
-            if (!spotinfo[i]["hostage_text"]) {
-              con.lineWidth= String(coorchange(3, 8));
-              con.font = String(coorchange(3, 30)) + `px bold ${fontList}`;
-              con.textAlign = "center";
-              con.beginPath();
-              const enemySubtitle = "[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefect"];
-              con.strokeText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 165));
-              con.fillText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 165));
-              con.stroke();
+            con.lineWidth= String(coorchange(3, 8));
+            con.font = String(coorchange(3, 42)) + `px bold ${fontList}`;
+            con.textAlign = "center";
+            con.beginPath();
+            let enemySubtitle = null;
+            if (spotinfo[i].hostageInfo) {
+              enemySubtitle = `${spotinfo[i].hostageInfo.hp} HP`;
+            } else if (spotinfo[i].controllableAllyTeamInfo) {
+              const {canQuickFix, canSupply, initialMre, initialAmmo} = spotinfo[i].controllableAllyTeamInfo;
+              // canWithdraw is not an interesting attribute so it's not displayed here.
+              enemySubtitle =
+                (canQuickFix
+                  ? UI_TEXT["map_controllable_ally_repairable"]
+                  : UI_TEXT["map_controllable_ally_unrepairable"]) +
+                ", " +
+                (canSupply
+                  ? `${initialMre} / 10 ${UI_TEXT["map_controllable_ally_mre"]}, ${initialAmmo} / 5 ${UI_TEXT["map_controllable_ally_ammo"]}`
+                  : UI_TEXT["map_controllable_ally_infinite_supply"]);
+            } else {
+              enemySubtitle = "[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefect"];
             }
+            con.strokeText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
+            con.fillText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
+            con.stroke();
         }
 
         /*-- 建筑名称的展示 --*/
@@ -1724,30 +1620,39 @@ function enemyoutcal(enemy_team_id){
 }
 
 function enemyselectcreat(){
-    var output = `<div style="display:inline-block; padding:6.5px; background:#E0E0E0; color:black; position:relative; top:1px;">${UI_TEXT["enemy_select_team_id"]}</div>
-        <div class="eselect"><select id="enemyselect" name="enemyselect">`;
+  const options = Enemy_team.map(team => String(team.id))
+    .concat(Ally_team.filter(team => team.ai.match(controllableAllyTeamRegex)).map(team => `ally_team-${team.id}`));
+  const optionsHtml = options.map(id => `<option value="${id}">${id}</option>`).join("");
 
-    for(var i = 0; i < Enemy_team.length; i++) output += "<option value=\"" + Enemy_team[i].id + "\">" + Enemy_team[i].id + "</option>";
-    output += `</select></div> <input type="text" id="enemytext" name="enemytext" style="border:none; padding:10px; background-color:#e0e0e0;"/>`;
+  /*-- 绘制画布 --*/
+  $("#enemyposition").html(`<canvas id="enemydrawing" width="4800px" height="300px" style="border:1px #ffffff99 solid;">Your browser does not support the HTML5 canvas tag.</canvas>`);
 
-    /*-- 绘制画布 --*/
-    var drawingoutput = `<canvas id="enemydrawing" width="4800px" height="300px" style="border:1px #ffffff99 solid;">Your browser does not support the HTML5 canvas tag.</canvas>`;
-    $("#enemyposition").html(drawingoutput);
-
-    $("#enemychose").html(output);
-    $("#enemyselect").change(function(){
-        enemydisplay(Number(this.value));
-    });
-    $("#enemytext").change(function(){
-        for(var i = 0; i < Enemy_team.length; i++){
-            if(Enemy_team[i].id == Number(this.value)){
-                enemydisplay(Number(this.value));
-                return;
-            }
-        }
-        alert(UI_TEXT["enemy_select_team_nonexistent"]);
-    });
+  $("#enemychose").html(`<div style="display:inline-block; padding:6.5px; background:#E0E0E0; color:black; position:relative; top:1px;">${UI_TEXT["enemy_select_team_id"]}</div>
+    <div class="eselect"><select id="enemyselect" name="enemyselect">${optionsHtml}</select></div>
+    <input type="text" id="enemytext" name="enemytext" style="border:none; padding:10px; background-color:#e0e0e0;"/>`);
+  $("#enemyselect").change(function() {
+    enemydisplay(Number(this.value));
+  });
+  $("#enemytext").change(function() {
+    if (options.indexOf(this.value) != -1) {
+      enemydisplay(this.value);
+    } else {
+      alert(UI_TEXT["enemy_select_team_nonexistent"]);
+    }
+  });
 }
+
+const numpadPositionToDisplayCoordinates = {
+  1: {x: -1.7, y: -0.09},
+  4: {x: -1.7, y: 4.11},
+  7: {x: -1.7, y: 8.31},
+  2: {x: 0.7, y: -0.09},
+  5: {x: 0.7, y: 4.11},
+  8: {x: 0.7, y: 8.31},
+  3: {x: 3.1, y: -0.09},
+  6: {x: 3.1, y: 4.11},
+  9: {x: 3.1, y: 8.31},
+};
 
 function enemydisplay(enemy_team_id){
     /*-- enemyselect选择被选择的option --*/
@@ -1770,15 +1675,10 @@ function enemydisplay(enemy_team_id){
         dcoordinator(2, "#444444", i*4, 0);
         dcoordinator(6, "#444444", i*4, -1, i*4-3);}
     /*-- 我方位置 --*/
-    dcoordinator(1, "#f4c430", -1.7, -0.09);
-    dcoordinator(1, "#f4c430", -1.7, 8.31);
-    dcoordinator(1, "#f4c430", -1.7, 4.11);
-    dcoordinator(1, "#f4c430", 0.7, -0.09);
-    dcoordinator(1, "#f4c430", 0.7, 8.31);
-    dcoordinator(1, "#f4c430", 0.7, 4.11);
-    dcoordinator(1, "#f4c430", 3.1, -0.09);
-    dcoordinator(1, "#f4c430", 3.1, 8.31);
-    dcoordinator(1, "#f4c430", 3.1, 4.11);
+    [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(pos => {
+      const {x: x, y: y} = numpadPositionToDisplayCoordinates[pos];
+      dcoordinator(1, "#f4c430", x, y);
+    });
     /*-- 嘲讽 --*/
     dcoordinator(1, "#3366cc", 4, 3.91);
     dcoordinator(5, "#3366cc", 4, 3.91, UI_TEXT["tactical_display_taunt"]);
@@ -1808,62 +1708,114 @@ function enemydisplay(enemy_team_id){
     con.font = `16px bolder ${fontList}`;
 
     /*-- 输出的表头 --*/
-    var output = `<table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+    const allyTeamMatch = String(enemy_team_id).match(/^ally_team-(\d+)$/);
+    let output = "";
+    if (allyTeamMatch) {
+      const allyTeamId = Number(allyTeamMatch[1]);
+      const guns = getAllyGuns(Ally_team.find(team => team.id == allyTeamId).guns.split(",").filter(id => !!id));
+      
+      const gunsRowsHtml = guns.map(gun => {
+        const equips = gun.equips.length ? gun.equips.map(equip => getEquipName(equip.equip_id)).join(",") : UI_TEXT["ally_no_equipment"];
+        return `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;">
+           <td class="enemycell" index="1" width="219px">${gun.name}<\/td>
+           <td class="enemycell" index="2" width="59px">${gun.gunInAllyRow.number}<\/td>
+           <td class="enemycell" index="3" width="59px">${gun.gunInAllyRow.gun_level}<\/td>
+           <td class="enemycell" index="4" width="59px">${gun.gunInAllyRow.life}<\/td>
+           <td class="enemycell" index="5" width="59px">${gun.gunInAllyRow.pow}<\/td>
+           <td class="enemycell" index="6" width="59px">${gun.gunInAllyRow.rate}<\/td>
+           <td class="enemycell" index="7" width="59px">${gun.gunInAllyRow.hit}<\/td>
+           <td class="enemycell" index="8" width="59px">${gun.gunInAllyRow.dodge}<\/td>
+           <td class="enemycell" index="9" width="453px">${equips}<\/td>
+           <td class="enemycell" index="10" width="100px">${gun.numpadPosition}<\/td><\/tr>`
+      }).join("");
+      
+      output = `
+          <div class="note">
+            Note: The ally doll stats below are only doll stats and do not include the equipment stats. I haven't reverse engineered how the equipment stats for allied dolls are calculated yet :(
+          </div>
+          <table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+          <thead style="display:block; background-color:#f4c430; color:black;"><tr>
+            <th style="width:219px;">${UI_TEXT["ally_name"]}<\/th>
+            <th style="width:59px;">${UI_TEXT["ally_links"]}<\/th>
+            <th style="width:59px;">${UI_TEXT["ally_level"]}<\/th>
+            <th style="width:59px;">${UI_TEXT["ally_hp"]}<\/th>
+            <th style="width:59px;">${UI_TEXT["ally_fp"]}<\/th>
+            <th style="width:59px;">${UI_TEXT["ally_rof"]}<\/th>
+            <th style="width:59px;">${UI_TEXT["ally_acc"]}<\/th>
+            <th style="width:59px;">${UI_TEXT["ally_eva"]}<\/th>
+            <th style="width:453px;">${UI_TEXT["ally_equipment"]}<\/th>
+            <th style="width:100px;">${UI_TEXT["ally_position"]}<\/th>
+          <\/tr><\/thead>
+          <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">
+            ${gunsRowsHtml}
+          </tbody>
+        </table>`;
+        
+      guns.forEach(gun => {
+        const {x: x, y: y} = numpadPositionToDisplayCoordinates[gun.numpadPosition];
+        dcoordinator(1, "#3366cc", x, y);
+        dcoordinator(5, "#3366cc", x, y, gun.name);
+      });
+    } else {
+      output = `<table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-        <th style="width:160px;">${UI_TEXT["enemy_name"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_links"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_level"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_hp"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_fp"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_rof"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_acc"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_eva"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_range"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_mspd"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_ap"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_armor"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_hp_shield"]}<\/th>
-        <th style="width:59px;">${UI_TEXT["enemy_forceshield_pierce"]}<\/th>
-        <th style="width:79px;">${UI_TEXT["enemy_forceshield_max"]}<\/th>
-        <th style="width:79px;">${UI_TEXT["enemy_forceshield_initial_pct"]}<\/th>
-        <th style="width:100px;">${UI_TEXT["enemy_coordinates"]}<\/th>
-        <\/tr><\/thead><tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">`;
+          <th style="width:160px;">${UI_TEXT["enemy_name"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_links"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_level"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_hp"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_fp"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_rof"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_acc"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_eva"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_range"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_mspd"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_ap"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_armor"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_hp_shield"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_forceshield_pierce"]}<\/th>
+          <th style="width:79px;">${UI_TEXT["enemy_forceshield_max"]}<\/th>
+          <th style="width:79px;">${UI_TEXT["enemy_forceshield_initial_pct"]}<\/th>
+          <th style="width:100px;">${UI_TEXT["enemy_coordinates"]}<\/th>
+        <\/tr><\/thead>
+        <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">`;
 
-    for(var i = 0; i < Enemy_in_team.length; i++){
-        if(Enemy_in_team[i]["enemy_team_id"] != enemy_team_id) continue;
-        var enemy_character_type_id = Number(Enemy_in_team[i].enemy_character_type_id);
-        var level = Number(Enemy_in_team[i].level);
+      for(var i = 0; i < Enemy_in_team.length; i++){
+          if(Enemy_in_team[i]["enemy_team_id"] != enemy_team_id) continue;
+          var enemy_character_type_id = Number(Enemy_in_team[i].enemy_character_type_id);
+          var level = Number(Enemy_in_team[i].level);
 
-        /*-- 敌人type 基础属性/当前属性 --*/
-        var charatype;
-        for(var j = 0; j < Enemy_charater_type.length; j++){
-            if(Number(Enemy_charater_type[j]["id"]) != enemy_character_type_id) continue;
-            charatype = Enemy_charater_type[j];
-        }
+          /*-- 敌人type 基础属性/当前属性 --*/
+          var charatype;
+          for(var j = 0; j < Enemy_charater_type.length; j++){
+              if(Number(Enemy_charater_type[j]["id"]) != enemy_character_type_id) continue;
+              charatype = Enemy_charater_type[j];
+          }
 
-        var thisline = `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;"><td class="enemycell" index="1" width="160px">`;
-        thisline += charatype["name"] + `<\/td><td class="enemycell" index="2" width="59px">`;
-        thisline += Number(Enemy_in_team[i].number) + `<\/td><td class="enemycell" index="3" width="59px">`;
-        thisline += level % 1000 + `<\/td><td class="enemycell" index="4" width="59px">`;
-        thisline += bround(enemyattribute(charatype , "maxlife" , level)) + `<\/td><td class="enemycell" index="5" width="59px">`;
-        thisline += enemyattribute(charatype , "pow" , level) + `<\/td><td class="enemycell" index="6" width="59px">`;
-        thisline += enemyattribute(charatype , "rate" , level) + `<\/td><td class="enemycell" index="7" width="59px">`;
-        thisline += enemyattribute(charatype , "hit" , level) + `<\/td><td class="enemycell" index="8" width="59px">`;
-        thisline += enemyattribute(charatype , "dodge" , level) + `<\/td><td class="enemycell" index="9" width="59px">`;
-        thisline += enemyattribute(charatype , "range" , level) + `<\/td><td class="enemycell" index="10" width="59px">`;
-        thisline += enemyattribute(charatype , "speed" , level) + `<\/td><td class="enemycell" index="11" width="59px">`;
-        thisline += enemyattribute(charatype , "armor_piercing" , level) + `<\/td><td class="enemycell" index="12" width="59px">`;
-        thisline += enemyattribute(charatype , "armor" , level) + `<\/td><td class="enemycell" index="13" width="59px">`;
-        thisline += enemyattribute(charatype , "shield" , level) + `<\/td><td class="enemycell" index="14" width="59px">`;
-        thisline += enemyattribute(charatype , "def_break" , level) + `<\/td><td class="enemycell" index="15" width="79px">`;
-        thisline += enemyattribute(charatype , "def" , level) + `<\/td><td class="enemycell" index="16" width="79px">`;
-        thisline += Number(Enemy_in_team[i].def_percent) + `%<\/td><td class="enemycell" index="17" width="80px">`;
-        thisline += "(" + Enemy_in_team[i].coordinator_x + "," + Enemy_in_team[i].coordinator_y + `)<\/td><\/tr>`;
+          var thisline = `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;"><td class="enemycell" index="1" width="160px">`;
+          thisline += charatype["name"] + `<\/td><td class="enemycell" index="2" width="59px">`;
+          thisline += Number(Enemy_in_team[i].number) + `<\/td><td class="enemycell" index="3" width="59px">`;
+          thisline += level % 1000 + `<\/td><td class="enemycell" index="4" width="59px">`;
+          thisline += bround(enemyattribute(charatype , "maxlife" , level)) + `<\/td><td class="enemycell" index="5" width="59px">`;
+          thisline += enemyattribute(charatype , "pow" , level) + `<\/td><td class="enemycell" index="6" width="59px">`;
+          thisline += enemyattribute(charatype , "rate" , level) + `<\/td><td class="enemycell" index="7" width="59px">`;
+          thisline += enemyattribute(charatype , "hit" , level) + `<\/td><td class="enemycell" index="8" width="59px">`;
+          thisline += enemyattribute(charatype , "dodge" , level) + `<\/td><td class="enemycell" index="9" width="59px">`;
+          thisline += enemyattribute(charatype , "range" , level) + `<\/td><td class="enemycell" index="10" width="59px">`;
+          thisline += enemyattribute(charatype , "speed" , level) + `<\/td><td class="enemycell" index="11" width="59px">`;
+          thisline += enemyattribute(charatype , "armor_piercing" , level) + `<\/td><td class="enemycell" index="12" width="59px">`;
+          thisline += enemyattribute(charatype , "armor" , level) + `<\/td><td class="enemycell" index="13" width="59px">`;
+          thisline += enemyattribute(charatype , "shield" , level) + `<\/td><td class="enemycell" index="14" width="59px">`;
+          thisline += enemyattribute(charatype , "def_break" , level) + `<\/td><td class="enemycell" index="15" width="79px">`;
+          thisline += enemyattribute(charatype , "def" , level) + `<\/td><td class="enemycell" index="16" width="79px">`;
+          thisline += Number(Enemy_in_team[i].def_percent) + `%<\/td><td class="enemycell" index="17" width="100px">`;
+          thisline += "(" + Enemy_in_team[i].coordinator_x + "," + Enemy_in_team[i].coordinator_y + `)<\/td><\/tr>`;
 
-        output += thisline;
+          output += thisline;
 
-        dcoordinator(1, "#e91e63", Number(Enemy_in_team[i].coordinator_x), Number(Enemy_in_team[i].coordinator_y));
-        dcoordinator(5, "#e91e63", Number(Enemy_in_team[i].coordinator_x), Number(Enemy_in_team[i].coordinator_y), charatype["name"]);
+          dcoordinator(1, "#e91e63", Number(Enemy_in_team[i].coordinator_x), Number(Enemy_in_team[i].coordinator_y));
+          dcoordinator(5, "#e91e63", Number(Enemy_in_team[i].coordinator_x), Number(Enemy_in_team[i].coordinator_y), charatype["name"]);
+      }
+      output += "</tbody></table>";
     }
 
     $("#enemyshow").html(output);
@@ -2390,7 +2342,7 @@ function firstcreat(){
                 <div id="campaignchose"></div>
                 <div id="mapsetdiv"></div>
                 <div id="mapexample"></div>
-                <div id="missionmap" style="max-width:1220px; overflow-y:scroll; overscroll-behavior-y:contain; border:1px #ffffff99 solid;"></div>
+                <div id="missionmap" style="max-width:1220px; border:1px #ffffff99 solid;"></div>
                 <div id="missioninfo" style="width: 100%;"></div>
                 <div id="spotsign"></div>
                 <div id="teleportshow"></div>

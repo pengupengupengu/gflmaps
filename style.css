@@ -59,12 +59,11 @@
 #packselect input[type="checkbox"]{
     display: none;
 }
-
 body {
   display: flex;
+  font-size: .99vw;
   flex-direction: column;
   align-items: center;
-  font-size: .99vw;
   background-color: #333333;
   font-family: 'Noto Sans', 'Noto Sans SC', sans-serif;
   color: #EAEAEA;
@@ -97,7 +96,7 @@ header {
 header > h1 {
   display: inline-block;
   color: rgb(244, 196, 48);
-  font-size: 4rem;
+  font-size: 5rem;
   margin-right: 10px;
 }
 header .textboxcontainer {
@@ -118,16 +117,25 @@ header .textbox {
   max-width: 100%;
   overflow-x: auto;
 }
+.note {
+  margin: 10px 0;
+  width: 1200px;
+}
 
 @media only screen and (max-width: 1000px) {
   body {
+    display: flex;
     font-size: 28px;
+  }
+  .note {
+    width: 100%;
+    font-size: 24px;
   }
   #thisdiv, #missiondrawing, .staticbottomtext {
     width: 100% !important;
   }
-  #otherthing, .staticbottomtext {
-    font-size: 20px;
+  #otherthing div, .staticbottomtext div {
+    font-size: 28px;
   }
 }
 
