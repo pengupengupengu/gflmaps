@@ -1731,7 +1731,7 @@ function enemydisplay(enemy_team_id){
       
       output = `
           <div class="note">
-            Note: The ally doll stats below are only doll stats and do not include the equipment stats. I haven't reverse engineered how the equipment stats for allied dolls are calculated yet :(
+            Note: The ally doll stats below do not include equipment stats. I haven't reverse engineered how equipment stats for allied dolls are calculated yet :(
           </div>
           <table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
           <thead style="display:block; background-color:#f4c430; color:black;"><tr>
