@@ -94,6 +94,8 @@ header {
   margin: 20px;
 }
 header > h1 {
+  margin-block-start: 0;
+  margin-block-end: 0;
   display: inline-block;
   color: rgb(244, 196, 48);
   font-size: 5rem;
