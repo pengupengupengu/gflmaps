@@ -1,5 +1,5 @@
 (function(){
-  
+
 var config = {
   langCode: "en",
   dataSource: "cn"
@@ -19,6 +19,7 @@ var Mission;
 var Enemy_charater_type;
 var Ally_team;
 var Gun_in_ally;
+var Sangvis_in_ally;
 var equip_in_ally_info;
 var Building;
 var Team_ai;
@@ -30,6 +31,7 @@ var Ally_team_txt, Ally_team_cn_txt;
 var Building_txt, Building_cn_txt;
 var Equip_txt, Equip_cn_txt;
 var Gun_txt, Gun_cn_txt;
+var Sangvis_txt, Sangvis_cn_txt;
 var Team_ai_txt;
 var Mission_targettrain_enemy_txt, Mission_targettrain_enemy_cn_txt;
 var Special_spot_config_txt;
@@ -157,6 +159,7 @@ const loadData = async () => {
     "Enemy_character_type": loadJsonFile(`./data/${config.dataSource}/Enemy_character_type.json`).then((result) => Enemy_charater_type = result),
     "Ally_team": loadJsonFile(`./data/${config.dataSource}/Ally_team.json`).then((result) => Ally_team = result),
     "Gun_in_ally": loadJsonFile(`./data/${config.dataSource}/Gun_in_ally.json`).then((result) => Gun_in_ally = result),
+    "Sangvis_in_ally": loadJsonFile(`./data/${config.dataSource}/Sangvis_in_ally.json`).then((result) => Sangvis_in_ally = result),
     "equip_in_ally_info": loadJsonFile(`./data/${config.dataSource}/equip_in_ally_info.json`).then((result) => equip_in_ally_info = result["equip_in_ally_info"]),
     "Team_ai": loadJsonFile(`./data/${config.dataSource}/Team_ai.json`).then((result) => Team_ai = result),
     "Mission_targettrain_enemy": loadJsonFile(`./data/${config.dataSource}/Mission_targettrain_enemy.json`).then((result) => Mission_targettrain_enemy = result),
@@ -168,6 +171,8 @@ const loadData = async () => {
     "Equip_cn_txt": loadTextFile(`./text/cn/equip.txt`).then((result) => Equip_cn_txt = result),
     "Gun_txt": loadTextFile(`./text/${config.langCode}/gun.txt`).then((result) => Gun_txt = result),
     "Gun_cn_txt": loadTextFile(`./text/cn/gun.txt`).then((result) => Gun_cn_txt = result),
+    "Sangvis_txt": loadTextFile(`./text/${config.langCode}/sangvis.txt`).then((result) => Sangvis_txt = result),
+    "Sangvis_cn_txt": loadTextFile(`./text/cn/sangvis.txt`).then((result) => Sangvis_cn_txt = result),
     "Mission_txt": loadTextFile(`./text/${config.langCode}/mission.txt`).then((result) => Mission_txt = result),
     "Mission_cn_txt": loadTextFile(`./text/cn/mission.txt`).then((result) => Mission_cn_txt = result),
     "Enemy_charater_type_txt": loadTextFile(`./text/${config.langCode}/enemy_character_type.txt`).then((result) => Enemy_charater_type_txt = result),
@@ -404,19 +409,19 @@ function getMissionOptionsForCampaign(campaign) {
           }
       }
   }
-  
+
   else if(campaign == 9999) {
       for (i in Mission) {
           /*-- 去除剧情关卡 --*/
           if(Mission[i].special_type == 8 || Mission[i].special_type == 9) continue;
           if(Mission[i].campaign >= 0 || convertGameCampaignToUiCampaign(Mission[i].campaign) != null) continue;
-          
+
           missionOptions.push({
             value: Number(Mission[i].id),
             innerHTML: Mission[i].campaign + "-" + Mission[i].sub + " " + ((Mission[i].endless_mode == 1 || Mission[i].endless_mode == 2) ? `[${UI_TEXT["endless_map"]}] ` : "") + Mission[i].name.replace("//n", " ")
           });
       }
-    
+
   }
   return missionOptions;
 }
@@ -443,6 +448,17 @@ const getEquipName = (equip_id) => {
   return null;
 };
 
+const getSangvisName = (sangvis_id) => {
+  const nativeLanguageMatch = Sangvis_txt.match(`(sangvis-1[0-9]*${sangvis_id},)(.*)`);
+  if (nativeLanguageMatch) {
+    return nativeLanguageMatch[2];
+  } else {
+    const cnMatch = Sangvis_cn_txt.match(`(sangvis-1[0-9]*${sangvis_id},)(.*)`);
+    return `[sangvis-${sangvis_id}]` + (cnMatch ? ` ${cnMatch[2]}` : "");
+  }
+  return null;
+};
+
 const getAllyGuns = (gunInAllyIds) =>
   gunInAllyIds.map(gunInAllyId => {
     const gunInAllyRow = Gun_in_ally.find(row => row.id == gunInAllyId);
@@ -451,11 +467,19 @@ const getAllyGuns = (gunInAllyIds) =>
     return {gunInAllyRow, name: (gunInAllyRow ? getGunName(gunInAllyRow.gun_id) : null) || `[Gun_in_ally-${gunInAllyId}] ???`, equips, numpadPosition};
   });
 
+const getAllySangvis = (sangvis) =>
+  sangvis.split(",").map(sangvisEntry => {
+    const sangvisInAllyId = sangvisEntry.split("-")[0];
+    const sangvisInAllyRow = Sangvis_in_ally.find(row => row.id == sangvisInAllyId);
+    const numpadPosition = {7: 1, 8: 4, 9: 7, 12: 2, 13: 5, 14: 8, 17: 3, 18: 6, 19: 9}[sangvisEntry.split("-")[1]] || "?";
+    return {sangvisInAllyRow, name: (sangvisInAllyRow ? getSangvisName(sangvisInAllyRow.sangvis_id) : null) || `[Sangvis_in_ally-${sangvisInAllyId}] ???`, numpadPosition};
+  });
+
 function updatemap() {
   const params = new URLSearchParams(window.location.hash.slice(1));
   const campaign = params.get("campaign") || $("#campaignselect").val();
   const mission = params.get("mission") || $("#missionselect").val();
-  
+
   if (campaign != $("#campaignselect").val()) {
     $("#campaignselect").val(campaign);
     const missionOptions = getMissionOptionsForCampaign(campaign);
@@ -467,7 +491,7 @@ function updatemap() {
     });
   }
   $("#missionselect").val(mission);
-  
+
   if(campaign == 2008) {
     traindisplay(); 
     $("#missioninfo").html("");
@@ -528,7 +552,7 @@ function missioncreat(){
     if (!initialCampaign || !(initialCampaign in UI_TEXT["campaigns"])) {
       initialCampaign = 1001;
     }
-    
+
     let missionOptions = getMissionOptionsForCampaign(initialCampaign);
     let initialMission = initialParams.get("mission");
     if (!initialMission || !missionOptions.find((opt) => opt.value == initialMission)) {
@@ -553,7 +577,7 @@ function missioncreat(){
         initialMission = missionOptions.length > 0 ? missionOptions[0].value : null;
       }
     }
-    
+
     var campaignOptionsHtml = Object.entries(UI_TEXT["campaigns"])
       // UI_TEXT["campaigns"] includes story chapters that don't exist for forward compatibility,
       // so here we check against availableCampaigns to filter out story chapters that don't exist yet. 
@@ -584,7 +608,7 @@ function missioncreat(){
         // CHANGE FROM GFWIKI: Campaign/map select now goes through URL state.
         const mission = $("#missionselect").val();
         window.history.pushState({}, '', `#campaign=${campaign}&mission=${mission}`);
-      
+
         updatemap();
     });
 
@@ -594,7 +618,7 @@ function missioncreat(){
       const campaign = $("#campaignselect").val();
       const mission = $("#missionselect").val();
       window.history.pushState({}, '', `#campaign=${campaign}&mission=${mission}`);
-      
+
       updatemap();
     });
     $(window).on('hashchange', function() {
@@ -615,7 +639,7 @@ function missioncreat(){
 
     /*-- canvas内鼠标拖拽功能 --*/
     var missiondraw = document.querySelector("#missiondrawing");
-    
+
     let prevTouches = null;
     const moveMap = function (event) {
       if (!dragging) {
@@ -659,7 +683,7 @@ function missioncreat(){
         event.preventDefault();
       }
     };
-    
+
     $(missiondraw).on('mousedown touchstart', function (event) {
       dragging = true;
       if (event.type == 'mousedown') {
@@ -872,7 +896,7 @@ function teleportdisplay(){
     `;
 
     telespot = [];
-    
+
     // Introduced in DR.
     // 1) "0:X,Y,Z": Nodes X, Y, and Z has portals that lead this node.
     //   Parsing this seems to be unnecessary because patterns 2 and 3
@@ -887,7 +911,7 @@ function teleportdisplay(){
     //   * Y, if specified, is the building ID that can disable this portal.
     //   * A,B,C are nodes with portals that lead to here.
     const conditionalWarp = /^(\d+)\|(\d*)\|1:(\d+(?:,(?:\d+))*)$/;
-    
+
     for(i in mspot){
       if(!(mspot[i].auto_teleport)) {
         continue;
@@ -957,7 +981,7 @@ function missiondisplay(){
 
     spotinfo = [];
     eteamspot = [];
-    
+
     var output = `<table id="Missiontable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
         <th style="width:100px;">${UI_TEXT["team_id"]}</th>
@@ -970,8 +994,6 @@ function missiondisplay(){
         <th class="cellbcap" style="width:120px; display:none;">${UI_TEXT["team_count"]}</th>
         <th style="width:14px;"></th>
         </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
-
-    
 
     /*-- 路径点的敌人站位 --*/
     for(var i = 0; i < dspot.length; i++){
@@ -1039,10 +1061,21 @@ function missiondisplay(){
         if (controllableAllyTeamInfo) {
           teamID = `ally_team-${spotAllyTeam.id}`;
 
-          const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
-          if (allyGuns.length) {
-            teamLeader = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1).name;
-            teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
+          if (spotAllyTeam.guns) {
+            const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
+            if (allyGuns.length) {
+              teamLeader = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1).name;
+              teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
+            }
+          } else if (spotAllyTeam.sangvis) {
+            const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
+            if (allySangvis.length) {
+              teamLeader = allySangvis[0].name;
+
+              let compositionMap = {};
+              allySangvis.forEach(unit => {compositionMap[unit.name] = (compositionMap[unit.name] || 0) + 1;});
+              teamComposition = Object.entries(compositionMap).map(([name, count]) => `${name} x${count}`).join(", ");
+            }
           }
 
           teamAI = UI_TEXT["team_ai_controllable"];
@@ -1201,7 +1234,7 @@ function drawmap(func){
         var x2 = Number(dspot[singlespot[i].a2].coordinator_x);
         var y1 = Number(dspot[singlespot[i].a1].coordinator_y);
         var y2 = Number(dspot[singlespot[i].a2].coordinator_y);
-        
+
         const theta = Math.atan2(y2 - y1, x2 - x1);
         const arrowStep = 30;
         const arrowStepX = arrowStep * Math.cos(theta);
@@ -1232,7 +1265,6 @@ function drawmap(func){
         }
     }
     con.lineCap = "butt";
-
 
     for(i in dspot){
         /*-- 路径点的归属颜色 --*/
@@ -1712,50 +1744,82 @@ function enemydisplay(enemy_team_id){
     let output = "";
     if (allyTeamMatch) {
       const allyTeamId = Number(allyTeamMatch[1]);
-      const guns = getAllyGuns(Ally_team.find(team => team.id == allyTeamId).guns.split(",").filter(id => !!id));
-      
-      const gunsRowsHtml = guns.map(gun => {
-        const equips = gun.equips.length ? gun.equips.map(equip => getEquipName(equip.equip_id)).join(",") : UI_TEXT["ally_no_equipment"];
-        return `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;">
-           <td class="enemycell" index="1" width="219px">${gun.name}<\/td>
-           <td class="enemycell" index="2" width="59px">${gun.gunInAllyRow.number}<\/td>
-           <td class="enemycell" index="3" width="59px">${gun.gunInAllyRow.gun_level}<\/td>
-           <td class="enemycell" index="4" width="59px">${gun.gunInAllyRow.life}<\/td>
-           <td class="enemycell" index="5" width="59px">${gun.gunInAllyRow.pow}<\/td>
-           <td class="enemycell" index="6" width="59px">${gun.gunInAllyRow.rate}<\/td>
-           <td class="enemycell" index="7" width="59px">${gun.gunInAllyRow.hit}<\/td>
-           <td class="enemycell" index="8" width="59px">${gun.gunInAllyRow.dodge}<\/td>
-           <td class="enemycell" index="9" width="453px">${equips}<\/td>
-           <td class="enemycell" index="10" width="100px">${gun.numpadPosition}<\/td><\/tr>`
-      }).join("");
-      
-      output = `
-          <div class="note">
-            Note: The ally doll stats below do not include equipment stats. I haven't reverse engineered how equipment stats for allied dolls are calculated yet :(
-          </div>
-          <table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-          <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-            <th style="width:219px;">${UI_TEXT["ally_name"]}<\/th>
-            <th style="width:59px;">${UI_TEXT["ally_links"]}<\/th>
-            <th style="width:59px;">${UI_TEXT["ally_level"]}<\/th>
-            <th style="width:59px;">${UI_TEXT["ally_hp"]}<\/th>
-            <th style="width:59px;">${UI_TEXT["ally_fp"]}<\/th>
-            <th style="width:59px;">${UI_TEXT["ally_rof"]}<\/th>
-            <th style="width:59px;">${UI_TEXT["ally_acc"]}<\/th>
-            <th style="width:59px;">${UI_TEXT["ally_eva"]}<\/th>
-            <th style="width:453px;">${UI_TEXT["ally_equipment"]}<\/th>
-            <th style="width:100px;">${UI_TEXT["ally_position"]}<\/th>
-          <\/tr><\/thead>
-          <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">
-            ${gunsRowsHtml}
-          </tbody>
-        </table>`;
-        
-      guns.forEach(gun => {
-        const {x: x, y: y} = numpadPositionToDisplayCoordinates[gun.numpadPosition];
-        dcoordinator(1, "#3366cc", x, y);
-        dcoordinator(5, "#3366cc", x, y, gun.name);
-      });
+      const spotAllyTeam = Ally_team.find(team => team.id == allyTeamId);
+      if (spotAllyTeam.guns) {
+        const guns = getAllyGuns(spotAllyTeam.guns.split(",").filter(id => !!id));
+
+        const gunsRowsHtml = guns.map(gun => {
+          const equips = gun.equips.length ? gun.equips.map(equip => getEquipName(equip.equip_id)).join(",") : UI_TEXT["ally_no_equipment"];
+          return `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;">
+             <td class="enemycell" index="1" width="219px">${gun.name}<\/td>
+             <td class="enemycell" index="2" width="59px">${gun.gunInAllyRow.number}<\/td>
+             <td class="enemycell" index="3" width="59px">${gun.gunInAllyRow.gun_level}<\/td>
+             <td class="enemycell" index="4" width="59px">${gun.gunInAllyRow.life}<\/td>
+             <td class="enemycell" index="5" width="59px">${gun.gunInAllyRow.pow}<\/td>
+             <td class="enemycell" index="6" width="59px">${gun.gunInAllyRow.rate}<\/td>
+             <td class="enemycell" index="7" width="59px">${gun.gunInAllyRow.hit}<\/td>
+             <td class="enemycell" index="8" width="59px">${gun.gunInAllyRow.dodge}<\/td>
+             <td class="enemycell" index="9" width="453px">${equips}<\/td>
+             <td class="enemycell" index="10" width="100px">${gun.numpadPosition}<\/td><\/tr>`
+        }).join("");
+
+        output = `
+            <div class="note">
+              Note: The ally doll stats below do not include equipment stats. I haven't reverse engineered how equipment stats for allied dolls are calculated yet :(
+            </div>
+            <table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+            <thead style="display:block; background-color:#f4c430; color:black;"><tr>
+              <th style="width:219px;">${UI_TEXT["ally_name"]}<\/th>
+              <th style="width:59px;">${UI_TEXT["ally_links"]}<\/th>
+              <th style="width:59px;">${UI_TEXT["ally_level"]}<\/th>
+              <th style="width:59px;">${UI_TEXT["ally_hp"]}<\/th>
+              <th style="width:59px;">${UI_TEXT["ally_fp"]}<\/th>
+              <th style="width:59px;">${UI_TEXT["ally_rof"]}<\/th>
+              <th style="width:59px;">${UI_TEXT["ally_acc"]}<\/th>
+              <th style="width:59px;">${UI_TEXT["ally_eva"]}<\/th>
+              <th style="width:453px;">${UI_TEXT["ally_equipment"]}<\/th>
+              <th style="width:100px;">${UI_TEXT["ally_position"]}<\/th>
+            <\/tr><\/thead>
+            <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">
+              ${gunsRowsHtml}
+            </tbody>
+          </table>`;
+
+        guns.forEach(gun => {
+          const {x: x, y: y} = numpadPositionToDisplayCoordinates[gun.numpadPosition];
+          dcoordinator(1, "#3366cc", x, y);
+          dcoordinator(5, "#3366cc", x, y, gun.name);
+        });
+      } else if (spotAllyTeam.sangvis) {
+        const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
+
+        const sangvisRowsHtml = allySangvis.map(sangvis =>
+          `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;">
+             <td class="enemycell" index="1" width="219px">${sangvis.name}<\/td>
+             <td class="enemycell" index="2" width="866px">TODO<\/td>
+             <td class="enemycell" index="3" width="100px">${sangvis.numpadPosition}<\/td><\/tr>`
+        ).join("");
+        output = `
+            <div class="note">
+              Note: I haven't reverse engineered how to calculate controllable allied Sangvis units' stats yet :(. I hope we don't get a ranking map with one.
+            </div>
+            <table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+            <thead style="display:block; background-color:#f4c430; color:black;"><tr>
+              <th style="width:219px;">${UI_TEXT["ally_name"]}<\/th>
+              <th style="width:866px;">TODO<\/th>
+              <th style="width:100px;">${UI_TEXT["ally_position"]}<\/th>
+            <\/tr><\/thead>
+            <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">
+              ${sangvisRowsHtml}
+            </tbody>
+          </table>`;
+
+        allySangvis.forEach(sangvis => {
+          const {x: x, y: y} = numpadPositionToDisplayCoordinates[sangvis.numpadPosition];
+          dcoordinator(1, "#3366cc", x, y);
+          dcoordinator(5, "#3366cc", x, y, sangvis.name);
+        });
+      }
     } else {
       output = `<table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
