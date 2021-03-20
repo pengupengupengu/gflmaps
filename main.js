@@ -161,6 +161,21 @@ const loadData = async () => {
     "Gun_in_ally": loadJsonFile(`./data/${config.dataSource}/Gun_in_ally.json`).then((result) => Gun_in_ally = result),
     "Sangvis_in_ally": loadJsonFile(`./data/${config.dataSource}/Sangvis_in_ally.json`).then((result) => Sangvis_in_ally = result),
     "equip_in_ally_info": loadJsonFile(`./data/${config.dataSource}/equip_in_ally_info.json`).then((result) => equip_in_ally_info = result["equip_in_ally_info"]),
+    /*
+    "ConstructibleThings": loadJsonFile(`./data/${config.dataSource}/Recommended_formula.json`).then((result) => {
+      result.forEach((formula) => {
+        if (formula.develop_type == 1 || formula.develop_type == 2) {
+          [...formula.preview.matchAll(/(\d+)-0/g)].forEach((match) => ConstructibleDollIds.add(Number(match[1])));
+        } else if (formula.develop_type == 3) {
+          [...formula.preview.matchAll(/[:,](\d+)/g)].forEach((match) => ConstructibleEquipIds.add(Number(match[1])));
+        }
+      });
+      return {
+        ConstructibleDollIds: [...ConstructibleDollIds],
+        ConstructibleEquipIds: [...ConstructibleEquipIds],
+      };
+    }),
+    // */
     "Team_ai": loadJsonFile(`./data/${config.dataSource}/Team_ai.json`).then((result) => Team_ai = result),
     "Mission_targettrain_enemy": loadJsonFile(`./data/${config.dataSource}/Mission_targettrain_enemy.json`).then((result) => Mission_targettrain_enemy = result),
     "UI_TEXT": loadJsonFile(`./text/${config.langCode}/ui_text.json`).then((result) => UI_TEXT = result),
@@ -426,37 +441,43 @@ function getMissionOptionsForCampaign(campaign) {
   return missionOptions;
 }
 
-const getGunName = (gun_id) => {
+const getGunName = (gun_id, excludeIdFromCnName) => {
   const nativeLanguageMatch = Gun_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
-  if (nativeLanguageMatch) {
+  if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
   } else {
     const cnMatch = Gun_cn_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
+    if (excludeIdFromCnName && cnMatch && cnMatch[2]) {
+      return cnMatch[2];
+    }
     return `[gun-${gun_id}]` + (cnMatch ? ` ${cnMatch[2]}` : "");
   }
-  return null;
 };
 
-const getEquipName = (equip_id) => {
+const getEquipName = (equip_id, excludeIdFromCnName) => {
   const nativeLanguageMatch = Equip_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
-  if (nativeLanguageMatch) {
+  if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
   } else {
     const cnMatch = Equip_cn_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
+    if (excludeIdFromCnName && cnMatch && cnMatch[2]) {
+      return cnMatch[2];
+    }
     return `[equip-${equip_id}]` + (cnMatch ? ` ${cnMatch[2]}` : "");
   }
-  return null;
 };
 
-const getSangvisName = (sangvis_id) => {
+const getSangvisName = (sangvis_id, excludeIdFromCnName) => {
   const nativeLanguageMatch = Sangvis_txt.match(`(sangvis-1[0-9]*${sangvis_id},)(.*)`);
-  if (nativeLanguageMatch) {
+  if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
   } else {
     const cnMatch = Sangvis_cn_txt.match(`(sangvis-1[0-9]*${sangvis_id},)(.*)`);
+    if (excludeIdFromCnName && cnMatch && cnMatch[2]) {
+      return cnMatch[2];
+    }
     return `[sangvis-${sangvis_id}]` + (cnMatch ? ` ${cnMatch[2]}` : "");
   }
-  return null;
 };
 
 const getAllyGuns = (gunInAllyIds) =>
@@ -507,7 +528,7 @@ function updatemap() {
     const [gkTeamLimit, totalTeamLimit] = mission_info.limit_team.indexOf(",") != -1 ? mission_info.limit_team.split(",") : [mission_info.limit_team, 0];
     let advantaged_doll_names = [];
     if (mission_info.adaptive_gun) {
-      advantaged_doll_names = mission_info.adaptive_gun.split(",").map((gun_id) => getGunName(gun_id) || `[gun-${gun_id}]`);
+      advantaged_doll_names = mission_info.adaptive_gun.split(",").map((gun_id) => getGunName(gun_id));
     }
     $("#missioninfo").html(`
         <table id="Missioninfotable" class="enemydata" style="margin-top: 10px; table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
@@ -989,7 +1010,8 @@ function missiondisplay(){
         <th style="width:100px;">${UI_TEXT["team_alignment"]}</th>
         <th style="width:114px;">${UI_TEXT["team_ai"]}</th>
         <th style="width:100px;">${UI_TEXT["team_ce"]}</th>
-        <th style="width:490px;">${UI_TEXT["team_composition"]}</th>
+        <th style="width:290px;">${UI_TEXT["team_composition"]}</th>
+        <th style="width:200px;">${UI_TEXT["team_drops"]}</th>
         <th class="cellacap" style="width:120px; display:table-cell;">${UI_TEXT["team_location"]}</th>
         <th class="cellbcap" style="width:120px; display:none;">${UI_TEXT["team_count"]}</th>
         <th style="width:14px;"></th>
@@ -1033,6 +1055,7 @@ function missiondisplay(){
           continue;
         }
 
+        let rareDrops = [];
         var teamLeaderEnemyId;
         var enemy_ai_num;
         var enemy_ai_con;
@@ -1044,6 +1067,23 @@ function missiondisplay(){
             teamLeaderEnemyId = Enemy_team[j]["enemy_leader"];
             enemy_ai_num = Enemy_team[j]["ai"];
             enemy_ai_con = Enemy_team[j]["ai_content"];
+            console.log(dspot[i], Enemy_team[j]);
+            rareDrops = [
+              ...Enemy_team[j].limit_guns
+                .split(",")
+                .filter((id) => !!id && id !== "0")
+                .map((id) => getGunName(id, /*excludeIdFromCnName=*/true)),
+              ...Enemy_team[j].limit_equips
+                .split(",")
+                .filter((id) => !!id && id !== "0")
+                .map((id) => getEquipName(id, /*excludeIdFromCnName=*/true)),
+            ];
+            // Mica didn't put Agent Vector and Agent 416's equips on the drop tables.
+            if (Enemy_team[j].id == 6431007) {
+              rareDrops.push(getEquipName(199, /*excludeIdFromCnName=*/true));
+            } else if (Enemy_team[j].id == 6431008) {
+              rareDrops.push(getEquipName(202, /*excludeIdFromCnName=*/true));
+            }
         }
 
         /*-- enemyai 敌方行动逻辑 --*/
@@ -1112,7 +1152,8 @@ function missiondisplay(){
           <td width="100px">${teamAlignment}<\/td>
           <td width="114px">${teamAI}<\/td>
           <td width="100px">${teamCE}<\/td>
-          <td width="490px">${teamComposition}<\/td>
+          <td width="290px">${teamComposition}<\/td>
+          <td width="200px">${rareDrops.join(", ")}<\/td>
           <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
           <td class="cellb" width="120px" style="display:none;">team_num<\/td>
         <\/tr>`;
