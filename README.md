@@ -26,7 +26,7 @@ If there are new major events or collabs, you may also want to update `convertGa
 
 ## TODO
 Likely will do:
-* Try to improve mobile browser support. Note that I don't have any Apple device so I don't won't be able to test on any Safari or iOS browser.
+* Try to improve mobile browser support. Note that I don't have any Apple device so I won't be able to test on any Safari or iOS browser.
 * Investigate enemy AI.
 
 Maybe will do:
