@@ -108,7 +108,7 @@
   "building_state_open": "On/Open",
   "building_state_closed": "Off/Closed",
   "building_support_range": "Support Range",
-  "building_notes": "Debug Notes",
+  "building_notes": "Mica's Debug Notes",
   "building_notes_other": "N/A",
 
   "portal_source_layer": "Source Layer",
