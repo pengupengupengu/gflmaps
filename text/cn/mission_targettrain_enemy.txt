@@ -217,3 +217,12 @@ mission_targettrain_enemy-30002402,02：悖论·潜蝎
 mission_targettrain_enemy-10002403,03：悖论·戾蜂
 mission_targettrain_enemy-20002403,【靶机专训】通过【镜像论】中获得的讯息，模拟了其中较为强大单位，便于指挥官们做好完全的准备。开放期间会记录大家的挑战时间和对应的挑战数据，便于指挥官互相学习。
 mission_targettrain_enemy-30002403,03：悖论·戾蜂
+mission_targettrain_enemy-10002404,01：裂变·暴君
+mission_targettrain_enemy-20002404,【靶机专训】通过【裂变链接】中获得的讯息，模拟了其中较为强大单位，便于指挥官们做好完全的准备。开放期间会记录大家的挑战时间和对应的挑战数据，便于指挥官互相学习。
+mission_targettrain_enemy-30002404,01：裂变
+mission_targettrain_enemy-10002405,02：裂变·猎手
+mission_targettrain_enemy-20002405,【靶机专训】通过【裂变链接】中获得的讯息，模拟了其中较为强大单位，便于指挥官们做好完全的准备。开放期间会记录大家的挑战时间和对应的挑战数据，便于指挥官互相学习。
+mission_targettrain_enemy-30002405,02：裂变
+mission_targettrain_enemy-10002406,03：裂变·血疫
+mission_targettrain_enemy-20002406,【靶机专训】通过【裂变链接】中获得的讯息，模拟了其中较为强大单位，便于指挥官们做好完全的准备。开放期间会记录大家的挑战时间和对应的挑战数据，便于指挥官互相学习。
+mission_targettrain_enemy-30002406,03：裂变
