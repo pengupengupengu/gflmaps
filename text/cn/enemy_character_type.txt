@@ -1372,6 +1372,9 @@ enemy_character_type-30900280,
 enemy_character_type-20900281,涅托
 enemy_character_type-10900281,力场//c蓄力
 enemy_character_type-30900281,
+enemy_character_type-20900282,涅托
+enemy_character_type-10900282,力场//c蓄力
+enemy_character_type-30900282,
 enemy_character_type-20080001,盾牌娘
 enemy_character_type-10080001,笨重
 enemy_character_type-30080001,
