@@ -2,8 +2,12 @@
 
 var config = {
   langCode: "en",
-  dataSource: "cn"
+  dataSource: "cn",
+  shouldLoadChibis: true,
 };
+
+let loadedChibis = {};
+
 // TODO add TC, KR, JP
 var fontList = "Noto Sans, Noto Sans SC, Arial";
 
@@ -18,6 +22,7 @@ var Theater_area;
 var Mission;
 var Enemy_charater_type;
 var Ally_team;
+var Gun;
 var Gun_in_ally;
 var Sangvis_in_ally;
 var equip_in_ally_info;
@@ -158,6 +163,7 @@ const loadData = async () => {
     "Mission": loadJsonFile(`./data/${config.dataSource}/Mission.json`).then((result) => Mission = result),
     "Enemy_character_type": loadJsonFile(`./data/${config.dataSource}/Enemy_character_type.json`).then((result) => Enemy_charater_type = result),
     "Ally_team": loadJsonFile(`./data/${config.dataSource}/Ally_team.json`).then((result) => Ally_team = result),
+    "Gun": loadJsonFile(`./data/${config.dataSource}/Gun.json`).then((result) => Gun = result),
     "Gun_in_ally": loadJsonFile(`./data/${config.dataSource}/Gun_in_ally.json`).then((result) => Gun_in_ally = result),
     "Sangvis_in_ally": loadJsonFile(`./data/${config.dataSource}/Sangvis_in_ally.json`).then((result) => Sangvis_in_ally = result),
     "equip_in_ally_info": loadJsonFile(`./data/${config.dataSource}/equip_in_ally_info.json`).then((result) => equip_in_ally_info = result["equip_in_ally_info"]),
@@ -483,9 +489,17 @@ const getSangvisName = (sangvis_id, excludeIdFromCnName) => {
 const getAllyGuns = (gunInAllyIds) =>
   gunInAllyIds.map(gunInAllyId => {
     const gunInAllyRow = Gun_in_ally.find(row => row.id == gunInAllyId);
-    const equips = [gunInAllyRow.equip1, gunInAllyRow.equip2, gunInAllyRow.equip3].filter(id => !!id).map(equipInAllyId => equip_in_ally_info.find(equip => equip.id == equipInAllyId));
+    const equips = [gunInAllyRow.equip1, gunInAllyRow.equip2, gunInAllyRow.equip3]
+      .filter(id => !!id)
+      .map(equipInAllyId => equip_in_ally_info.find(equip => equip.id == equipInAllyId));
     const numpadPosition = {7: 1, 8: 4, 9: 7, 12: 2, 13: 5, 14: 8, 17: 3, 18: 6, 19: 9}[gunInAllyRow.position] || "?";
-    return {gunInAllyRow, name: (gunInAllyRow ? getGunName(gunInAllyRow.gun_id) : null) || `[Gun_in_ally-${gunInAllyId}] ???`, equips, numpadPosition};
+    return {
+      gunInAllyRow,
+      name: (gunInAllyRow ? getGunName(gunInAllyRow.gun_id) : null) || `[Gun_in_ally-${gunInAllyId}] ???`,
+      code: (Gun.find((doll) => doll.id == gunInAllyRow.gun_id) || {}).code,
+      equips,
+      numpadPosition
+    };
   });
 
 const getAllySangvis = (sangvis) =>
@@ -493,8 +507,29 @@ const getAllySangvis = (sangvis) =>
     const sangvisInAllyId = sangvisEntry.split("-")[0];
     const sangvisInAllyRow = Sangvis_in_ally.find(row => row.id == sangvisInAllyId);
     const numpadPosition = {7: 1, 8: 4, 9: 7, 12: 2, 13: 5, 14: 8, 17: 3, 18: 6, 19: 9}[sangvisEntry.split("-")[1]] || "?";
-    return {sangvisInAllyRow, name: (sangvisInAllyRow ? getSangvisName(sangvisInAllyRow.sangvis_id) : null) || `[Sangvis_in_ally-${sangvisInAllyId}] ???`, numpadPosition};
+    return {
+      sangvisInAllyRow,
+      name: (sangvisInAllyRow ? getSangvisName(sangvisInAllyRow.sangvis_id) : null) || `[Sangvis_in_ally-${sangvisInAllyId}] ???`,
+      code: (Sangvis.find((sangvis) => sangvis.id == sangvisInAllyRow.sangvis_id) || {}).code,
+      numpadPosition
+    };
   });
+  
+const loadChibi = (code, redrawFunc) => {
+  if (code in loadedChibis) {
+    return;
+  }
+  const img = new Image();
+  img.onload = () => {
+    if (!(code in loadedChibis)) {
+      loadedChibis[code] = img;
+      if (redrawFunc) {
+        redrawFunc();
+      }
+    }
+  };
+  img.src = `./images/map_chibis/${code}_wait0.gif`;
+};
 
 function updatemap() {
   const params = new URLSearchParams(window.location.hash.slice(1));
@@ -876,7 +911,12 @@ function buildingdisplay(){
         thisline += Building[buildnum].battle_assist_range + `<\/td><td width="544px">`;
         thisline += ((buildsigndes) ? buildsigndes : UI_TEXT["building_notes_other"]) + "<\/td><\/tr>";
 
-        spotinfo[i].sbuild = Building[buildnum].name;
+        if (Building[buildnum].code && Building[buildnum].code !== "Hiding" && !Building[buildnum].name.match(/兔子/)) {
+          console.log(Building[buildnum].code, Building[buildnum].name);
+          spotinfo[i].sbuild = Building[buildnum].name;
+          spotinfo[i].buildingCode = Building[buildnum].code;
+          loadChibi(Building[buildnum].code, drawmap);
+        }
         output += thisline;
     }
 
@@ -1048,7 +1088,11 @@ function missiondisplay(){
         } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
           const [dollId, hp] = dspot[i]["hostage_info"].split(",");
           const dollName = getGunName(dollId) || `[${dollId}]`;
-          spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}});
+          const dollCode = (Gun.find((doll) => doll.id == dollId) || {}).code;
+          if (dollCode) {
+            loadChibi(dollCode, drawmap);
+          }
+          spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}, chibiCode: dollCode});
           continue;
         } else {
           spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
@@ -1060,30 +1104,29 @@ function missiondisplay(){
         var enemy_ai_num;
         var enemy_ai_con;
         var efect = 0;
-        for (j in Enemy_team) {
-            if (Enemy_team[j]["id"] != enemy_team_id) continue;
-            /*-- 效能欺诈 --*/
-            if (Enemy_team[j].effect_ext != 0) efect = Enemy_team[j].effect_ext;
-            teamLeaderEnemyId = Enemy_team[j]["enemy_leader"];
-            enemy_ai_num = Enemy_team[j]["ai"];
-            enemy_ai_con = Enemy_team[j]["ai_content"];
-            console.log(dspot[i], Enemy_team[j]);
-            rareDrops = [
-              ...Enemy_team[j].limit_guns
-                .split(",")
-                .filter((id) => !!id && id !== "0")
-                .map((id) => getGunName(id, /*excludeIdFromCnName=*/true)),
-              ...Enemy_team[j].limit_equips
-                .split(",")
-                .filter((id) => !!id && id !== "0")
-                .map((id) => getEquipName(id, /*excludeIdFromCnName=*/true)),
-            ];
-            // Mica didn't put Agent Vector and Agent 416's equips on the drop tables.
-            if (Enemy_team[j].id == 6431007) {
-              rareDrops.push(getEquipName(199, /*excludeIdFromCnName=*/true));
-            } else if (Enemy_team[j].id == 6431008) {
-              rareDrops.push(getEquipName(202, /*excludeIdFromCnName=*/true));
-            }
+        const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
+        /*-- 效能欺诈 --*/
+        if (matchingEnemyTeam.effect_ext != 0) {
+          efect = matchingEnemyTeam.effect_ext;
+        }
+        teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
+        enemy_ai_num = matchingEnemyTeam["ai"];
+        enemy_ai_con = matchingEnemyTeam["ai_content"];
+        rareDrops = [
+          ...matchingEnemyTeam.limit_guns
+            .split(",")
+            .filter((id) => !!id && id !== "0")
+            .map((id) => getGunName(id, /*excludeIdFromCnName=*/true)),
+          ...matchingEnemyTeam.limit_equips
+            .split(",")
+            .filter((id) => !!id && id !== "0")
+            .map((id) => getEquipName(id, /*excludeIdFromCnName=*/true)),
+        ];
+        // Mica didn't put Agent Vector and Agent 416's equips on the drop tables.
+        if (matchingEnemyTeam.id == 6431007) {
+          rareDrops.push(getEquipName(199, /*excludeIdFromCnName=*/true));
+        } else if (matchingEnemyTeam.id == 6431008) {
+          rareDrops.push(getEquipName(202, /*excludeIdFromCnName=*/true));
         }
 
         /*-- enemyai 敌方行动逻辑 --*/
@@ -1097,20 +1140,24 @@ function missiondisplay(){
         let teamAlignment = "";
         let teamCE = "";
         let teamComposition = "";
+        let chibiCode = null;
 
-        if (controllableAllyTeamInfo) {
+        if (enemy_team_id == 1) {
           teamID = `ally_team-${spotAllyTeam.id}`;
 
           if (spotAllyTeam.guns) {
             const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
             if (allyGuns.length) {
-              teamLeader = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1).name;
+              const teamLeaderDoll = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1);
+              teamLeader = teamLeaderDoll.name;
+              chibiCode = teamLeaderDoll.code;
               teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
             }
           } else if (spotAllyTeam.sangvis) {
             const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
             if (allySangvis.length) {
               teamLeader = allySangvis[0].name;
+              chibiCode = allySangvis[0].code;
 
               let compositionMap = {};
               allySangvis.forEach(unit => {compositionMap[unit.name] = (compositionMap[unit.name] || 0) + 1;});
@@ -1118,19 +1165,28 @@ function missiondisplay(){
             }
           }
 
-          teamAI = UI_TEXT["team_ai_controllable"];
+          teamAI = controllableAllyTeamInfo ? UI_TEXT["team_ai_controllable"] : enemy_ai;
           teamAlignment = UI_TEXT["team_alignment_ally"];
           // TODO calculate controllable allied team CE? It's not very useful, though.
         } else {
           teamID = enemy_team_id;
 
           const teamLeaderEnemyCharacterType = Enemy_charater_type.find(e => e.id == teamLeaderEnemyId);
-          teamLeader = teamLeaderEnemyCharacterType ? teamLeaderEnemyCharacterType.name : `[${teamLeaderEnemyId}]`;
+          if (teamLeaderEnemyCharacterType) {
+            teamLeader = teamLeaderEnemyCharacterType.name;
+            chibiCode = teamLeaderEnemyCharacterType.code;
+          } else {
+            teamLeader = `[${teamLeaderEnemyId}]`;
+          }
 
           teamAI = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
           teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
           teamCE = efect == 0 ? efectcal(enemy_team_id) : efect;
           teamComposition = enemyoutcal(enemy_team_id);
+        }
+        
+        if (chibiCode) {
+          loadChibi(chibiCode, drawmap);
         }
 
         const teamLocation = Number(dspot[i]["id"]);
@@ -1142,7 +1198,8 @@ function missiondisplay(){
           seai: enemy_ai,
           sbuild: 0,
           spotAllyTeam,
-          controllableAllyTeamInfo
+          controllableAllyTeamInfo,
+          chibiCode,
         });
         eteamspot.push(enemy_team_id);
 
@@ -1367,8 +1424,36 @@ function drawmap(func){
         }
         spotTypeDraw(spottype, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min), func);
     }
+    
+    // Chibi display.
+    for(i in dspot){
+        if((Number(dspot[i]["enemy_team_id"]) || Number(dspot[i]["ally_team_id"]) || dspot[i]["hostage_info"]) && (setmessage.smapenemy == 1)){
+            if (spotinfo[i].chibiCode && (spotinfo[i].chibiCode in loadedChibis)) {
+              const chibi = loadedChibis[spotinfo[i].chibiCode];
+              //const rawChibiWidth = 250;
+              const chibiRatio = 1;
+              const chibiX = coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, chibiRatio * chibi.width / 2);
+              const chibiY = coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, -chibiRatio * chibi.height + 50);
+              const chibiWidth = coorchange(3, chibiRatio * chibi.width);
+              const chibiHeight = coorchange(3, chibiRatio * chibi.height);
+              con.drawImage(chibi, chibiX, chibiY, chibiWidth, chibiHeight);
+            }
+            con.strokeStyle = "#111111";
+        }
+    }
 
     for(i in dspot){
+        /*-- 建筑名称的展示 --*/
+        if((Number(dspot[i]["building_id"])) && (setmessage.smapbuild == 1) && spotinfo[i].sbuild) {
+            con.lineWidth= String(coorchange(3, 12));
+            con.font = String(coorchange(3, 50)) + `px bold ${fontList}`;
+            con.textAlign = "center";
+            con.beginPath();
+            con.strokeText(spotinfo[i].sbuild, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, 90));
+            con.fillText(spotinfo[i].sbuild, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, 90));
+            con.stroke();
+        }
+
         /*-- 敌方名称和效能的展示 --*/
         con.fillStyle = "#eaeaea";
         if((Number(dspot[i]["enemy_team_id"]) || Number(dspot[i]["ally_team_id"]) || dspot[i]["hostage_info"]) && (setmessage.smapenemy == 1)){
@@ -1413,17 +1498,6 @@ function drawmap(func){
             }
             con.strokeText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
             con.fillText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
-            con.stroke();
-        }
-
-        /*-- 建筑名称的展示 --*/
-        if((Number(dspot[i]["building_id"])) && (setmessage.smapbuild == 1)){
-            con.lineWidth= String(coorchange(3, 12));
-            con.font = String(coorchange(3, 50)) + `px bold ${fontList}`;
-            con.textAlign = "center";
-            con.beginPath();
-            con.strokeText(spotinfo[i].sbuild, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, 90));
-            con.fillText(spotinfo[i].sbuild, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, 90));
             con.stroke();
         }
 
