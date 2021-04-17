@@ -1142,7 +1142,7 @@ function missiondisplay(){
         let teamComposition = "";
         let chibiCode = null;
 
-        if (enemy_team_id == 1) {
+        if (enemy_team_id == 1 && spotAllyTeam) {
           teamID = `ally_team-${spotAllyTeam.id}`;
 
           if (spotAllyTeam.guns) {
