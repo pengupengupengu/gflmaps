@@ -1225,22 +1225,6 @@ mission-10010384,Preservative
 mission-20010384,
 mission-30010384,
 mission-40010384,
-mission-10090037,The Battlefield without Her I
-mission-20090037,
-mission-30090037,Fairies of level <Color=#FFB400FF>≥30</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
-mission-40090037,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
-mission-10090038,The Battlefield without Her II
-mission-20090038,
-mission-30090038,Fairies of level <Color=#FFB400FF>≥32</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
-mission-40090038,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
-mission-10090039,The Battlefield without Her III
-mission-20090039,
-mission-30090039,Fairies of level <Color=#FFB400FF>≥34</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
-mission-40090039,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
-mission-10090040,The Battlefield without Her IV
-mission-20090040,
-mission-30090040,Fairies of level <Color=#FFB400FF>≥35</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
-mission-40090040,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
 mission-10010385,Sangvis Orphan
 mission-20010385,
 mission-10010386,Mission: Dinergate
@@ -2287,3 +2271,19 @@ mission-10010631,ECHO4
 mission-20010631,
 mission-30010631,
 mission-40010631,
+mission-10090037,The Battlefield without Her I
+mission-20090037,
+mission-30090037,Fairies of level <Color=#FFB400FF>≥30</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
+mission-40090037,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
+mission-10090038,The Battlefield without Her II
+mission-20090038,
+mission-30090038,Fairies of level <Color=#FFB400FF>≥32</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
+mission-40090038,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
+mission-10090039,The Battlefield without Her III
+mission-20090039,
+mission-30090039,Fairies of level <Color=#FFB400FF>≥34</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
+mission-40090039,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
+mission-10090040,The Battlefield without Her IV
+mission-20090040,
+mission-30090040,Fairies of level <Color=#FFB400FF>≥35</Color> and rarity level <Color=#FFB400FF>≥3</Color> are recommended.
+mission-40090040,HG Dolls provide an extra node of visibility for your echelon in Night Battles//c making them very conducive to map exploration.//n <Color=#FFB400FF>Make sure you bring your HG Dolls along.</Color>
