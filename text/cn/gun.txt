@@ -1366,6 +1366,10 @@ gun-10000339,RPK-203
 gun-40000339,alchemaniac//c//c
 gun-50000339,Type                       Machine gun//nMass                       4.7 kg (10.36 lb)//nLength                     1065 mm (41.93 in) stock extended//n                           845 mm (33.27 in) stock folded//nBarrel length              590 mm (23.23 in)//nCartridge                  7.62 x 39mm M43//nAction                     Gas operated//c rotating bolt//nRate of fire               600 rounds/minute//nMuzzle velocity            745 m/s (2444 ft/s)//nEffective firing range     365 - 550 m//nMaximum firing range       1000 m//nFeed system                30-//c 40-round detachable magazine//n                           75-round drum magazine//nSights                     Iron sights
 gun-60000339,
+gun-10000340,TKB-408
+gun-40000340,Goti//c//c
+gun-50000340,Type                       Assault rifle//nMass                       4.3 kg (9.48 lb)//nLength                     790 mm (31.1 in)//nBarrel length              500 mm (19.69 in)//nCartridge                  7.62×39mm//nCaliber                    7.62 mm//nAction                     Gas-operated//c tilting bolt//nRate of fire               600 rounds/minute//nFeed system                30-round detachable AK magazine//nSights                     Iron sights
+gun-60000340,
 gun-10001017,吉尔·斯汀雷
 gun-40001017,小吃//c//c
 gun-50001017,
