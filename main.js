@@ -57,6 +57,8 @@ var INSTRUCTIONS = "";
 //     Those two numbers are the ammo count (out of 5) and MRE count (out of 10).
 const controllableAllyTeamRegex = /2([01])([01])(0|1:(\d+),(\d+))/;
 
+let missionIdToSuspectedSpawns = {};
+
 // CHANGES FROM GFWIKI: For most data, if the asset text file does not contain a name or the name is blank,
 //     then just use the table ID (i.e. "[mission-10000125]" for 13-1). This is so that names don't appear blank
 //     when using dataSource=CN and langCode=EN.
@@ -147,6 +149,41 @@ function trans() {
   }
 }
 
+// Create a map of mission IDs to enemy teams that are not initial spawns, but
+// are next to teams that are initial spawns for those mission IDs. The idea
+// behind this is that enemy teams for a particular mission are usually listed
+// next to each other.
+const calculateSuspectedSpawns = () => {
+  missionIdToSuspectedSpawns = {};
+  
+  let enemyTeamIdToMissionId = {};
+  Spot.forEach((spot) => {
+    let enemyTeamId = spot.enemy_team_id;
+    if (spot.ally_team_id) {
+      const allyTeam = Ally_team.find((allyTeam) => allyTeam.id === spot.ally_team_id);
+      if (!allyTeam) {
+        return;
+      }
+      enemyTeamId = allyTeam.enemy_team_id;
+    }
+    if (enemyTeamId && !(enemyTeamId in enemyTeamIdToMissionId)) {
+      enemyTeamIdToMissionId[enemyTeamId] = spot.mission_id;
+    }
+  });
+  
+  let lastMissionId = null;
+  Enemy_team.forEach((enemyTeam) => {
+    if (enemyTeam.id in enemyTeamIdToMissionId) {
+      lastMissionId = enemyTeamIdToMissionId[enemyTeam.id];
+    } else if (lastMissionId) {
+      if (!(lastMissionId in missionIdToSuspectedSpawns)) {
+        missionIdToSuspectedSpawns[lastMissionId] = [];
+      }
+      missionIdToSuspectedSpawns[lastMissionId].push(enemyTeam.id);
+    }
+  });
+};
+
 firstcreat();
 
 const loadData = async () => {
@@ -219,6 +256,8 @@ const loadData = async () => {
     return await accumulatorPromise;
   }, Promise.resolve({}));
   console.log(data);
+  
+  calculateSuspectedSpawns();
 
   trans();
   $("#loadtips").hide();
@@ -912,7 +951,7 @@ function buildingdisplay(){
         thisline += ((buildsigndes) ? buildsigndes : UI_TEXT["building_notes_other"]) + "<\/td><\/tr>";
 
         if (Building[buildnum].code && Building[buildnum].code !== "Hiding" && !Building[buildnum].name.match(/兔子/)) {
-          console.log(Building[buildnum].code, Building[buildnum].name);
+          //console.log(Building[buildnum].code, Building[buildnum].name);
           spotinfo[i].sbuild = Building[buildnum].name;
           spotinfo[i].buildingCode = Building[buildnum].code;
           loadChibi(Building[buildnum].code, drawmap);
@@ -1032,6 +1071,150 @@ function teleportdisplay(){
     });
 }
 
+const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAllyTeamInfo) => {
+  let rareDrops = [];
+  var teamLeaderEnemyId;
+  var efect = 0;
+  const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
+  /*-- 效能欺诈 --*/
+  if (matchingEnemyTeam.effect_ext != 0) {
+    efect = matchingEnemyTeam.effect_ext;
+  }
+  teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
+  rareDrops = [
+    ...matchingEnemyTeam.limit_guns
+      .split(",")
+      .filter((id) => !!id && id !== "0")
+      .map((id) => getGunName(id, /*excludeIdFromCnName=*/true)),
+    ...matchingEnemyTeam.limit_equips
+      .split(",")
+      .filter((id) => !!id && id !== "0")
+      .map((id) => getEquipName(id, /*excludeIdFromCnName=*/true)),
+  ];
+  // Mica didn't put Agent Vector and Agent 416's equips on the drop tables.
+  if (matchingEnemyTeam.id == 6431007) {
+    rareDrops.push(getEquipName(199, /*excludeIdFromCnName=*/true));
+  } else if (matchingEnemyTeam.id == 6431008) {
+    rareDrops.push(getEquipName(202, /*excludeIdFromCnName=*/true));
+  }
+
+  let teamID = "";
+  let teamLeader = "";
+  let teamAI = "";
+  let teamAIDisplay = "";
+  let teamAlignment = "";
+  let teamCE = "";
+  let teamComposition = "";
+  let chibiCode = null;
+
+  if (spotAllyTeam && spotAllyTeam.initial_type == 1) {
+    teamID = `ally_team-${spotAllyTeam.id}`;
+
+    if (spotAllyTeam.guns) {
+      const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
+      if (allyGuns.length) {
+        const teamLeaderDoll = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1);
+        teamLeader = teamLeaderDoll.name;
+        chibiCode = teamLeaderDoll.code;
+        teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
+      }
+    } else if (spotAllyTeam.sangvis) {
+      const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
+      if (allySangvis.length) {
+        teamLeader = allySangvis[0].name;
+        chibiCode = allySangvis[0].code;
+
+        let compositionMap = {};
+        allySangvis.forEach(unit => {compositionMap[unit.name] = (compositionMap[unit.name] || 0) + 1;});
+        teamComposition = Object.entries(compositionMap).map(([name, count]) => `${name} x${count}`).join(", ");
+      }
+    }
+
+    if (controllableAllyTeamInfo) {
+      teamAI = UI_TEXT["team_ai_controllable"];
+    } else {
+      const AITypeMatch = String(spotAllyTeam["ai"]).match(/^\d+;([0-3]);/);
+      if (AITypeMatch) {
+        const teamAIType = Number(AITypeMatch[1]);
+        const matchingTeamAI = Team_ai.find((teamAI) => teamAI.force_id === 4 && teamAI.ai_type === teamAIType);
+        if (matchingTeamAI) {
+          teamAI = matchingTeamAI.name;
+        }
+      }
+      if (!teamAI) {
+        teamAI = "?";
+      }
+    }
+    teamAIDisplay = teamAI;
+    teamAlignment = UI_TEXT["team_alignment_ally"];
+    // TODO calculate allied team CE? It's not very useful, though.
+  } else {
+    /*-- enemyai 敌方行动逻辑 --*/
+    let enemy_ai;
+    let enemy_ai_num = matchingEnemyTeam["ai"];
+    let enemy_ai_con = matchingEnemyTeam["ai_content"];
+    if(enemy_ai_num == 0) {
+      for (j in Mission) {
+        if (Mission[j].id == $("#missionselect").val()) {
+          enemy_ai_num = Mission[j].enemy_ai_type;
+          break;
+        }
+      }
+    }
+    for (j in Team_ai) {
+      if(enemy_ai_num == Team_ai[j].ai_type) {
+        enemy_ai = Team_ai[j].name; break;
+      }
+    }
+    
+    teamID = enemy_team_id;
+
+    const teamLeaderEnemyCharacterType = Enemy_charater_type.find(e => e.id == teamLeaderEnemyId);
+    if (teamLeaderEnemyCharacterType) {
+      teamLeader = teamLeaderEnemyCharacterType.name;
+      chibiCode = teamLeaderEnemyCharacterType.code;
+    } else {
+      teamLeader = `[${teamLeaderEnemyId}]`;
+    }
+
+    teamAI = enemy_ai;
+    teamAIDisplay = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
+    teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
+    teamCE = efect == 0 ? efectcal(enemy_team_id) : efect;
+    teamComposition = enemyoutcal(enemy_team_id);
+  }
+  
+  if (chibiCode) {
+    loadChibi(chibiCode, drawmap);
+  }
+
+  const teamLocation = spot ? Number(spot["id"]) : "?";
+
+  /*-- 利用数组存储效能数据以优化计算 --*/
+  spotinfo.push({
+    sename: teamLeader,
+    sefect:((efect == 0) ? efectcal(enemy_team_id) : efect),
+    seai: teamAI,
+    sbuild: 0,
+    spotAllyTeam,
+    controllableAllyTeamInfo,
+    chibiCode,
+  });
+  eteamspot.push(enemy_team_id);
+
+  return`<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
+    <td width="100px">${teamID}<\/td>
+    <td width="160px">${teamLeader}<\/td>
+    <td width="100px">${teamAlignment}<\/td>
+    <td width="114px">${teamAIDisplay}<\/td>
+    <td width="100px">${teamCE}<\/td>
+    <td width="290px">${teamComposition}<\/td>
+    <td width="200px">${rareDrops.join(", ")}<\/td>
+    <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
+    <td class="cellb" width="120px" style="display:none;">team_num<\/td>
+  <\/tr>`;
+};
+
 function missiondisplay(){
     /*-- 全局变量清零 --*/
     xmove = 0; ymove = 0;
@@ -1059,163 +1242,57 @@ function missiondisplay(){
 
     /*-- 路径点的敌人站位 --*/
     for(var i = 0; i < dspot.length; i++){
-        var enemy_team_id;
-        let spotAllyTeam = null;
-        let controllableAllyTeamInfo = null;
-        /*-- 如果是ally，要多套一层寻找enemyid --*/
-        if (Number(dspot[i]["enemy_team_id"])) {
-          enemy_team_id = Number(dspot[i]["enemy_team_id"]);
-        } else if(Number(dspot[i]["ally_team_id"])) {
-          const spotAllyTeamId = Number(dspot[i]["ally_team_id"]);
-          spotAllyTeam = Ally_team.find(t => t.id == spotAllyTeamId);
-          const controllableAllyTeamRegexMatch = spotAllyTeam ? spotAllyTeam.ai.match(controllableAllyTeamRegex) : null;
+      let enemyTeamId;
+      let spotAllyTeam = null;
+      let controllableAllyTeamInfo = null;
+      /*-- 如果是ally，要多套一层寻找enemyid --*/
+      if (Number(dspot[i]["enemy_team_id"])) {
+        enemyTeamId = Number(dspot[i]["enemy_team_id"]);
+      } else if (Number(dspot[i]["ally_team_id"])) {
+        const spotAllyTeamId = Number(dspot[i]["ally_team_id"]);
+        spotAllyTeam = Ally_team.find(t => t.id == spotAllyTeamId);
+        const controllableAllyTeamRegexMatch = spotAllyTeam && spotAllyTeam.initial_type === 1
+          ? spotAllyTeam.ai.match(controllableAllyTeamRegex)
+          : null;
 
-          if (controllableAllyTeamRegexMatch) {
-            enemy_team_id = spotAllyTeam.enemy_team_id;
-            controllableAllyTeamInfo = {
-              canWithdraw: controllableAllyTeamRegexMatch[1] == "1",
-              canQuickFix: controllableAllyTeamRegexMatch[2] == "1",
-              canSupply: controllableAllyTeamRegexMatch[3] != "0",
-              initialAmmo: Number(controllableAllyTeamRegexMatch[4]),
-              initialMre: Number(controllableAllyTeamRegexMatch[5]),
-            };
-          } else if (spotAllyTeam && spotAllyTeam.enemy_team_id) {
-            enemy_team_id = spotAllyTeam.enemy_team_id;
-          } else {
-            spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
-            continue;
-          }
-        } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
-          const [dollId, hp] = dspot[i]["hostage_info"].split(",");
-          const dollName = getGunName(dollId) || `[${dollId}]`;
-          const dollCode = (Gun.find((doll) => doll.id == dollId) || {}).code;
-          if (dollCode) {
-            loadChibi(dollCode, drawmap);
-          }
-          spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}, chibiCode: dollCode});
-          continue;
+        if (controllableAllyTeamRegexMatch) {
+          enemyTeamId = spotAllyTeam.enemy_team_id;
+          controllableAllyTeamInfo = {
+            canWithdraw: controllableAllyTeamRegexMatch[1] == "1",
+            canQuickFix: controllableAllyTeamRegexMatch[2] == "1",
+            canSupply: controllableAllyTeamRegexMatch[3] != "0",
+            initialAmmo: Number(controllableAllyTeamRegexMatch[4]),
+            initialMre: Number(controllableAllyTeamRegexMatch[5]),
+          };
+        } else if (spotAllyTeam && spotAllyTeam.enemy_team_id) {
+          enemyTeamId = spotAllyTeam.enemy_team_id;
         } else {
           spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
           continue;
         }
-
-        let rareDrops = [];
-        var teamLeaderEnemyId;
-        var enemy_ai_num;
-        var enemy_ai_con;
-        var efect = 0;
-        const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
-        /*-- 效能欺诈 --*/
-        if (matchingEnemyTeam.effect_ext != 0) {
-          efect = matchingEnemyTeam.effect_ext;
+      } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
+        const [dollId, hp] = dspot[i]["hostage_info"].split(",");
+        const dollName = getGunName(dollId) || `[${dollId}]`;
+        const dollCode = (Gun.find((doll) => doll.id == dollId) || {}).code;
+        if (dollCode) {
+          loadChibi(dollCode, drawmap);
         }
-        teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
-        enemy_ai_num = matchingEnemyTeam["ai"];
-        enemy_ai_con = matchingEnemyTeam["ai_content"];
-        rareDrops = [
-          ...matchingEnemyTeam.limit_guns
-            .split(",")
-            .filter((id) => !!id && id !== "0")
-            .map((id) => getGunName(id, /*excludeIdFromCnName=*/true)),
-          ...matchingEnemyTeam.limit_equips
-            .split(",")
-            .filter((id) => !!id && id !== "0")
-            .map((id) => getEquipName(id, /*excludeIdFromCnName=*/true)),
-        ];
-        // Mica didn't put Agent Vector and Agent 416's equips on the drop tables.
-        if (matchingEnemyTeam.id == 6431007) {
-          rareDrops.push(getEquipName(199, /*excludeIdFromCnName=*/true));
-        } else if (matchingEnemyTeam.id == 6431008) {
-          rareDrops.push(getEquipName(202, /*excludeIdFromCnName=*/true));
-        }
+        spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}, chibiCode: dollCode});
+        continue;
+      } else {
+        spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
+        continue;
+      }
 
-        /*-- enemyai 敌方行动逻辑 --*/
-        var enemy_ai;
-        if(enemy_ai_num == 0) for(j in Mission) if(Mission[j].id == $("#missionselect").val()) {enemy_ai_num = Mission[j].enemy_ai_type; break;}
-        for(j in Team_ai) if(enemy_ai_num == Team_ai[j].ai_type) {enemy_ai = Team_ai[j].name; break;}
-
-        let teamID = "";
-        let teamLeader = "";
-        let teamAI = "";
-        let teamAlignment = "";
-        let teamCE = "";
-        let teamComposition = "";
-        let chibiCode = null;
-
-        if (enemy_team_id == 1 && spotAllyTeam) {
-          teamID = `ally_team-${spotAllyTeam.id}`;
-
-          if (spotAllyTeam.guns) {
-            const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
-            if (allyGuns.length) {
-              const teamLeaderDoll = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1);
-              teamLeader = teamLeaderDoll.name;
-              chibiCode = teamLeaderDoll.code;
-              teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
-            }
-          } else if (spotAllyTeam.sangvis) {
-            const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
-            if (allySangvis.length) {
-              teamLeader = allySangvis[0].name;
-              chibiCode = allySangvis[0].code;
-
-              let compositionMap = {};
-              allySangvis.forEach(unit => {compositionMap[unit.name] = (compositionMap[unit.name] || 0) + 1;});
-              teamComposition = Object.entries(compositionMap).map(([name, count]) => `${name} x${count}`).join(", ");
-            }
-          }
-
-          teamAI = controllableAllyTeamInfo ? UI_TEXT["team_ai_controllable"] : enemy_ai;
-          teamAlignment = UI_TEXT["team_alignment_ally"];
-          // TODO calculate controllable allied team CE? It's not very useful, though.
-        } else {
-          teamID = enemy_team_id;
-
-          const teamLeaderEnemyCharacterType = Enemy_charater_type.find(e => e.id == teamLeaderEnemyId);
-          if (teamLeaderEnemyCharacterType) {
-            teamLeader = teamLeaderEnemyCharacterType.name;
-            chibiCode = teamLeaderEnemyCharacterType.code;
-          } else {
-            teamLeader = `[${teamLeaderEnemyId}]`;
-          }
-
-          teamAI = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
-          teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
-          teamCE = efect == 0 ? efectcal(enemy_team_id) : efect;
-          teamComposition = enemyoutcal(enemy_team_id);
-        }
-        
-        if (chibiCode) {
-          loadChibi(chibiCode, drawmap);
-        }
-
-        const teamLocation = Number(dspot[i]["id"]);
-
-        /*-- 利用数组存储效能数据以优化计算 --*/
-        spotinfo.push({
-          sename: teamLeader,
-          sefect:((efect == 0) ? efectcal(enemy_team_id) : efect),
-          seai: enemy_ai,
-          sbuild: 0,
-          spotAllyTeam,
-          controllableAllyTeamInfo,
-          chibiCode,
-        });
-        eteamspot.push(enemy_team_id);
-
-        var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
-          <td width="100px">${teamID}<\/td>
-          <td width="160px">${teamLeader}<\/td>
-          <td width="100px">${teamAlignment}<\/td>
-          <td width="114px">${teamAI}<\/td>
-          <td width="100px">${teamCE}<\/td>
-          <td width="290px">${teamComposition}<\/td>
-          <td width="200px">${rareDrops.join(", ")}<\/td>
-          <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
-          <td class="cellb" width="120px" style="display:none;">team_num<\/td>
-        <\/tr>`;
-
-        output += thisline;
+      output += generateEnemyTeamRow(dspot[i], enemyTeamId, spotAllyTeam, controllableAllyTeamInfo);
+    }
+    
+    const missionId = Number($("#missionselect").val());
+    if (missionId in missionIdToSuspectedSpawns) {
+      output += `<tr><td colspan="8" style="width: 1245px;" class="mission-spawn-separator">${UI_TEXT["team_suspected_spawns"]}</td></tr>`
+        + missionIdToSuspectedSpawns[missionId]
+          .map((enemyTeamId) => generateEnemyTeamRow(null, enemyTeamId, null, null))
+          .join('');
     }
 
     $("#missionshow").html(output);
@@ -1467,7 +1544,8 @@ function drawmap(func){
             } else if (spotinfo[i].controllableAllyTeamInfo) {
               enemyTitle = `[${UI_TEXT["map_controllable_ally"]}] ${spotinfo[i].spotAllyTeam.controllableAlliedTeamName}`;
             } else if (spotinfo[i].spotAllyTeam) {
-              enemyTitle = `[${spotinfo[i].spotAllyTeam.name}] ${spotinfo[i].sename}`;
+              const alignment = spotinfo[i].spotAllyTeam.initial_type === 1 ? UI_TEXT["team_alignment_ally"] : spotinfo[i].spotAllyTeam.name;
+              enemyTitle = `[${alignment}] ${spotinfo[i].sename}`;
             } else {
               enemyTitle = spotinfo[i].sename;
             }

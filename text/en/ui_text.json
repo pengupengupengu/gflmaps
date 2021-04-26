@@ -62,7 +62,7 @@
 
     "6004": "[Theater] 1&2",
     "6005": "[Theater] 3&4",
-    "6006": "[Theater] 5"
+    "6006": "[Theater] 5&6"
   },
 
   "endless_map": "Ranking",
@@ -138,6 +138,7 @@
   "team_count": "Count",
   "team_other": "Other",
   "team_drops": "Rare Drops",
+  "team_suspected_spawns": "Suspected Spawns",
 
   "target_id": "Target Team ID",
   "target_name": "Name",
