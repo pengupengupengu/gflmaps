@@ -57,6 +57,9 @@ var INSTRUCTIONS = "";
 //     Those two numbers are the ammo count (out of 5) and MRE count (out of 10).
 const controllableAllyTeamRegex = /2([01])([01])(0|1:(\d+),(\d+))/;
 
+let missionIdToSuspectedSpawns = {};
+let theaterAreaToLevelAdjustments = {};
+
 // CHANGES FROM GFWIKI: For most data, if the asset text file does not contain a name or the name is blank,
 //     then just use the table ID (i.e. "[mission-10000125]" for 13-1). This is so that names don't appear blank
 //     when using dataSource=CN and langCode=EN.
@@ -147,6 +150,58 @@ function trans() {
   }
 }
 
+// Create a map of mission IDs to enemy teams that are not initial spawns, but
+// are next to teams that are initial spawns for those mission IDs. The idea
+// behind this is that enemy teams for a particular mission are usually listed
+// next to each other.
+const calculateSuspectedSpawns = () => {
+  missionIdToSuspectedSpawns = {};
+  
+  let enemyTeamIdToMissionId = {};
+  Spot.forEach((spot) => {
+    let enemyTeamId = spot.enemy_team_id;
+    if (spot.ally_team_id) {
+      const allyTeam = Ally_team.find((allyTeam) => allyTeam.id === spot.ally_team_id);
+      if (!allyTeam) {
+        return;
+      }
+      enemyTeamId = allyTeam.enemy_team_id;
+    }
+    if (enemyTeamId && !(enemyTeamId in enemyTeamIdToMissionId)) {
+      enemyTeamIdToMissionId[enemyTeamId] = spot.mission_id;
+    }
+  });
+  
+  let lastMissionId = null;
+  Enemy_team.forEach((enemyTeam) => {
+    if (enemyTeam.id in enemyTeamIdToMissionId) {
+      lastMissionId = enemyTeamIdToMissionId[enemyTeam.id];
+    } else if (lastMissionId) {
+      if (!(lastMissionId in missionIdToSuspectedSpawns)) {
+        missionIdToSuspectedSpawns[lastMissionId] = [];
+      }
+      missionIdToSuspectedSpawns[lastMissionId].push(enemyTeam.id);
+    }
+  });
+};
+
+const calculateTheaterLevelAdjustments = () => {
+  theaterAreaToLevelAdjustments = {};
+  
+  Theater_area.forEach((area) => {
+    const levelsMatch = area.enemy_lv.match(/^(-?\d+),.*,(-?\d+)$/);
+    const teamMatch = area.enemy_group.matchAll(/(?:^|,)(\d+)-/g);
+    if (levelsMatch) {
+      theaterAreaToLevelAdjustments[area.id] = {
+        min: Number(levelsMatch[1]),
+        max: Number(levelsMatch[2]),
+        enemyTeamIds: [...teamMatch].map((match) => Number(match[1])),
+      };
+    }
+  });
+  console.log(theaterAreaToLevelAdjustments);
+};
+
 firstcreat();
 
 const loadData = async () => {
@@ -219,6 +274,9 @@ const loadData = async () => {
     return await accumulatorPromise;
   }, Promise.resolve({}));
   console.log(data);
+  
+  calculateSuspectedSpawns();
+  calculateTheaterLevelAdjustments();
 
   trans();
   $("#loadtips").hide();
@@ -912,7 +970,7 @@ function buildingdisplay(){
         thisline += ((buildsigndes) ? buildsigndes : UI_TEXT["building_notes_other"]) + "<\/td><\/tr>";
 
         if (Building[buildnum].code && Building[buildnum].code !== "Hiding" && !Building[buildnum].name.match(/兔子/)) {
-          console.log(Building[buildnum].code, Building[buildnum].name);
+          //console.log(Building[buildnum].code, Building[buildnum].name);
           spotinfo[i].sbuild = Building[buildnum].name;
           spotinfo[i].buildingCode = Building[buildnum].code;
           loadChibi(Building[buildnum].code, drawmap);
@@ -1032,6 +1090,150 @@ function teleportdisplay(){
     });
 }
 
+const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAllyTeamInfo) => {
+  let rareDrops = [];
+  var teamLeaderEnemyId;
+  var efect = 0;
+  const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
+  /*-- 效能欺诈 --*/
+  if (matchingEnemyTeam.effect_ext != 0) {
+    efect = matchingEnemyTeam.effect_ext;
+  }
+  teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
+  rareDrops = [
+    ...matchingEnemyTeam.limit_guns
+      .split(",")
+      .filter((id) => !!id && id !== "0")
+      .map((id) => getGunName(id, /*excludeIdFromCnName=*/true)),
+    ...matchingEnemyTeam.limit_equips
+      .split(",")
+      .filter((id) => !!id && id !== "0")
+      .map((id) => getEquipName(id, /*excludeIdFromCnName=*/true)),
+  ];
+  // Mica didn't put Agent Vector and Agent 416's equips on the drop tables.
+  if (matchingEnemyTeam.id == 6431007) {
+    rareDrops.push(getEquipName(199, /*excludeIdFromCnName=*/true));
+  } else if (matchingEnemyTeam.id == 6431008) {
+    rareDrops.push(getEquipName(202, /*excludeIdFromCnName=*/true));
+  }
+
+  let teamID = "";
+  let teamLeader = "";
+  let teamAI = "";
+  let teamAIDisplay = "";
+  let teamAlignment = "";
+  let teamCE = "";
+  let teamComposition = "";
+  let chibiCode = null;
+
+  if (spotAllyTeam && spotAllyTeam.initial_type == 1) {
+    teamID = `ally_team-${spotAllyTeam.id}`;
+
+    if (spotAllyTeam.guns) {
+      const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
+      if (allyGuns.length) {
+        const teamLeaderDoll = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1);
+        teamLeader = teamLeaderDoll.name;
+        chibiCode = teamLeaderDoll.code;
+        teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
+      }
+    } else if (spotAllyTeam.sangvis) {
+      const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
+      if (allySangvis.length) {
+        teamLeader = allySangvis[0].name;
+        chibiCode = allySangvis[0].code;
+
+        let compositionMap = {};
+        allySangvis.forEach(unit => {compositionMap[unit.name] = (compositionMap[unit.name] || 0) + 1;});
+        teamComposition = Object.entries(compositionMap).map(([name, count]) => `${name} x${count}`).join(", ");
+      }
+    }
+
+    if (controllableAllyTeamInfo) {
+      teamAI = UI_TEXT["team_ai_controllable"];
+    } else {
+      const AITypeMatch = String(spotAllyTeam["ai"]).match(/^\d+;([0-3]);/);
+      if (AITypeMatch) {
+        const teamAIType = Number(AITypeMatch[1]);
+        const matchingTeamAI = Team_ai.find((teamAI) => teamAI.force_id === 4 && teamAI.ai_type === teamAIType);
+        if (matchingTeamAI) {
+          teamAI = matchingTeamAI.name;
+        }
+      }
+      if (!teamAI) {
+        teamAI = "?";
+      }
+    }
+    teamAIDisplay = teamAI;
+    teamAlignment = UI_TEXT["team_alignment_ally"];
+    // TODO calculate allied team CE? It's not very useful, though.
+  } else {
+    /*-- enemyai 敌方行动逻辑 --*/
+    let enemy_ai;
+    let enemy_ai_num = matchingEnemyTeam["ai"];
+    let enemy_ai_con = matchingEnemyTeam["ai_content"];
+    if(enemy_ai_num == 0) {
+      for (j in Mission) {
+        if (Mission[j].id == $("#missionselect").val()) {
+          enemy_ai_num = Mission[j].enemy_ai_type;
+          break;
+        }
+      }
+    }
+    for (j in Team_ai) {
+      if(enemy_ai_num == Team_ai[j].ai_type) {
+        enemy_ai = Team_ai[j].name; break;
+      }
+    }
+    
+    teamID = enemy_team_id;
+
+    const teamLeaderEnemyCharacterType = Enemy_charater_type.find(e => e.id == teamLeaderEnemyId);
+    if (teamLeaderEnemyCharacterType) {
+      teamLeader = teamLeaderEnemyCharacterType.name;
+      chibiCode = teamLeaderEnemyCharacterType.code;
+    } else {
+      teamLeader = `[${teamLeaderEnemyId}]`;
+    }
+
+    teamAI = enemy_ai;
+    teamAIDisplay = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
+    teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
+    teamCE = efect == 0 ? efectcal(enemy_team_id) : efect;
+    teamComposition = enemyoutcal(enemy_team_id);
+  }
+  
+  if (chibiCode) {
+    loadChibi(chibiCode, drawmap);
+  }
+
+  const teamLocation = spot ? Number(spot["id"]) : "?";
+
+  /*-- 利用数组存储效能数据以优化计算 --*/
+  spotinfo.push({
+    sename: teamLeader,
+    sefect:((efect == 0) ? efectcal(enemy_team_id) : efect),
+    seai: teamAI,
+    sbuild: 0,
+    spotAllyTeam,
+    controllableAllyTeamInfo,
+    chibiCode,
+  });
+  eteamspot.push(enemy_team_id);
+
+  return`<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
+    <td width="100px">${teamID}<\/td>
+    <td width="160px">${teamLeader}<\/td>
+    <td width="100px">${teamAlignment}<\/td>
+    <td width="114px">${teamAIDisplay}<\/td>
+    <td width="100px">${teamCE}<\/td>
+    <td width="290px">${teamComposition}<\/td>
+    <td width="200px">${rareDrops.join(", ")}<\/td>
+    <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
+    <td class="cellb" width="120px" style="display:none;">team_num<\/td>
+  <\/tr>`;
+};
+
 function missiondisplay(){
     /*-- 全局变量清零 --*/
     xmove = 0; ymove = 0;
@@ -1059,163 +1261,57 @@ function missiondisplay(){
 
     /*-- 路径点的敌人站位 --*/
     for(var i = 0; i < dspot.length; i++){
-        var enemy_team_id;
-        let spotAllyTeam = null;
-        let controllableAllyTeamInfo = null;
-        /*-- 如果是ally，要多套一层寻找enemyid --*/
-        if (Number(dspot[i]["enemy_team_id"])) {
-          enemy_team_id = Number(dspot[i]["enemy_team_id"]);
-        } else if(Number(dspot[i]["ally_team_id"])) {
-          const spotAllyTeamId = Number(dspot[i]["ally_team_id"]);
-          spotAllyTeam = Ally_team.find(t => t.id == spotAllyTeamId);
-          const controllableAllyTeamRegexMatch = spotAllyTeam ? spotAllyTeam.ai.match(controllableAllyTeamRegex) : null;
+      let enemyTeamId;
+      let spotAllyTeam = null;
+      let controllableAllyTeamInfo = null;
+      /*-- 如果是ally，要多套一层寻找enemyid --*/
+      if (Number(dspot[i]["enemy_team_id"])) {
+        enemyTeamId = Number(dspot[i]["enemy_team_id"]);
+      } else if (Number(dspot[i]["ally_team_id"])) {
+        const spotAllyTeamId = Number(dspot[i]["ally_team_id"]);
+        spotAllyTeam = Ally_team.find(t => t.id == spotAllyTeamId);
+        const controllableAllyTeamRegexMatch = spotAllyTeam && spotAllyTeam.initial_type === 1
+          ? spotAllyTeam.ai.match(controllableAllyTeamRegex)
+          : null;
 
-          if (controllableAllyTeamRegexMatch) {
-            enemy_team_id = spotAllyTeam.enemy_team_id;
-            controllableAllyTeamInfo = {
-              canWithdraw: controllableAllyTeamRegexMatch[1] == "1",
-              canQuickFix: controllableAllyTeamRegexMatch[2] == "1",
-              canSupply: controllableAllyTeamRegexMatch[3] != "0",
-              initialAmmo: Number(controllableAllyTeamRegexMatch[4]),
-              initialMre: Number(controllableAllyTeamRegexMatch[5]),
-            };
-          } else if (spotAllyTeam && spotAllyTeam.enemy_team_id) {
-            enemy_team_id = spotAllyTeam.enemy_team_id;
-          } else {
-            spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
-            continue;
-          }
-        } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
-          const [dollId, hp] = dspot[i]["hostage_info"].split(",");
-          const dollName = getGunName(dollId) || `[${dollId}]`;
-          const dollCode = (Gun.find((doll) => doll.id == dollId) || {}).code;
-          if (dollCode) {
-            loadChibi(dollCode, drawmap);
-          }
-          spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}, chibiCode: dollCode});
-          continue;
+        if (controllableAllyTeamRegexMatch) {
+          enemyTeamId = spotAllyTeam.enemy_team_id;
+          controllableAllyTeamInfo = {
+            canWithdraw: controllableAllyTeamRegexMatch[1] == "1",
+            canQuickFix: controllableAllyTeamRegexMatch[2] == "1",
+            canSupply: controllableAllyTeamRegexMatch[3] != "0",
+            initialAmmo: Number(controllableAllyTeamRegexMatch[4]),
+            initialMre: Number(controllableAllyTeamRegexMatch[5]),
+          };
+        } else if (spotAllyTeam && spotAllyTeam.enemy_team_id) {
+          enemyTeamId = spotAllyTeam.enemy_team_id;
         } else {
           spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
           continue;
         }
-
-        let rareDrops = [];
-        var teamLeaderEnemyId;
-        var enemy_ai_num;
-        var enemy_ai_con;
-        var efect = 0;
-        const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
-        /*-- 效能欺诈 --*/
-        if (matchingEnemyTeam.effect_ext != 0) {
-          efect = matchingEnemyTeam.effect_ext;
+      } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
+        const [dollId, hp] = dspot[i]["hostage_info"].split(",");
+        const dollName = getGunName(dollId) || `[${dollId}]`;
+        const dollCode = (Gun.find((doll) => doll.id == dollId) || {}).code;
+        if (dollCode) {
+          loadChibi(dollCode, drawmap);
         }
-        teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
-        enemy_ai_num = matchingEnemyTeam["ai"];
-        enemy_ai_con = matchingEnemyTeam["ai_content"];
-        rareDrops = [
-          ...matchingEnemyTeam.limit_guns
-            .split(",")
-            .filter((id) => !!id && id !== "0")
-            .map((id) => getGunName(id, /*excludeIdFromCnName=*/true)),
-          ...matchingEnemyTeam.limit_equips
-            .split(",")
-            .filter((id) => !!id && id !== "0")
-            .map((id) => getEquipName(id, /*excludeIdFromCnName=*/true)),
-        ];
-        // Mica didn't put Agent Vector and Agent 416's equips on the drop tables.
-        if (matchingEnemyTeam.id == 6431007) {
-          rareDrops.push(getEquipName(199, /*excludeIdFromCnName=*/true));
-        } else if (matchingEnemyTeam.id == 6431008) {
-          rareDrops.push(getEquipName(202, /*excludeIdFromCnName=*/true));
-        }
+        spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}, chibiCode: dollCode});
+        continue;
+      } else {
+        spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
+        continue;
+      }
 
-        /*-- enemyai 敌方行动逻辑 --*/
-        var enemy_ai;
-        if(enemy_ai_num == 0) for(j in Mission) if(Mission[j].id == $("#missionselect").val()) {enemy_ai_num = Mission[j].enemy_ai_type; break;}
-        for(j in Team_ai) if(enemy_ai_num == Team_ai[j].ai_type) {enemy_ai = Team_ai[j].name; break;}
-
-        let teamID = "";
-        let teamLeader = "";
-        let teamAI = "";
-        let teamAlignment = "";
-        let teamCE = "";
-        let teamComposition = "";
-        let chibiCode = null;
-
-        if (enemy_team_id == 1 && spotAllyTeam) {
-          teamID = `ally_team-${spotAllyTeam.id}`;
-
-          if (spotAllyTeam.guns) {
-            const allyGuns = getAllyGuns(spotAllyTeam.guns.split(",").filter(gunInAllyId => !!gunInAllyId));
-            if (allyGuns.length) {
-              const teamLeaderDoll = allyGuns.find(allyGuns => allyGuns.gunInAllyRow["location"] == 1);
-              teamLeader = teamLeaderDoll.name;
-              chibiCode = teamLeaderDoll.code;
-              teamComposition = allyGuns.map(allyGuns => allyGuns.name).join(", ");
-            }
-          } else if (spotAllyTeam.sangvis) {
-            const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
-            if (allySangvis.length) {
-              teamLeader = allySangvis[0].name;
-              chibiCode = allySangvis[0].code;
-
-              let compositionMap = {};
-              allySangvis.forEach(unit => {compositionMap[unit.name] = (compositionMap[unit.name] || 0) + 1;});
-              teamComposition = Object.entries(compositionMap).map(([name, count]) => `${name} x${count}`).join(", ");
-            }
-          }
-
-          teamAI = controllableAllyTeamInfo ? UI_TEXT["team_ai_controllable"] : enemy_ai;
-          teamAlignment = UI_TEXT["team_alignment_ally"];
-          // TODO calculate controllable allied team CE? It's not very useful, though.
-        } else {
-          teamID = enemy_team_id;
-
-          const teamLeaderEnemyCharacterType = Enemy_charater_type.find(e => e.id == teamLeaderEnemyId);
-          if (teamLeaderEnemyCharacterType) {
-            teamLeader = teamLeaderEnemyCharacterType.name;
-            chibiCode = teamLeaderEnemyCharacterType.code;
-          } else {
-            teamLeader = `[${teamLeaderEnemyId}]`;
-          }
-
-          teamAI = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
-          teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
-          teamCE = efect == 0 ? efectcal(enemy_team_id) : efect;
-          teamComposition = enemyoutcal(enemy_team_id);
-        }
-        
-        if (chibiCode) {
-          loadChibi(chibiCode, drawmap);
-        }
-
-        const teamLocation = Number(dspot[i]["id"]);
-
-        /*-- 利用数组存储效能数据以优化计算 --*/
-        spotinfo.push({
-          sename: teamLeader,
-          sefect:((efect == 0) ? efectcal(enemy_team_id) : efect),
-          seai: enemy_ai,
-          sbuild: 0,
-          spotAllyTeam,
-          controllableAllyTeamInfo,
-          chibiCode,
-        });
-        eteamspot.push(enemy_team_id);
-
-        var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
-          <td width="100px">${teamID}<\/td>
-          <td width="160px">${teamLeader}<\/td>
-          <td width="100px">${teamAlignment}<\/td>
-          <td width="114px">${teamAI}<\/td>
-          <td width="100px">${teamCE}<\/td>
-          <td width="290px">${teamComposition}<\/td>
-          <td width="200px">${rareDrops.join(", ")}<\/td>
-          <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
-          <td class="cellb" width="120px" style="display:none;">team_num<\/td>
-        <\/tr>`;
-
-        output += thisline;
+      output += generateEnemyTeamRow(dspot[i], enemyTeamId, spotAllyTeam, controllableAllyTeamInfo);
+    }
+    
+    const missionId = Number($("#missionselect").val());
+    if (missionId in missionIdToSuspectedSpawns) {
+      output += `<tr><td colspan="8" style="width: 1245px;" class="mission-spawn-separator">${UI_TEXT["team_suspected_spawns"]}</td></tr>`
+        + missionIdToSuspectedSpawns[missionId]
+          .map((enemyTeamId) => generateEnemyTeamRow(null, enemyTeamId, null, null))
+          .join('');
     }
 
     $("#missionshow").html(output);
@@ -1467,7 +1563,8 @@ function drawmap(func){
             } else if (spotinfo[i].controllableAllyTeamInfo) {
               enemyTitle = `[${UI_TEXT["map_controllable_ally"]}] ${spotinfo[i].spotAllyTeam.controllableAlliedTeamName}`;
             } else if (spotinfo[i].spotAllyTeam) {
-              enemyTitle = `[${spotinfo[i].spotAllyTeam.name}] ${spotinfo[i].sename}`;
+              const alignment = spotinfo[i].spotAllyTeam.initial_type === 1 ? UI_TEXT["team_alignment_ally"] : spotinfo[i].spotAllyTeam.name;
+              enemyTitle = `[${alignment}] ${spotinfo[i].sename}`;
             } else {
               enemyTitle = spotinfo[i].sename;
             }
@@ -1651,6 +1748,43 @@ function traindisplay(){
     });
 }
 
+function efectcal(enemy_team_id, levelOffset){
+    var efect = 0;
+    for(j in Enemy_in_team){
+        if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) continue;
+        var enemy_character_type_id = Number(Enemy_in_team[j].enemy_character_type_id);
+        var level = Number(Enemy_in_team[j].level) + (levelOffset || 0);
+
+        var charatype;
+        for(var k = 0; k < Enemy_charater_type.length; k++){
+            if(Enemy_charater_type[k]["id"] != enemy_character_type_id) continue;
+            charatype = Enemy_charater_type[k]; break;}
+
+        var attr_number = Number(Enemy_in_team[j].number);
+        var attr_pow = enemyattribute(charatype , "pow" , level);
+        var attr_def_break = enemyattribute(charatype , "def_break" , level);
+        var attr_rate = enemyattribute(charatype , "rate" , level);
+        var attr_hit = enemyattribute(charatype , "hit" , level);
+        var attr_maxlife = enemyattribute(charatype , "maxlife" , level);
+        var attr_dodge = enemyattribute(charatype , "dodge" , level);
+        var attr_armor = enemyattribute(charatype , "armor" , level);
+        var attr_def = enemyattribute(charatype , "def" , level);
+        var attr_def_percent = Number(Enemy_in_team[j].def_percent);
+        /*-- 攻击：ceiling：22*扩编数*((pow + def_break*0.85) * rate/50 * hit/(hit+35) +2) --*/
+        var efect_att = ceiling(22*attr_number*((attr_pow + attr_def_break*0.85) * attr_rate/50 * attr_hit/(attr_hit+35) +2));
+        /*-- 防御：ceiling：0.25*(maxlife * (35+dodge)/35 * 300/(300-armor) + 100) * (def_max*2-def+1200*2)/(def_max-def+1200) /2 --*/
+        var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * 300/(300-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
+        efect += ceiling(Number(charatype.effect_ratio) * (efect_att + efect_def));
+    }
+    return efect;
+}
+
+const theaterCeCalc = (enemyTeamId, offsets) => {
+  const min = efectcal(enemyTeamId, offsets.min);
+  const max = efectcal(enemyTeamId, offsets.max);
+  return min !== max ? min + "-" + max : min;
+};
+
 function theaterdisplay(){
     /*-- 清空地图 --*/
     $("#missiondrawing")[0].getContext("2d").clearRect(0, 0, mapwidth, mapheight);
@@ -1674,6 +1808,7 @@ function theaterdisplay(){
     /*-- 路径点的敌人站位 --*/
     for(i in Theater_area){
         if(Theater_area[i].id != $("#missionselect").val()) continue;
+        const theaterLevelAdjustments = theaterAreaToLevelAdjustments[Theater_area[i].id];
         var enemystr = Theater_area[i].enemy_group + ",";
 
         while(enemystr){
@@ -1689,7 +1824,7 @@ function theaterdisplay(){
             var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
             thisline += enemy_team_id + `<\/td><td width="160px">`;
             thisline += leader_name + `<\/td><td width="100px">`;
-            thisline += efectcal(enemy_team_id) + `<\/td><td width="490px">`;
+            thisline += theaterCeCalc(enemy_team_id, theaterLevelAdjustments) + `<\/td><td width="490px">`;
             thisline += enemyoutcal(enemy_team_id) + `<\/td><td width="60px">`;
             thisline += ((enemy_num[0] == 0) ? UI_TEXT["theater_team_environment_day"] : UI_TEXT["theater_team_environment_night"]) + `<\/td><td width="100px">`;
             thisline += enemy_odd + `<\/td><td width="180px">`;
@@ -1714,37 +1849,6 @@ function theaterdisplay(){
         $(this).css({"background-color":"#f4c430cc", "color":"black"});
         enemydisplay($(this).children("td").eq(0).html());
     });
-}
-
-function efectcal(enemy_team_id){
-    var efect = 0;
-    for(j in Enemy_in_team){
-        if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) continue;
-        var enemy_character_type_id = Number(Enemy_in_team[j].enemy_character_type_id);
-        var level = Number(Enemy_in_team[j].level);
-
-        var charatype;
-        for(var k = 0; k < Enemy_charater_type.length; k++){
-            if(Enemy_charater_type[k]["id"] != enemy_character_type_id) continue;
-            charatype = Enemy_charater_type[k]; break;}
-
-        var attr_number = Number(Enemy_in_team[j].number);
-        var attr_pow = enemyattribute(charatype , "pow" , level);
-        var attr_def_break = enemyattribute(charatype , "def_break" , level);
-        var attr_rate = enemyattribute(charatype , "rate" , level);
-        var attr_hit = enemyattribute(charatype , "hit" , level);
-        var attr_maxlife = enemyattribute(charatype , "maxlife" , level);
-        var attr_dodge = enemyattribute(charatype , "dodge" , level);
-        var attr_armor = enemyattribute(charatype , "armor" , level);
-        var attr_def = enemyattribute(charatype , "def" , level);
-        var attr_def_percent = Number(Enemy_in_team[j].def_percent);
-        /*-- 攻击：ceiling：22*扩编数*((pow + def_break*0.85) * rate/50 * hit/(hit+35) +2) --*/
-        var efect_att = ceiling(22*attr_number*((attr_pow + attr_def_break*0.85) * attr_rate/50 * attr_hit/(attr_hit+35) +2));
-        /*-- 防御：ceiling：0.25*(maxlife * (35+dodge)/35 * 300/(300-armor) + 100) * (def_max*2-def+1200*2)/(def_max-def+1200) /2 --*/
-        var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * 300/(300-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
-        efect += ceiling(Number(charatype.effect_ratio) * (efect_att + efect_def));
-    }
-    return efect;
 }
 
 function enemyoutcal(enemy_team_id){
@@ -1799,6 +1903,39 @@ const numpadPositionToDisplayCoordinates = {
   3: {x: 3.1, y: -0.09},
   6: {x: 3.1, y: 4.11},
   9: {x: 3.1, y: 8.31},
+};
+
+function enemyattribute(charatype , attr , level){
+    var normalattr = Number(charatype[attr]);
+    var normallevel = Number(charatype["level"]);
+    if(!Enemy_standard_attribute[0][attr]) return bround(normalattr);
+    else if(attr == "def" && normalattr == 99999) return 0;
+
+    var thislevelfactor;
+    for(var i = 0; i < Enemy_standard_attribute.length; i++){
+        if(Enemy_standard_attribute[i]["level"] != level) continue;
+        thislevelfactor = Number(Enemy_standard_attribute[i][attr]);
+        break;
+    }
+
+    var normallevelfactor;
+    for(var i = 0; i < Enemy_standard_attribute.length; i++){
+        if(Number(Enemy_standard_attribute[i]["level"]) != normallevel) continue;
+        normallevelfactor = Number(Enemy_standard_attribute[i][attr]);
+        break;
+    }
+
+    return (attr == "maxlife") ? normalattr*thislevelfactor/normallevelfactor : bround(normalattr*thislevelfactor/normallevelfactor);
+}
+
+const getTheaterEnemyAttributeRange = (charatype, attr, level, offsets) => {
+  let min = enemyattribute(charatype, attr, level + offsets.min);
+  let max = enemyattribute(charatype, attr, level + offsets.max);
+  if (attr == "maxlife") {
+    min = bround(min);
+    max = bround(max);
+  }
+  return min !== max ? min + "-" + max : min;
 };
 
 function enemydisplay(enemy_team_id){
@@ -1936,7 +2073,27 @@ function enemydisplay(enemy_team_id){
         });
       }
     } else {
-      output = `<table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+      output = '';
+      
+      let theaterLevelAdjustments = null;
+      const missionId = Number($("#missionselect").val());
+      if (Number($("#campaignselect").val()) >= 6000
+           && missionId in theaterAreaToLevelAdjustments
+           && theaterAreaToLevelAdjustments[missionId].enemyTeamIds.indexOf(Number(enemy_team_id)) !== -1) {
+        theaterLevelAdjustments = theaterAreaToLevelAdjustments[Number($("#missionselect").val())];
+        const theaterAreaName = $("#campaignselect").find("option:selected").text()
+          + " - " + $("#missionselect").find("option:selected").text();
+        
+        output = `
+          <div class="note">
+            Theater mobs gain levels and stats proportionally to the wave count, so the same mob is
+            generally stronger at wave 10 than it would be at wave 1. The stats below reflect the
+            min (${theaterLevelAdjustments.min}) and max (${theaterLevelAdjustments.max}) level
+            adjustments of the currently selected theater area "${theaterAreaName}".
+          </div>`;
+      }
+      
+      output += `<table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
           <th style="width:160px;">${UI_TEXT["enemy_name"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_links"]}<\/th>
@@ -1969,23 +2126,58 @@ function enemydisplay(enemy_team_id){
               if(Number(Enemy_charater_type[j]["id"]) != enemy_character_type_id) continue;
               charatype = Enemy_charater_type[j];
           }
+          
+          let displayedValues = {};
+          if (theaterLevelAdjustments) {
+            displayedValues = {
+              level: (level % 1000 + theaterLevelAdjustments.min) + "-" + (level % 1000 + theaterLevelAdjustments.max),
+              hp: getTheaterEnemyAttributeRange(charatype, "maxlife", level, theaterLevelAdjustments),
+              pow: getTheaterEnemyAttributeRange(charatype, "pow", level, theaterLevelAdjustments),
+              rate: getTheaterEnemyAttributeRange(charatype, "rate", level, theaterLevelAdjustments),
+              hit: getTheaterEnemyAttributeRange(charatype, "hit", level, theaterLevelAdjustments),
+              dodge: getTheaterEnemyAttributeRange(charatype, "dodge", level, theaterLevelAdjustments),
+              range: getTheaterEnemyAttributeRange(charatype, "range", level, theaterLevelAdjustments),
+              speed: getTheaterEnemyAttributeRange(charatype, "speed", level, theaterLevelAdjustments),
+              armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, theaterLevelAdjustments),
+              armor: getTheaterEnemyAttributeRange(charatype, "armor", level, theaterLevelAdjustments),
+              shield: getTheaterEnemyAttributeRange(charatype, "shield", level, theaterLevelAdjustments),
+              def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, theaterLevelAdjustments),
+              def: getTheaterEnemyAttributeRange(charatype, "def", level, theaterLevelAdjustments),
+            };
+          } else {
+            displayedValues = {
+              level: level % 1000,
+              hp: bround(enemyattribute(charatype , "maxlife" , level)),
+              pow: enemyattribute(charatype , "pow" , level),
+              rate: enemyattribute(charatype , "rate" , level),
+              hit: enemyattribute(charatype , "hit" , level),
+              dodge: enemyattribute(charatype , "dodge" , level),
+              range: enemyattribute(charatype , "range" , level),
+              speed: enemyattribute(charatype , "speed" , level),
+              armor_piercing: enemyattribute(charatype , "armor_piercing" , level),
+              armor: enemyattribute(charatype , "armor" , level),
+              shield: enemyattribute(charatype , "shield" , level),
+              def_break: enemyattribute(charatype , "def_break" , level),
+              def: enemyattribute(charatype , "def" , level),
+            };
+          }
 
           var thisline = `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;"><td class="enemycell" index="1" width="160px">`;
           thisline += charatype["name"] + `<\/td><td class="enemycell" index="2" width="59px">`;
           thisline += Number(Enemy_in_team[i].number) + `<\/td><td class="enemycell" index="3" width="59px">`;
-          thisline += level % 1000 + `<\/td><td class="enemycell" index="4" width="59px">`;
-          thisline += bround(enemyattribute(charatype , "maxlife" , level)) + `<\/td><td class="enemycell" index="5" width="59px">`;
-          thisline += enemyattribute(charatype , "pow" , level) + `<\/td><td class="enemycell" index="6" width="59px">`;
-          thisline += enemyattribute(charatype , "rate" , level) + `<\/td><td class="enemycell" index="7" width="59px">`;
-          thisline += enemyattribute(charatype , "hit" , level) + `<\/td><td class="enemycell" index="8" width="59px">`;
-          thisline += enemyattribute(charatype , "dodge" , level) + `<\/td><td class="enemycell" index="9" width="59px">`;
-          thisline += enemyattribute(charatype , "range" , level) + `<\/td><td class="enemycell" index="10" width="59px">`;
-          thisline += enemyattribute(charatype , "speed" , level) + `<\/td><td class="enemycell" index="11" width="59px">`;
-          thisline += enemyattribute(charatype , "armor_piercing" , level) + `<\/td><td class="enemycell" index="12" width="59px">`;
-          thisline += enemyattribute(charatype , "armor" , level) + `<\/td><td class="enemycell" index="13" width="59px">`;
-          thisline += enemyattribute(charatype , "shield" , level) + `<\/td><td class="enemycell" index="14" width="59px">`;
-          thisline += enemyattribute(charatype , "def_break" , level) + `<\/td><td class="enemycell" index="15" width="79px">`;
-          thisline += enemyattribute(charatype , "def" , level) + `<\/td><td class="enemycell" index="16" width="79px">`;
+          thisline += displayedValues.level + `<\/td><td class="enemycell" index="4" width="59px">`;
+          thisline += displayedValues.hp + `<\/td><td class="enemycell" index="5" width="59px">`;
+          thisline += displayedValues.pow + `<\/td><td class="enemycell" index="6" width="59px">`;
+          thisline += displayedValues.rate + `<\/td><td class="enemycell" index="7" width="59px">`;
+          thisline += displayedValues.hit + `<\/td><td class="enemycell" index="8" width="59px">`;
+          thisline += displayedValues.dodge + `<\/td><td class="enemycell" index="9" width="59px">`;
+          thisline += displayedValues.range + `<\/td><td class="enemycell" index="10" width="59px">`;
+          thisline += displayedValues.speed + `<\/td><td class="enemycell" index="11" width="59px">`;
+          thisline += displayedValues.armor_piercing + `<\/td><td class="enemycell" index="12" width="59px">`;
+          thisline += displayedValues.armor + `<\/td><td class="enemycell" index="13" width="59px">`;
+          thisline += displayedValues.shield + `<\/td><td class="enemycell" index="14" width="59px">`;
+          thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="15" width="79px">`;
+          thisline += displayedValues.def + `<\/td><td class="enemycell" index="16" width="79px">`;
           thisline += Number(Enemy_in_team[i].def_percent) + `%<\/td><td class="enemycell" index="17" width="100px">`;
           thisline += "(" + Enemy_in_team[i].coordinator_x + "," + Enemy_in_team[i].coordinator_y + `)<\/td><\/tr>`;
 
@@ -2016,29 +2208,6 @@ function enemydisplay(enemy_team_id){
             $(trs[i]).children("td")[Number($(this).attr("index")) - 1].style.backgroundColor = "#f4c43033";
         }
     });
-}
-
-function enemyattribute(charatype , attr , level){
-    var normalattr = Number(charatype[attr]);
-    var normallevel = Number(charatype["level"]);
-    if(!Enemy_standard_attribute[0][attr]) return bround(normalattr);
-    else if(attr == "def" && normalattr == 99999) return 0;
-
-    var thislevelfactor;
-    for(var i = 0; i < Enemy_standard_attribute.length; i++){
-        if(Enemy_standard_attribute[i]["level"] != level) continue;
-        thislevelfactor = Number(Enemy_standard_attribute[i][attr]);
-        break;
-    }
-
-    var normallevelfactor;
-    for(var i = 0; i < Enemy_standard_attribute.length; i++){
-        if(Number(Enemy_standard_attribute[i]["level"]) != normallevel) continue;
-        normallevelfactor = Number(Enemy_standard_attribute[i][attr]);
-        break;
-    }
-
-    return (attr == "maxlife") ? normalattr*thislevelfactor/normallevelfactor : bround(normalattr*thislevelfactor/normallevelfactor);
 }
 
 function dcoordinator(type, color, x, y, z){
@@ -2293,7 +2462,7 @@ function mapsetcreat(){
             /*-- 对新画布进行绘画 --*/
             drawmap(2);
             $(this).children("a").attr("href", document.getElementById("downloaddrawing").toDataURL("image/png"));
-            var campaignname = $("#campaignselect").find("option:selected").text()
+            var campaignname = $("#campaignselect").find("option:selected").text();
             var missionname = $("#missionselect").find("option:selected").text();
             var othername = ($("#layerselect").parent().css("display") != "none") ? (" " + $("#layerselect").find("option:selected").text()) : "";
             $(this).children("a").attr("download",campaignname + " " + missionname + othername + ".png");
