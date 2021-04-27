@@ -1379,15 +1379,15 @@ mission-10010414,Critical Angle EX-II
 mission-20010414,
 mission-30010414,
 mission-40010414,
-mission-10010415,Challenge III
+mission-10010415,Foam Stabilization EX
 mission-20010415,
 mission-30010415,
 mission-40010415,
-mission-10010416,Challenge IV
+mission-10010416,Observable Limits//nEX
 mission-20010416,
 mission-30010416,
 mission-40010416,
-mission-10010417,Challenge V - Rabbit Hole No.2
+mission-10010417,Escape Acceleration//nEX-I
 mission-20010417,
 mission-30010417,
 mission-40010417,
