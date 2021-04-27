@@ -2086,9 +2086,10 @@ function enemydisplay(enemy_team_id){
         
         output = `
           <div class="note">
-            Theater mobs gain levels and stats proportionally to the level count. The stats below reflect the
-            min (${theaterLevelAdjustments.min}) and max (${theaterLevelAdjustments.max}) level adjustments
-            of the currently selected theater area "${theaterAreaName}".
+            Theater mobs gain levels and stats proportionally to the wave count, so the same mob is
+            generally stronger at wave 10 than it would be at wave 1. The stats below reflect the
+            min (${theaterLevelAdjustments.min}) and max (${theaterLevelAdjustments.max}) level
+            adjustments of the currently selected theater area "${theaterAreaName}".
           </div>`;
       }
       
