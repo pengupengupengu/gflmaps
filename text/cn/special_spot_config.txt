@@ -2206,3 +2206,11 @@ special_spot_config-16449975,【标记】按钮次数累计
 special_spot_config-26449975,
 special_spot_config-16449976,[avg]-44-L-C-3-3_B1
 special_spot_config-26449976,
+special_spot_config-10363001,【标记】歌莉娅可拾取
+special_spot_config-20363001,
+special_spot_config-10363002,【标记】EMP可拾取
+special_spot_config-20363002,
+special_spot_config-10363011,【标记】歌莉娅刷新
+special_spot_config-20363011,
+special_spot_config-10363012,【标记】EMP刷新
+special_spot_config-20363012,
