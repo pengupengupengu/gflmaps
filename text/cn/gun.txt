@@ -1606,6 +1606,22 @@ gun-10020199,80式
 gun-40020199,兔爷//c田澤利依子//c
 gun-50020199,Type                       General-purpose machine gun//nWeight                     12.6 kg (27.78 lb)//nLength                     1//c192 mm (46.9 in)//nBarrel length              658 mm (25.9 in)//nCartridge                  7.62×54mmR//nAction                     Gas-operated//c open bolt//nRate of fire            700–800 round/min//nMuzzle velocity            840 m/s (2//c776 ft/s)//nEffective firing range     1//c640 yd (100—1//c500 m sight adjustments)//nFeed system                Belts in 100/200/250 round boxes//nSights                     Open sights. Optical/Night vision scope can be outfitted
 gun-60020199,
+gun-10020008,马卡洛夫
+gun-40020008,豆芽//c上坂すみれ//c
+gun-50020008,Type                       Semi-automatic pistol//n//nWeight                     730 g (26 oz)//n//nLength                     161.5 mm (6.36 in)//n//nBarrel length              93.5 mm (3.68 in)//n//nWidth                      29.4 mm (1.16 in)//n//nCartridge                  9×18mm Makarov//n//nAction                     Blowback//n//nMuzzle velocity            315 m/s (1//c030 ft/s)//n//nEffective firing range     50 m (55 yd)//n//nFeed system                8-round detachable box magazine //n//n                           (10- and 12-round available on //n//n                           the latest Russian models)//n//nSights                     Blade front//c notch rear (drift adjustable)
+gun-60020008,
+gun-10020125,MG4
+gun-40020125,neco//c佳村はるか//c
+gun-50020125,Type                       Light machine gun//n//nWeight                     8.55 kg (18.85 lb)   //n//nLength                     1//c050 mm (41.3 in) stock extended//n//n                           830 mm (32.7 in) stock folded  //n//nBarrel length              480 mm (18.9 in) //n//nCartridge                  5.56×45mm NATO//n//nAction                     Gas-operated//c rotating bolt//n//nRate of fire               890 ± 60/min //n//nMuzzle velocity            920 m/s (3//c018 ft/s)//n//nEffective firing range     Approx. 1//c000 m//n//nFeed system                Disintegrating link belt//n//nSights                     Iron sights; MIL-STD-1913 rail provided for optics//c German Army models are equipped with telescopic sights with 3x magnification.
+gun-60020125,
+gun-10020159,RMB-93
+gun-40020159,Bison仓鼠//c苅谷瑠衣//c
+gun-50020159,Type                       Shotgun//nWeight                     2.5 kg//nLength                     Stock extended: 920 mm//n                           Stock folded: 671 mm//nCartridge                  12-gauge//nAction                     Double action only pump-action//nRate of fire               12 rpm//nMuzzle velocity            340 meters per second//nFeed system                Feed system 6-7 round overbarrel tubular magazine
+gun-60020159,
+gun-10020200,XM3
+gun-40020200,时辰//c稲本千尋//c
+gun-50020200,Type                     Battle rifle//nCaliber   .308 Winchester / 7.62MM//nBarrel   18.5 "Hart 416R stainless steel barrel//nRifling   1:10 inch twist pitch//c right / 6//nFor ammunition  built in 5 magazine//nMuzzle velocity  2530 FPS //nMaximum effective range 1000 yards//nFull length  40.50 "/46.25" (with a muffler)//nOptical sighting Nightforce NXS 3.5-15x50 Illuminated Mildot with a weight of 2 pounds 3 ounces (including mirror rings)//nNight sight sighting AN/PVS-22 Universal Night Sight (UNS)//nCombat weight  16 pounds (day) /18 pounds (night)
+gun-60020200,
 gun-10030156,Super-Shorty
 gun-40030156,废人//c七瀬亜深//c
 gun-50030156,Type                       Shotgun//nWeight                     1.8 kg (4 lb)//nLength                     419 mm (16.5 in)//nBarrel length              165 mm (6.5 in)//nCartridge                  12 (3") and 20 (3") Gauge//nAction                     pump action//nFeed system                2-shot magazine tube//nSights                     None
