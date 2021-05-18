@@ -1262,7 +1262,7 @@ gun-10000313,
 gun-40000313,陆银//c白石晴香//c
 gun-50000313,Type                        Assault rifle//nMass                       3.2kg(unloaded)//nLength                     780mm(30.7 in)//nBarrel length              540mm(21.3 in)//nCartridge                  5.56 x 45mm annular-primed SCF(synthetic case flechette)//nAction                     Gas-operated//c vertically sliding chamber//nRate of fire               Semi automatic 3-round burst at 1200rpm cyclic rounds per minute//nMuzzle velocity            1450 m/s (4//c757 ft/s)//nFeed system                24-round detachable box magazine//nSights                      Optical
 gun-60000313,
-gun-10000314,
+gun-10000314,StG-940
 gun-40000314,咸兵//c//c
 gun-50000314,Type                       Assault rifle//nMass                       3.6 kg (7.9 lb)//nLength                     920 mm (36.2 in)//nBarrel length              415 mm (16.3 in)//nCartridge                  5.56×45mm NATO//nAction                     Gas-operated//nRate of fire               600 rounds/min//nFeed system                30-round box magazine//nSights                     Iron sights
 gun-60000314,
