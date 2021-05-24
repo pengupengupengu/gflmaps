@@ -71,7 +71,7 @@ function trans() {
       Building[i].name = namestr;
     } else {
       const fallback_match = Building_cn_txt.match(`${Building[i].name},(.*)`);
-      Building[i].name = fallback_match ? `[${Building[i].name}] ${fallback_match[1]}` : `[${Building[i].name}]`;
+      Building[i].name = fallback_match ? `[${Building[i].code}] ${fallback_match[1]}` : `[${Building[i].code}]`;
     }
   }
 
@@ -974,6 +974,8 @@ function buildingdisplay(){
           spotinfo[i].sbuild = Building[buildnum].name;
           spotinfo[i].buildingCode = Building[buildnum].code;
           loadChibi(Building[buildnum].code, drawmap);
+        } else {
+          spotinfo[i].sbuild = `[building]`;
         }
         output += thisline;
     }
@@ -1540,6 +1542,7 @@ function drawmap(func){
 
     for(i in dspot){
         /*-- 建筑名称的展示 --*/
+        con.fillStyle = "#eaeaea";
         if((Number(dspot[i]["building_id"])) && (setmessage.smapbuild == 1) && spotinfo[i].sbuild) {
             con.lineWidth= String(coorchange(3, 12));
             con.font = String(coorchange(3, 50)) + `px bold ${fontList}`;
