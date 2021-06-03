@@ -358,7 +358,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -25:
     case -26:
     case -27:
-    case -28: return 3024;
+    case -28:
+    case -45: return 3024;
     // -29 is DD+
     // -30 is Rabbit Hunt rerun
     // Isomer
@@ -388,6 +389,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -43: return 4043;
     // MS
     case -44: return 3044;
+    // -45 is CT+
   }
 }
 
@@ -1567,7 +1569,7 @@ function drawmap(func){
               enemyTitle = `[${UI_TEXT["map_controllable_ally"]}] ${spotinfo[i].spotAllyTeam.controllableAlliedTeamName}`;
             } else if (spotinfo[i].spotAllyTeam) {
               const alignment = spotinfo[i].spotAllyTeam.initial_type === 1 ? UI_TEXT["team_alignment_ally"] : spotinfo[i].spotAllyTeam.name;
-              enemyTitle = `[${alignment}] ${spotinfo[i].sename}`;
+              enemyTitle = `${spotinfo[i].sename}`;
             } else {
               enemyTitle = spotinfo[i].sename;
             }
