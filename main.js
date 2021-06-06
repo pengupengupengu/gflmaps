@@ -507,12 +507,14 @@ function getMissionOptionsForCampaign(campaign) {
   return missionOptions;
 }
 
+// The better way to implement this would be to just make a dict from Gun_txt and gun.json.
 const getGunName = (gun_id, excludeIdFromCnName) => {
-  const nativeLanguageMatch = Gun_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
+  const gunNameRegex = `(gun-1(?:0*)${gun_id.padStart(5, '0')},)(.*)`;
+  const nativeLanguageMatch = Gun_txt.match(gunNameRegex);
   if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
   } else {
-    const cnMatch = Gun_cn_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
+    const cnMatch = Gun_cn_txt.match(gunNameRegex);
     if (excludeIdFromCnName && cnMatch && cnMatch[2]) {
       return cnMatch[2];
     }
@@ -521,11 +523,12 @@ const getGunName = (gun_id, excludeIdFromCnName) => {
 };
 
 const getEquipName = (equip_id, excludeIdFromCnName) => {
-  const nativeLanguageMatch = Equip_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
+  const equipNameRegex = `(equip-1(?:0*)${equip_id.padStart(5, '0')},)(.*)`;
+  const nativeLanguageMatch = Equip_txt.match(equipNameRegex);
   if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
   } else {
-    const cnMatch = Equip_cn_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
+    const cnMatch = Equip_cn_txt.match(equipNameRegex);
     if (excludeIdFromCnName && cnMatch && cnMatch[2]) {
       return cnMatch[2];
     }
