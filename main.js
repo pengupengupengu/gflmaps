@@ -509,7 +509,7 @@ function getMissionOptionsForCampaign(campaign) {
 
 // The better way to implement this would be to just make a dict from Gun_txt and gun.json.
 const getGunName = (gun_id, excludeIdFromCnName) => {
-  const gunNameRegex = `(gun-1(?:0*)${gun_id.padStart(5, '0')},)(.*)`;
+  const gunNameRegex = `(gun-1(?:0*)${String(gun_id).padStart(5, '0')},)(.*)`;
   const nativeLanguageMatch = Gun_txt.match(gunNameRegex);
   if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
@@ -523,7 +523,7 @@ const getGunName = (gun_id, excludeIdFromCnName) => {
 };
 
 const getEquipName = (equip_id, excludeIdFromCnName) => {
-  const equipNameRegex = `(equip-1(?:0*)${equip_id.padStart(5, '0')},)(.*)`;
+  const equipNameRegex = `(equip-1(?:0*)${String(equip_id).padStart(5, '0')},)(.*)`;
   const nativeLanguageMatch = Equip_txt.match(equipNameRegex);
   if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
