@@ -358,7 +358,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -25:
     case -26:
     case -27:
-    case -28: return 3024;
+    case -28:
+    case -45: return 3024;
     // -29 is DD+
     // -30 is Rabbit Hunt rerun
     // Isomer
@@ -388,6 +389,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -43: return 4043;
     // MS
     case -44: return 3044;
+    // -45 is CT+
   }
 }
 
@@ -505,12 +507,14 @@ function getMissionOptionsForCampaign(campaign) {
   return missionOptions;
 }
 
+// The better way to implement this would be to just make a dict from Gun_txt and gun.json.
 const getGunName = (gun_id, excludeIdFromCnName) => {
-  const nativeLanguageMatch = Gun_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
+  const gunNameRegex = `(gun-1(?:0*)${String(gun_id).padStart(5, '0')},)(.*)`;
+  const nativeLanguageMatch = Gun_txt.match(gunNameRegex);
   if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
   } else {
-    const cnMatch = Gun_cn_txt.match(`(gun-1[0-9]*${gun_id},)(.*)`);
+    const cnMatch = Gun_cn_txt.match(gunNameRegex);
     if (excludeIdFromCnName && cnMatch && cnMatch[2]) {
       return cnMatch[2];
     }
@@ -519,11 +523,12 @@ const getGunName = (gun_id, excludeIdFromCnName) => {
 };
 
 const getEquipName = (equip_id, excludeIdFromCnName) => {
-  const nativeLanguageMatch = Equip_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
+  const equipNameRegex = `(equip-1(?:0*)${String(equip_id).padStart(5, '0')},)(.*)`;
+  const nativeLanguageMatch = Equip_txt.match(equipNameRegex);
   if (nativeLanguageMatch && nativeLanguageMatch[2]) {
     return nativeLanguageMatch[2];
   } else {
-    const cnMatch = Equip_cn_txt.match(`(equip-1[0-9]*${equip_id},)(.*)`);
+    const cnMatch = Equip_cn_txt.match(equipNameRegex);
     if (excludeIdFromCnName && cnMatch && cnMatch[2]) {
       return cnMatch[2];
     }
@@ -1567,7 +1572,7 @@ function drawmap(func){
               enemyTitle = `[${UI_TEXT["map_controllable_ally"]}] ${spotinfo[i].spotAllyTeam.controllableAlliedTeamName}`;
             } else if (spotinfo[i].spotAllyTeam) {
               const alignment = spotinfo[i].spotAllyTeam.initial_type === 1 ? UI_TEXT["team_alignment_ally"] : spotinfo[i].spotAllyTeam.name;
-              enemyTitle = `[${alignment}] ${spotinfo[i].sename}`;
+              enemyTitle = `${spotinfo[i].sename}`;
             } else {
               enemyTitle = spotinfo[i].sename;
             }
