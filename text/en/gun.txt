@@ -1250,7 +1250,7 @@ gun-10000310,
 gun-40000310,呜拉祖啦//c//c
 gun-50000310,Type                       Semi-automatic pistol//nMass                       715g(25 oz)//nLength                     180 mm(7.1 in)//nBarrel length              98 mm(3.8 in)//nCartridge                  9mm Luger//nAction                     Double Action revolver//nFeed system             15-round box magazine//n//n//n
 gun-60000310,
-gun-10000311,
+gun-10000311,Lusa
 gun-40000311,MTO馒//c//c
 gun-50000311,Type                       Submachine gun//nMass                        2.8kg(6.17 lb)//nLength                     584mm(23.0 in) stock extended / 451mm(17.8 in) stock folded//nBarrel length               159mm(6.3 in)//nCartridge                  9 x 19mm Parabellum//nAction                     Blowback//c closed bolt//c hammer fired//nRate of fire               900 rounds/min//nFeed system                10//c18//c30-round//c double-stack double-feed box magazine//nSights                     Iron sights
 gun-60000311,
@@ -1286,8 +1286,8 @@ gun-10000319,
 gun-40000319,
 gun-50000319,Type                    Medium machine gun//nMass                       23.8 kg//nLength                     1067 mm (42 in)//nBarrel length              721 mm (28.4 in)//nCartridge                  7.62×54mmR//nAction         Short recoil//c toggle locked//nRate of fire               300 rounds/min//nMuzzle velocity        740 m/s (2427 ft/s)//nFeed system                250-round belt
 gun-60000319,
-gun-10000320,
-gun-40000320,
+gun-10000320,GM6 Lynx
+gun-40000320,Yurika-R//c//c
 gun-50000320,Type                       Sniper rifle//nMass                       11.5 kg (25.4 lb)//nLength                     1126 mm (44.3 in)/928mm (36.5 in) stock folded//nCartridge                  .50 BMG//nMuzzle velocity            870 m/s (2854 ft/s)//nEffective firing range     1500m//nMaximum firing range       2000m//nFeed system                5-round detachable box magazine
 gun-60000320,
 gun-10001017,Jill Stingray
