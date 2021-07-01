@@ -1511,7 +1511,7 @@ function drawmap(func){
         if(setmessage.smaptype == 1){
             if(Number(dspot[i].special_eft))spottype = 22;
             else if(Number(dspot[i].random_get))spottype = 23;
-            else if(dspot[i].active_cycle)spottype = 21;
+            else if(dspot[i].active_cycle)spottype = (dspot[i].type == 7 ? 24 : 21);
             else spottype = Number(dspot[i]["type"]);
             if(dspot[i].active_cycle){
                 con.lineWidth= String(coorchange(3, 3));
@@ -2306,6 +2306,24 @@ function spotTypeDraw(type, xcen, ycen, func){
             con.lineTo(xcen + coorchange(3,   50), ycen );
             con.lineTo(xcen - coorchange(3,   10), ycen );
             con.lineTo(xcen - coorchange(3,   10), ycen + coorchange(3,   50));
+            con.moveTo(xcen + coorchange(3,   20), ycen );
+            con.lineTo(xcen + coorchange(3,   20), ycen - coorchange(3,   50));
+            con.moveTo(xcen - coorchange(3,   10), ycen - coorchange(3,   50));
+            con.lineTo(xcen + coorchange(3,   50), ycen - coorchange(3,   50));
+            con.moveTo(xcen + coorchange(3, 70.7), ycen - coorchange(3, 70.7));
+            con.lineTo(xcen - coorchange(3, 70.7), ycen + coorchange(3, 70.7));
+            con.stroke();
+        }break;
+
+        /* time limited heavy heli */
+        case 24: {
+            con.beginPath();
+            con.moveTo(xcen - coorchange(3,   50), ycen );
+            con.lineTo(xcen - coorchange(3,   50), ycen + coorchange(3,   50));
+            con.lineTo(xcen + coorchange(3,   50), ycen + coorchange(3,   50));
+            con.lineTo(xcen + coorchange(3,   50), ycen );
+            con.lineTo(xcen - coorchange(3,   50), ycen );
+            con.lineTo(xcen - coorchange(3,   50), ycen + coorchange(3,   50));
             con.moveTo(xcen + coorchange(3,   20), ycen );
             con.lineTo(xcen + coorchange(3,   20), ycen - coorchange(3,   50));
             con.moveTo(xcen - coorchange(3,   10), ycen - coorchange(3,   50));
