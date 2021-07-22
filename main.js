@@ -390,6 +390,10 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // MS
     case -44: return 3044;
     // -45 is CT+
+    // Jashin-chan
+    case -46: return 4046;
+    // Summer mini-event 2
+    case -47: return 5047;
   }
 }
 
