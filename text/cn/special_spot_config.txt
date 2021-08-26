@@ -2786,7 +2786,7 @@ special_spot_config-10482504,【标记】防御门
 special_spot_config-20482504,
 special_spot_config-10482508,【标记】传送节点
 special_spot_config-20482508,
-special_spot_config-10482509,[avg]-46-2-WS-1
+special_spot_config-10482509,【标记】战斗结束
 special_spot_config-20482509,
 special_spot_config-10482513,[avg]-48-EXT-6-4
 special_spot_config-20482513,

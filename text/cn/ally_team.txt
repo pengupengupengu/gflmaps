@@ -1227,7 +1227,7 @@ ally_team-16480201,玛赫莲
 ally_team-16480202,玛赫莲
 ally_team-16480203,玛赫莲
 ally_team-16480204,默莉朵
-ally_team-16480205,丹德莱
+ally_team-16480205,M4A1
 ally_team-16480206,AR小队
 ally_team-16480207,J小组
 ally_team-16480208,心智壁垒
@@ -1238,7 +1238,7 @@ ally_team-16480253,玛赫莲
 ally_team-16480254,玛赫莲
 ally_team-16480255,玛赫莲
 ally_team-16480256,默莉朵
-ally_team-16480257,丹德莱
+ally_team-16480257,M4A1
 ally_team-16480258,AR小队
 ally_team-16480301,编号3
 ally_team-16480302,编号15
