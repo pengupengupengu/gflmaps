@@ -3665,7 +3665,7 @@ building-16480016,控制台X
 building-26480016,【标记】略
 building-36480016,
 building-16480017,EMP
-building-26480017,【标记】略
+building-26480017,23
 building-36480017,
 building-16480018,控制台I
 building-26480018,【标记】略
@@ -3705,7 +3705,7 @@ building-26480029,【标记】略
 building-36480029,
 building-16480030,机场跑道
 building-26480030,飞行前请拆除安全销，否则请勿在此通过。
-building-36480030,本次战役中可采取的应对手段：//重装打击
+building-36480030,请使用塑胶炸弹破坏
 building-16480031,塑胶炸弹
 building-26480031,安装了定时雷管的塑胶炸弹，结构简单，却极其危险……它是不是在响？
 building-36480031,

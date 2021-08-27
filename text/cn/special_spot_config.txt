@@ -2510,6 +2510,10 @@ special_spot_config-16480106,[avg]-48-D2-3-1-GD-3
 special_spot_config-26480106,
 special_spot_config-16480107,[avg]-48-D2-3-1-GD-4
 special_spot_config-26480107,
+special_spot_config-16480108,【标记】粘性炸药爆炸伤害
+special_spot_config-26480108,
+special_spot_config-16480109,【标记】粘性炸药爆炸伤害延迟
+special_spot_config-26480109,
 special_spot_config-10480001,【标记】禁飞检测
 special_spot_config-20480001,
 special_spot_config-10480002,【标记】禁飞生效
