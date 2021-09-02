@@ -910,7 +910,7 @@ gun-10000225,Cx4 风暴
 gun-40000225,废人//c花守ゆみり//c
 gun-50000225,Type                       Carbine//nWeight                     2.575 kg (5.68 lb) //nLength                     755 mm (29.7 in) //nBarrel length              422.5 mm (16.6 in)//nCartridge                  9×19mm Parabellum//n                           9×21mm IMI//n                           .40 S&W//n                           .45 ACP//nAction                     Blowback//nRate of fire               9×19mm NATO 1400 FPS//nMuzzle velocity            715 m/s (2//c350 ft/s)//nFeed system                8-//c 10-//c 11-//c 14-//c 15-//c 17-//c 20-//c or 30-round box magazine//nSights                     Rear: 2-position aperture flip sight; front: adjustable post//n                           327 mm (12.9 in) sight radius
 gun-60000225,
-gun-10000226,Mk 12
+gun-10000226,Mk 12
 gun-40000226,黑猫桃园//c市ノ瀬加那//c
 gun-50000226,Type                       Designated marksman rifle Semi-automatic rifle//nWeight                     10 lb (4.5 kg). (Fully loaded//c w/heavy barrel//c optic & 30 rounds)//nLength                     37.5 Inches//nBarrel length              18 Inches//nCartridge                  5.56×45mm NATO//nAction                     Gas-operated//c Rotating bolt//nRate of fire               Semi-automatic//nMuzzle velocity            2//c750 ± 20 ft/s (838.2 ± 6.1 m/s)//nEffective firing range     600 yards (550 m)//nFeed system                20- or 30-round STANAG magazine
 gun-60000226,
