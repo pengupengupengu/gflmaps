@@ -6,14 +6,14 @@ var config = {
   shouldLoadChibis: true,
 };
 
-let loadedChibis = {};
+let loadedImageAssets = {};
 
 // TODO add TC, KR, JP
 var fontList = "Noto Sans, Noto Sans SC, Arial";
 
 var data;
 
-var Enemy_team;
+var Enemy_team, Enemy_team_map;
 var Enemy_in_team;
 var Enemy_standard_attribute;
 var Spot;
@@ -26,7 +26,7 @@ var Gun;
 var Gun_in_ally;
 var Sangvis_in_ally;
 var equip_in_ally_info;
-var Building;
+var Building, BuildingMap;
 var Team_ai;
 var Mission_targettrain_enemy;
 
@@ -43,6 +43,53 @@ var Special_spot_config_txt;
 
 var UI_TEXT = {};
 var INSTRUCTIONS = "";
+
+const spotPaths = [
+  "random_belong0.png",
+  "random_belong1.png",
+  "random_belong2.png",
+  "random_belong3.png",
+  "spot1_belong1.png",
+  "spot1_belong0.png",
+  "spot1_belong2.png",
+  "spot1_belong3.png",
+  "spot2_belong0.png",
+  "spot2_belong1.png",
+  "spot2_belong2.png",
+  "spot2_belong3.png",
+  "spot3_belong0.png",
+  "spot3_belong0_closed.png",
+  "spot3_belong1.png",
+  "spot3_belong1_closed.png",
+  "spot3_belong2.png",
+  "spot3_belong2_closed.png",
+  "spot3_belong3.png",
+  "spot3_belong3_closed.png",
+  "spot4_belong0.png",
+  "spot4_belong1.png",
+  "spot4_belong2.png",
+  "spot4_belong3.png",
+  "spot5_belong0.png",
+  "spot5_belong1.png",
+  "spot5_belong2.png",
+  "spot5_belong3.png",
+  "spot6_belong0.png",
+  "spot6_belong1.png",
+  "spot6_belong2.png",
+  "spot6_belong3.png",
+  "spot7_belong0.png",
+  "spot7_belong0_closed.png",
+  "spot7_belong1.png",
+  "spot7_belong1_closed.png",
+  "spot7_belong2.png",
+  "spot7_belong2_closed.png",
+  "spot7_belong3.png",
+  "spot7_belong3_closed.png",
+  "spot8_belong0.png",
+  "spot8_belong1.png",
+  "spot8_belong2.png",
+  "spot8_belong3.png",
+];
 
 // As of DR/Division/MS (up to client 2.07), if an allied team is controllable,
 // then its "ai" field's second part looks like "2010" or "2001:4,8".
@@ -199,10 +246,34 @@ const calculateTheaterLevelAdjustments = () => {
       };
     }
   });
-  console.log(theaterAreaToLevelAdjustments);
+  //console.log(theaterAreaToLevelAdjustments);
 };
 
 firstcreat();
+
+const loadImageAsset = (path) => {
+  if (path in loadedImageAssets) {
+    return Promise.resolve(loadedImageAssets[path]);
+  }
+  
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      if (!(path in loadedImageAssets)) {
+        loadedImageAssets[path] = img;
+      }
+      resolve(loadedImageAssets[path]);
+    };
+    img.onerror = () => reject();
+    img.src = `./images/${path}`;
+  });
+};
+
+const getChibiPath = (code) => `map_chibis/${code}_wait0.gif`;
+const getChibi = (code) => loadedImageAssets[getChibiPath(code)];
+const loadChibi = (code, redrawFunc) => {
+  loadImageAsset(getChibiPath(code)).then(() => redrawFunc && redrawFunc());
+};
 
 const loadData = async () => {
   const loadTextFile = (url) => fetch(url).then((result) => result.text());
@@ -212,9 +283,15 @@ const loadData = async () => {
     "Spot": loadJsonFile(`./data/${config.dataSource}/Spot.json`).then((result) => Spot = result),
     "Enemy_in_team": loadJsonFile(`./data/${config.dataSource}/Enemy_in_team.json`).then((result) => Enemy_in_team = result),
     "Enemy_standard_attribute": loadJsonFile(`./data/${config.dataSource}/Enemy_standard_attribute.json`).then((result) => Enemy_standard_attribute = result),
-    "Enemy_team": loadJsonFile(`./data/${config.dataSource}/Enemy_team.json`).then((result) => Enemy_team = result),
+    "Enemy_team": loadJsonFile(`./data/${config.dataSource}/Enemy_team.json`).then((result) => {
+      Enemy_team = result;
+      Enemy_team_map = Object.fromEntries(result.map((enemyTeam) => [enemyTeam.id, enemyTeam]));
+    }),
     "Theater_area": loadJsonFile(`./data/${config.dataSource}/Theater_area.json`).then((result) => Theater_area = result),
-    "Building": loadJsonFile(`./data/${config.dataSource}/Building.json`).then((result) => Building = result),
+    "Building": loadJsonFile(`./data/${config.dataSource}/Building.json`).then((result) => {
+      Building = result;
+      BuildingMap = Object.fromEntries(result.map((building) => [building.id, building]));
+    }),
     "Mission": loadJsonFile(`./data/${config.dataSource}/Mission.json`).then((result) => Mission = result),
     "Enemy_character_type": loadJsonFile(`./data/${config.dataSource}/Enemy_character_type.json`).then((result) => Enemy_charater_type = result),
     "Ally_team": loadJsonFile(`./data/${config.dataSource}/Ally_team.json`).then((result) => Ally_team = result),
@@ -259,7 +336,10 @@ const loadData = async () => {
     "Mission_targettrain_enemy_txt": loadTextFile(`./text/${config.langCode}/mission_targettrain_enemy.txt`).then((result) => Mission_targettrain_enemy_txt = result),
     "Mission_targettrain_enemy_cn_txt": loadTextFile(`./text/cn/mission_targettrain_enemy.txt`).then((result) => Mission_targettrain_enemy_cn_txt = result),
     "Special_spot_config_txt": loadTextFile(`./text/${config.langCode}/special_spot_config.txt`).then((result) => Special_spot_config_txt = result),
+
     "INSTRUCTIONS": loadTextFile(`./text/${config.langCode}/instructions.html`).then((result) => INSTRUCTIONS = result),
+    
+    "spot_images": Promise.all(spotPaths.map((path) => loadImageAsset(`spot/${config.langCode}/${path}`))),
   };
 
   let loadProgress = 0;
@@ -273,7 +353,7 @@ const loadData = async () => {
     updateLoadProgress();
     return await accumulatorPromise;
   }, Promise.resolve({}));
-  console.log(data);
+  //console.log(data);
   
   calculateSuspectedSpawns();
   calculateTheaterLevelAdjustments();
@@ -284,7 +364,6 @@ const loadData = async () => {
 
   missioncreat();
   mapsetcreat();
-  examplecreate();
   spotsigncreat();
   enemyselectcreat();
 
@@ -305,14 +384,14 @@ var mspot = [];
 var lspot = [];
 var dspot = [];
 var spotinfo = [];
-var theaicontent = 0;
+var theaicontent = null;
 
 var eteamspot = [];
 
-/*-- 下载 sdownload  重置 sredraw  隐藏 smaphide  图例 sexample
-    敌人 smapenemy  建筑 smapbuild  类型 smaptype  颜色 smapcolor  标号 smapspotn  逻辑 smapenemyai
+/*-- 下载 sdownload  重置 sredraw  隐藏 smaphide
+    敌人 smapenemy  建筑 smapbuild  颜色 smapcolor  标号 smapspotn  逻辑 smapenemyai
     建筑表格 sbuildtable  传送表格 sporttable  点位标记 sspotsign  同组堆叠 senemypile  --*/
-var setmessage = {sdownload:0, sredraw:0, smaphide:0, sexample:0, smapenemy:1, smapbuild:1, smaptype:1, smapcolor:1, smapspotn:1, smapenemyai:1, sbuildtable:1, sporttable:1, sspotsign:0, senemypile:0};
+var setmessage = {sdownload:0, sredraw:0, smaphide:0, smapenemy:1, smapbuild:1, smapcolor:1, smapspotn:1, smapenemyai:1, sbuildtable:1, sporttable:1, sspotsign:0, senemypile:0};
 
 // This converts the game's campaign IDs (on Mission.json) to the campaign ID
 // on the campaign select (UI_TEXT["campaign"]).
@@ -394,6 +473,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -46: return 4046;
     // Summer mini-event 2
     case -47: return 5047;
+    // PR
+    case -48: return 3048;
   }
 }
 
@@ -581,22 +662,6 @@ const getAllySangvis = (sangvis) =>
       numpadPosition
     };
   });
-  
-const loadChibi = (code, redrawFunc) => {
-  if (code in loadedChibis) {
-    return;
-  }
-  const img = new Image();
-  img.onload = () => {
-    if (!(code in loadedChibis)) {
-      loadedChibis[code] = img;
-      if (redrawFunc) {
-        redrawFunc();
-      }
-    }
-  };
-  img.src = `./images/map_chibis/${code}_wait0.gif`;
-};
 
 function updatemap() {
   const params = new URLSearchParams(window.location.hash.slice(1));
@@ -1336,12 +1401,18 @@ function missiondisplay(){
         $(this).parent().children("tr").css({"background-color":"", "color":""});
         $(this).css({"background-color":"#f4c430cc", "color":"black"});
         enemydisplay($(this).children("td").eq(0).html());
-        if(setmessage.sspotsign == 1) $("#spotsign1").val(Number($($(this).children("td")[6]).html()));
-        if($($(this).children("td")[3]).html() == UI_TEXT["team_ai_patrol"]){
-            for(i in Enemy_team) if(Enemy_team[i].id == $($(this).children("td")[0]).html()) theaicontent = "巡逻" + Enemy_team[i].ai_content;
-        } else if($($(this).children("td")[3]).html().indexOf(UI_TEXT["team_ai_alert"]) != -1){
-            for(i in Enemy_team) if(Enemy_team[i].id == $($(this).children("td")[0]).html()) theaicontent = "警戒" + Enemy_team[i].ai_content;
-        } else theaicontent = 0;
+        const enemyTeam = Enemy_team_map[Number($($(this).children("td")[0]).html())];
+        const spotId = Number($($(this).children("td")[7]).html());
+        if(setmessage.sspotsign == 1) {
+          $("#spotsign1").val(spotId);
+        }
+        if ($($(this).children("td")[3]).html() == UI_TEXT["team_ai_patrol"]) {
+          theaicontent = {patrol: {spotId, aiContent: enemyTeam.ai_content}};
+        } else if ($($(this).children("td")[3]).html().indexOf(UI_TEXT["team_ai_alert"]) != -1) {
+          theaicontent = {alert: {spotId, aiContent: enemyTeam.ai_content}};
+        } else {
+          theaicontent = null;
+        }
         drawmap();
     });
 
@@ -1472,71 +1543,72 @@ function drawmap(func){
     con.lineCap = "butt";
 
     for(i in dspot){
-        /*-- 路径点的归属颜色 --*/
-        con.lineWidth= "1";
-        con.strokeStyle = "#111111";
-        var spotcolor = "#eaeaea";
-        /*-- 路径点的归属颜色:显示 --*/
-        if(setmessage.smapcolor == 1){
-            switch(Number(dspot[i].belong)){
-                case 1: spotcolor = "#03a9f4";break;
-                case 2: spotcolor = "#f44336";break;
-                case 3: spotcolor = "#f5f5f5";break;
-                case 0: spotcolor = "#ffc107";break;
-                default: break;
-            }
+      /*-- 特殊标点 12ff00 d800ff 00ffea ccff00 --*/
+      if (setmessage.sspotsign == 1)  {
+        let highlightSpotColor = null;
+        if ($("#spotsign1").val() && dspot[i].id == $("#spotsign1").val()) highlightSpotColor = "#12ff00";
+        else if ($("#spotsign2").val() && dspot[i].id == $("#spotsign2").val()) highlightSpotColor = "#d800ff";
+        else if ($("#spotsign3").val() && dspot[i].id == $("#spotsign3").val()) highlightSpotColor = "#00ffea";
+        else if ($("#spotsign4").val() && dspot[i].id == $("#spotsign4").val()) highlightSpotColor = "#ccff00";
+        if (highlightSpotColor){
+          con.fillStyle = highlightSpotColor;
+          con.beginPath();
+          con.arc(coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min), coorchange(3, 180), 0, 2*Math.PI);
+          con.fill();
         }
-        /*-- 特殊标点 12ff00 d800ff 00ffea ccff00 --*/
-        if(setmessage.sspotsign == 1){
-            if($("#spotsign1").val() && dspot[i].id == $("#spotsign1").val()) spotcolor = "#12ff00";
-            else if($("#spotsign2").val() && dspot[i].id == $("#spotsign2").val()) spotcolor = "#d800ff";
-            else if($("#spotsign3").val() && dspot[i].id == $("#spotsign3").val()) spotcolor = "#00ffea";
-            else if($("#spotsign4").val() && dspot[i].id == $("#spotsign4").val()) spotcolor = "#ccff00";
+      }
+      
+      let belong = dspot[i].belong;
+      if (belong > 3) {
+        belong = 3;
+      }
+      let spotFilename = null;
+      if (Number(dspot[i].special_eft)) {
+        spotFilename = `spot4_belong${belong}`;
+      } else if (Number(dspot[i].random_get)) {
+        spotFilename = `random_belong${belong}`;
+      } else {
+        spotFilename = `spot${dspot[i]["type"]}_belong${belong}`;
+        if (dspot[i].active_cycle) {
+          spotFilename += "_closed";
         }
-        con.fillStyle = spotcolor;
-        /*-- 特殊标点 的特殊显示 --*/
-        if(setmessage.sspotsign == 1 && (dspot[i].id == $("#spotsign1").val() || dspot[i].id == $("#spotsign2").val() || dspot[i].id == $("#spotsign3").val() || dspot[i].id == $("#spotsign4").val())){
-            con.beginPath();
-            con.rect(coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, 140), coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, 15), coorchange(3, 280), coorchange(3, 30));
-            con.fill();
-            con.stroke();
-            con.beginPath();
-            con.rect(coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, 15), coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, 140), coorchange(3, 30), coorchange(3, 280));
-            con.fill();
-            con.stroke();
+      }
+      if (spotFilename) {
+        const spot = loadedImageAssets[`spot/${config.langCode}/${spotFilename}.png`];
+        if (spot) {
+          //const rawspotWidth = 250;
+          const spotRatio = 1.1;
+          const spotX = coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, spotRatio * spot.width / 2);
+          const spotY = coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, spotRatio * spot.height / 2);
+          const spotWidth = coorchange(3, spotRatio * spot.width);
+          const spotHeight = coorchange(3, spotRatio * spot.height);
+          con.drawImage(spot, spotX, spotY, spotWidth, spotHeight);
+        } else {
+          console.error(`Could not load ${spotFilename}`);
         }
-        con.beginPath();
-        con.arc(coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min), coorchange(3, 100), 0, 2*Math.PI);
-        con.fill();
-        con.stroke();
-
-        /*-- 路径点的类型 --*/
-        var spottype = 2;
-        if(setmessage.smaptype == 1){
-            if(Number(dspot[i].special_eft))spottype = 22;
-            else if(Number(dspot[i].random_get))spottype = 23;
-            else if(dspot[i].active_cycle)spottype = (dspot[i].type == 7 ? 24 : 21);
-            else spottype = Number(dspot[i]["type"]);
-            if(dspot[i].active_cycle){
-                con.lineWidth= String(coorchange(3, 3));
-                con.fillStyle = "#111111";
-                con.strokeStyle = "#111111";
-                con.textAlign = "left";
-                con.font = String(coorchange(3, 30)) + `px bold ${fontList}`;
-                con.beginPath();
-                con.strokeText(dspot[i].active_cycle.replace(",", "/").replace("99/1", "-/-"), coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, 75), coorchange(2, Number(dspot[i].coordinator_y) , y_min) - coorchange(3, 30));
-                con.fillText(dspot[i].active_cycle.replace(",", "/").replace("99/1", "-/-"), coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, 75), coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, 30));
-                con.stroke();
-            }
+      }
+      
+      // Building chibis.
+      if (Number(dspot[i]["building_id"]) && setmessage.smapbuild == 1) {
+        const building = BuildingMap[Number(dspot[i]["building_id"])];
+        if (building && getChibi(building.code)) {
+          const chibi = getChibi(building.code);
+          //const rawChibiWidth = 250;
+          const chibiRatio = 1;
+          const chibiX = coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, chibiRatio * chibi.width / 2);
+          const chibiY = coorchange(2, Number(dspot[i].coordinator_y), y_min) - coorchange(3, chibiRatio * chibi.height / 2);
+          const chibiWidth = coorchange(3, chibiRatio * chibi.width);
+          const chibiHeight = coorchange(3, chibiRatio * chibi.height);
+          con.drawImage(chibi, chibiX, chibiY, chibiWidth, chibiHeight);
         }
-        spotTypeDraw(spottype, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min), func);
+      }
     }
     
     // Chibi display.
     for(i in dspot){
         if((Number(dspot[i]["enemy_team_id"]) || Number(dspot[i]["ally_team_id"]) || dspot[i]["hostage_info"]) && (setmessage.smapenemy == 1)){
-            if (spotinfo[i].chibiCode && (spotinfo[i].chibiCode in loadedChibis)) {
-              const chibi = loadedChibis[spotinfo[i].chibiCode];
+            if (spotinfo[i].chibiCode && getChibi(spotinfo[i].chibiCode)) {
+              const chibi = getChibi(spotinfo[i].chibiCode);
               //const rawChibiWidth = 250;
               const chibiRatio = 1;
               const chibiX = coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, chibiRatio * chibi.width / 2);
@@ -1620,11 +1692,29 @@ function drawmap(func){
             con.fillText(dspot[i].id, coorchange(1, Number(dspot[i].coordinator_x), x_min) + coorchange(3, 55), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 70));
             con.stroke();
         }
+        if (dspot[i].active_cycle) {
+          let closedHeliText = "";
+          const cycleMatch = dspot[i].active_cycle.match(/^(\d+),(\d+)$/);
+          if (cycleMatch) {
+            closedHeliText = cycleMatch[1] === '99'
+              ? `\u{26D4}∞`
+              : `\u{26D4}${cycleMatch[1]}/\u{2705}${cycleMatch[2]}`;
+          }
+          con.lineWidth = String(coorchange(3, 8));
+          con.fillStyle = "#eaeaea";
+          con.strokeStyle = "#111111";
+          con.textAlign = "left";
+          con.font = String(coorchange(3, 30)) + `px bold ${fontList}`;
+          con.beginPath();
+          con.strokeText(closedHeliText, coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, 125), coorchange(2, Number(dspot[i].coordinator_y) , y_min) + coorchange(3, 70));
+          con.fillText(closedHeliText, coorchange(1, Number(dspot[i].coordinator_x), x_min) - coorchange(3, 125), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 70));
+          con.stroke();
+        }
     }
 
     /*-- 巡逻路径 --*/
-    if(setmessage.sspotsign == 1 && setmessage.smapenemyai == 1 && theaicontent != 0 && theaicontent.indexOf("巡逻") != -1){
-        var content_copy = theaicontent.slice(2,theaicontent.length);
+    if(setmessage.sspotsign == 1 && setmessage.smapenemyai == 1 && theaicontent && theaicontent.patrol){
+        var content_copy = theaicontent.patrol.aiContent;
         for(var j = 1; content_copy; j++){
             var thisspotid;
             if(content_copy.indexOf(",") != -1){
@@ -1634,7 +1724,7 @@ function drawmap(func){
             else {
                 thisspotid = content_copy.slice(0, content_copy.length);
                 content_copy = "";
-                if((thisspotid == theaicontent.slice(2, theaicontent.indexOf(",")))) break;
+                if((thisspotid == theaicontent.patrol.aiContent.slice(0, theaicontent.patrol.aiContent.indexOf(",")))) break;
             }
 
             var thisspot;
@@ -1661,13 +1751,13 @@ function drawmap(func){
     }
 
     /*-- 警戒范围 --*/
-    if(setmessage.sspotsign == 1 && setmessage.smapenemyai == 1 && theaicontent != 0 && theaicontent.indexOf("警戒") != -1){
-        var spotid = $("#spotsign1").val();
+    if(setmessage.sspotsign == 1 && setmessage.smapenemyai == 1 && theaicontent && theaicontent.alert){
+        var spotid = theaicontent.alert.spotId;
         var rangearray = [];
         for(i in dspot) if(dspot[i].id == spotid){ rangearray.push({id:spotid, num:i, range:0}); break;}
 
         var rangenum = 1;
-        while(rangenum <= theaicontent.slice(2,theaicontent.length)){
+        while(rangenum <= theaicontent.alert.aiContent){
             for(i in dspot){
                 var esign = 0;
                 for(j in rangearray) if(dspot[i].id == rangearray[j].id){ esign = 1; break;}
@@ -2271,188 +2361,18 @@ function bround(a){
     else return Number(a.toFixed(0));
 }
 
-function spotTypeDraw(type, xcen, ycen, func){
-    var con = $("#exampledrawing")[0].getContext("2d");
-    if(func == 1) con = $("#exampledrawing")[0].getContext("2d");
-    else if(func == 2) con = $("#downloaddrawing")[0].getContext("2d");
-    else con = $("#missiondrawing")[0].getContext("2d");
-    con.lineWidth = String(coorchange(3, 20));
-    con.lineJoin="round";
-    con.strokeStyle = "#111111";
-    switch(type){
-        /* type 1 指挥部 */
-        case 1: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,  40), ycen + coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  40), ycen - coorchange(3,  10));
-            con.lineTo(xcen - coorchange(3,  50), ycen - coorchange(3,  10));
-            con.lineTo(xcen                     , ycen - coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  10));
-            con.lineTo(xcen + coorchange(3,  40), ycen - coorchange(3,  10));
-            con.lineTo(xcen + coorchange(3,  40), ycen + coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  40), ycen + coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  40), ycen - coorchange(3,  10));
-            con.moveTo(xcen - coorchange(3,  40), ycen - coorchange(3,  10));
-            con.lineTo(xcen + coorchange(3,  40), ycen - coorchange(3,  10));
-            con.stroke();
-        }break;
-
-        /* type 2 路径点 */
-        case 2: {
-        }break;
-
-        /* active_cycle 限时机场 */
-        case 21: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,   50), ycen );
-            con.lineTo(xcen - coorchange(3,   50), ycen + coorchange(3,   50));
-            con.lineTo(xcen + coorchange(3,   50), ycen + coorchange(3,   50));
-            con.lineTo(xcen + coorchange(3,   50), ycen );
-            con.lineTo(xcen - coorchange(3,   10), ycen );
-            con.lineTo(xcen - coorchange(3,   10), ycen + coorchange(3,   50));
-            con.moveTo(xcen + coorchange(3,   20), ycen );
-            con.lineTo(xcen + coorchange(3,   20), ycen - coorchange(3,   50));
-            con.moveTo(xcen - coorchange(3,   10), ycen - coorchange(3,   50));
-            con.lineTo(xcen + coorchange(3,   50), ycen - coorchange(3,   50));
-            con.moveTo(xcen + coorchange(3, 70.7), ycen - coorchange(3, 70.7));
-            con.lineTo(xcen - coorchange(3, 70.7), ycen + coorchange(3, 70.7));
-            con.stroke();
-        }break;
-
-        /* time limited heavy heli */
-        case 24: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,   50), ycen );
-            con.lineTo(xcen - coorchange(3,   50), ycen + coorchange(3,   50));
-            con.lineTo(xcen + coorchange(3,   50), ycen + coorchange(3,   50));
-            con.lineTo(xcen + coorchange(3,   50), ycen );
-            con.lineTo(xcen - coorchange(3,   50), ycen );
-            con.lineTo(xcen - coorchange(3,   50), ycen + coorchange(3,   50));
-            con.moveTo(xcen + coorchange(3,   20), ycen );
-            con.lineTo(xcen + coorchange(3,   20), ycen - coorchange(3,   50));
-            con.moveTo(xcen - coorchange(3,   10), ycen - coorchange(3,   50));
-            con.lineTo(xcen + coorchange(3,   50), ycen - coorchange(3,   50));
-            con.moveTo(xcen + coorchange(3, 70.7), ycen - coorchange(3, 70.7));
-            con.lineTo(xcen - coorchange(3, 70.7), ycen + coorchange(3, 70.7));
-            con.stroke();
-        }break;
-
-        /* special_eft 雷达 */
-        case 22: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,  50), ycen - coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  10));
-            con.lineTo(xcen + coorchange(3,  50), ycen + coorchange(3,  10));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  50), ycen - coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  10));
-            con.moveTo(xcen - coorchange(3,  50), ycen - coorchange(3,  20));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  20));
-            con.moveTo(xcen - coorchange(3,  20), ycen - coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  20), ycen + coorchange(3,  10));
-            con.moveTo(xcen + coorchange(3,  20), ycen - coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  20), ycen + coorchange(3,  10));
-            con.moveTo(xcen                     , ycen + coorchange(3,  50));
-            con.lineTo(xcen                     , ycen + coorchange(3,  10));
-            con.stroke();
-        }break;
-
-        /* random_get  随机点  */
-        case 23: {
-            con.beginPath();
-            con.arc(xcen, ycen, coorchange(3,  50), Math.PI, 2*Math.PI);
-            con.stroke();
-            con.beginPath();
-            con.moveTo(xcen                     , ycen + coorchange(3,  55));
-            con.lineTo(xcen                     , ycen + coorchange(3,  45));
-            con.moveTo(xcen                     , ycen + coorchange(3,  40));
-            con.lineTo(xcen                     , ycen );
-            con.lineTo(xcen + coorchange(3,  50), ycen );
-            con.lineTo(xcen                     , ycen );
-            con.stroke();
-        }break;
-
-        /* type 3 机场 */
-        case 3: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,  50), ycen );
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen + coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen );
-            con.lineTo(xcen - coorchange(3,  10), ycen );
-            con.lineTo(xcen - coorchange(3,  10), ycen + coorchange(3,  50));
-            con.moveTo(xcen + coorchange(3,  20), ycen );
-            con.lineTo(xcen + coorchange(3,  20), ycen - coorchange(3,  50));
-            con.moveTo(xcen - coorchange(3,  10), ycen - coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  50));
-            con.stroke();
-        }break;
-
-        /* type 5 补给点 */
-        case 5: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,  50), ycen - coorchange(3,  30));
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  30));
-            con.lineTo(xcen                     , ycen + coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen + coorchange(3,  30));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  30));
-            con.lineTo(xcen                     , ycen - coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  50), ycen - coorchange(3,  30));
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  30));
-            con.moveTo(xcen - coorchange(3,  50), ycen - coorchange(3,  30));
-            con.lineTo(xcen                     , ycen - coorchange(3,  10));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  30));
-            con.moveTo(xcen                     , ycen - coorchange(3,  10));
-            con.lineTo(xcen                     , ycen + coorchange(3,  50));
-            con.stroke();
-        }break;
-
-        /* type 6 集结点 */
-        case 6: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,  50), ycen + coorchange(3,  50));
-            con.lineTo(xcen - coorchange(3,  50), ycen - coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen + coorchange(3,  10));
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  10));
-            con.stroke();
-        }break;
-
-        /* type 7 重装机场 */
-        case 7: {
-            con.beginPath();
-            con.moveTo(xcen - coorchange(3,  50), ycen );
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen + coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen );
-            con.lineTo(xcen - coorchange(3,  50), ycen );
-            con.lineTo(xcen - coorchange(3,  50), ycen + coorchange(3,  50));
-            con.moveTo(xcen + coorchange(3,  20), ycen );
-            con.lineTo(xcen + coorchange(3,  20), ycen - coorchange(3,  50));
-            con.moveTo(xcen - coorchange(3,  10), ycen - coorchange(3,  50));
-            con.lineTo(xcen + coorchange(3,  50), ycen - coorchange(3,  50));
-            con.stroke();
-        }break;
-
-        default: break;
-    }
-}
-
 function mapsetcreat(){
-    /*下载 sdownload  重置 sredraw  隐藏 smaphide  图例 sexample
-    敌人 smapenemy  建筑 smapbuild  类型 smaptype  颜色 smapcolor  标号 smapspotn  逻辑 smapenemyai
+    /*下载 sdownload  重置 sredraw  隐藏 smaphide
+    敌人 smapenemy  建筑 smapbuild   标号 smapspotn  逻辑 smapenemyai
     建筑表格 sbuildtable  传送表格 sporttable  点位标记 sspotsign  同组堆叠 senemypile  --*/
     var mapsetoutput = `<div class="mapsetbtncontainer">
       <div class="mapsetbtn" id="sdownload" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px;"><a style="color:#eaeaea; text-decoration:auto;">${UI_TEXT["function_download_map"]}</a></div>
       <div class="mapsetbtn" id="sredraw" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT["function_reset_map"]}</div>
       <div class="mapsetbtn" id="smaphide" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT["function_hide_map"]}</div>
-      <div class="mapsetbtn" id="sexample" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT["function_map_legend"]}</div>
     </div>
     <div class="mapsetbtncontainer">
       <div class="mapsetbtn" id="smapenemy" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_enemies']}</div>
       <div class="mapsetbtn" id="smapbuild" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_buildings']}</div>
-      <div class="mapsetbtn" id="smaptype" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_nodetype']}</div>
-      <div class="mapsetbtn" id="smapcolor" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_nodecolor']}</div>
       <div class="mapsetbtn" id="smapspotn" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_location']}</div>
       <div class="mapsetbtn" id="smapenemyai" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_ai']}</div>
     </div>
@@ -2522,12 +2442,7 @@ function mapsetcreat(){
                     if(setmessage.sbuildtable == 1) $("#sbuildtable").click();
                     if(setmessage.sporttable == 1) $("#sporttable").click();
                     if(setmessage.sspotsign == 1) $("#sspotsign").click();
-                    if(setmessage.sexample == 1) $("#sexample").click();
                 }
-            } break;
-            case "sexample": {
-                if(setmessage.sexample == 0) $("#mapexample").slideUp("fast");
-                else $("#mapexample").slideDown("fast");
             } break;
             case "sbuildtable": {
                 if(setmessage.sbuildtable == 0) $("#buildingshow").slideUp("fast");
@@ -2580,106 +2495,6 @@ function enemypile(){
     }
 }
 
-/*-- 绘制地图的图例 --*/
-function examplecreate(){
-    var exampleoutput = `<canvas id="exampledrawing" width="1220px" height="120px" style="border:1px #ffffff99 solid;">Your browser does not support the HTML5 canvas tag.</canvas>`;
-    $("#mapexample").html(exampleoutput);
-    $("#mapexample").css({"display":"none"});
-    var con = $("#exampledrawing")[0].getContext("2d");
-
-    con.lineWidth = 4;
-    con.strokeStyle = "#111111";
-    con.fillStyle = "#03a9f4";
-    /*-- 地图图例的路径点 --*/
-    con.beginPath();
-    con.arc(50, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-    con.beginPath();
-    con.arc(150, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-    con.beginPath();
-    con.arc(250, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-    con.beginPath();
-    con.arc(350, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-    con.beginPath();
-    con.arc(450, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-    con.beginPath();
-    con.arc(550, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-    con.beginPath();
-    con.arc(650, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-    con.beginPath();
-    con.arc(750, 50, 40, 0, 2*Math.PI);
-    con.fill();
-    con.stroke();
-
-    /*-- 地图图例的文字 --*/
-    con.lineWidth = 4;
-    con.strokeStyle = "#eaeaea";
-    con.fillStyle = "#eaeaea";
-    con.font = `16px bold ${fontList}`;
-    con.textAlign="center";
-
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_hq"], 50, 110);
-    con.stroke();
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_limited_heli"], 150, 110);
-    con.stroke();
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_radar"], 250, 110);
-    con.stroke();
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_random"], 350, 110);
-    con.stroke();
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_heli"], 450, 110);
-    con.stroke();
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_supply_node"], 550, 110);
-    con.stroke();
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_supply_flag"],  650, 110);
-    con.stroke();
-    con.beginPath();
-    con.fillText(UI_TEXT["legend_heavy_heli"], 750, 110);
-    con.stroke();
-
-    /*-- 地图图例的路径点类型 --*/
-    var coparasave = coparameter;
-    coparameter = 2.5
-    spotTypeDraw(1, 50, 50, 1);
-    spotTypeDraw(21, 150, 50, 1);
-    spotTypeDraw(22, 250, 50, 1);
-    spotTypeDraw(23, 350, 50, 1);
-    spotTypeDraw(3, 450, 50, 1);
-    spotTypeDraw(5, 550, 50, 1);
-    spotTypeDraw(6, 650, 50, 1);
-    spotTypeDraw(7, 750, 50, 1);
-    coparameter = coparasave;
-
-    /*-- 限时机场参数 --*/
-    con.lineWidth = "1";
-    con.fillStyle = "#111111";
-    con.textAlign = "left";
-    con.font = `12px bold ${fontList}`;
-    con.beginPath();
-    con.strokeText("3/1", 150 - 30, 50 - 12);
-    con.fillText("3/1", 150 - 30, 50 - 12);
-    con.stroke();
-}
-
 function spotsigncreat(){
     /*-- 特殊标点 12ff00 d800ff 00ffea ccff00 --*/
     var output = `<div id="mapredraw" class="mapsignbtn" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT["map_highlight_redraw"]}</div>
@@ -2719,7 +2534,6 @@ function firstcreat(){
     var output = `<div id="loadtips" style="padding:20px; font-size:130%; display:block; border:1px solid #eaeaea; width:1180px; margin:20px 0px;">文件加载进度:0/12</div>
                 <div id="campaignchose"></div>
                 <div id="mapsetdiv"></div>
-                <div id="mapexample"></div>
                 <div id="missionmap" style="max-width:1220px; border:1px #ffffff99 solid;"></div>
                 <div id="missioninfo" style="width: 100%;"></div>
                 <div id="spotsign"></div>
