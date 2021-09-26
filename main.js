@@ -19,7 +19,7 @@ var Enemy_standard_attribute;
 var Spot;
 var Theater_area;
 
-var Mission;
+var Mission, Mission_map;
 var Enemy_charater_type;
 var Ally_team;
 var Gun;
@@ -292,7 +292,10 @@ const loadData = async () => {
       Building = result;
       BuildingMap = Object.fromEntries(result.map((building) => [building.id, building]));
     }),
-    "Mission": loadJsonFile(`./data/${config.dataSource}/Mission.json`).then((result) => Mission = result),
+    "Mission": loadJsonFile(`./data/${config.dataSource}/Mission.json`).then((result) => {
+      Mission = result;
+      Mission_map = Object.fromEntries(result.map((mission) => [mission.id, mission]));
+    }),
     "Enemy_character_type": loadJsonFile(`./data/${config.dataSource}/Enemy_character_type.json`).then((result) => Enemy_charater_type = result),
     "Ally_team": loadJsonFile(`./data/${config.dataSource}/Ally_team.json`).then((result) => Ally_team = result),
     "Gun": loadJsonFile(`./data/${config.dataSource}/Gun.json`).then((result) => Gun = result),
@@ -692,6 +695,14 @@ function updatemap() {
 
   const mission_info = Mission.find((m) => m.id == mission);
   if (mission_info) {
+    Object.keys(Object.fromEntries(mission_info.map_res_name.split(';').map((bgName) => [bgName])))
+      .forEach((bgName) => {
+        const bgPath = `bg/${bgName}.jpg`;
+        if (!loadedImageAssets[bgPath]) {
+          // loadImageAsset(bgPath).then(() => drawmap());
+        }
+      });
+    
     const [gkTeamLimit, totalTeamLimit] = mission_info.limit_team.indexOf(",") != -1 ? mission_info.limit_team.split(",") : [mission_info.limit_team, 0];
     let advantaged_doll_names = [];
     if (mission_info.adaptive_gun) {
@@ -1335,6 +1346,7 @@ function missiondisplay(){
         <th style="width:14px;"></th>
         </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
 
+    
     /*-- 路径点的敌人站位 --*/
     for(var i = 0; i < dspot.length; i++){
       let enemyTeamId;
@@ -1459,6 +1471,33 @@ function drawmap(func){
     var x_radio = (x_max - x_min + 200)/(mapwidth - mapwidth / 12);
     var y_radio = (y_max - y_min + 200)/(mapheight - mapheight / 12);
     coparameter = (x_radio > y_radio) ? x_radio : y_radio;
+
+    const mission = Mission_map[Number($("#missionselect").val())];
+    const layerIndex = (Number($("#layerselect").val()) || 1) - 1;
+    const layerBgName = mission.map_res_name.split(';')[layerIndex];
+    const layerBgInfo = mission.map_information.split(';')[layerIndex];
+    const layerBgPath = `bg/${layerBgName}.jpg`;
+    if (loadedImageAssets[layerBgPath] && layerBgInfo) {
+      const layerBgImage = loadedImageAssets[layerBgPath];
+      con.save();
+
+      con.fillStyle = mission.special_type > 0 ? "#3B639F" : "white";
+      con.fillRect(0, 0, mapwidth, mapheight);
+      con.globalCompositeOperation = "multiply";
+      const [_, resizedWidth, resizedHeight, cropWidth, cropHeight, offsetX, offsetY] =
+        layerBgInfo.match(/^(\d+),(\d+)[|](-?\d+),(-?\d+)[|](-?\d+),(-?\d+)$/);
+
+      const xRatio = layerBgImage.width / Number(resizedWidth);
+      const yRatio = layerBgImage.height / Number(resizedHeight);
+      const sX = xRatio * ((Number(resizedWidth) - Number(cropWidth)) / 2)
+      const sY = yRatio * ((Number(resizedHeight) - Number(cropHeight)) / 2)
+      con.drawImage(layerBgImage,
+        sX, sY,
+        xRatio * Number(cropWidth), yRatio * Number(cropHeight),
+        Math.floor(coorchange(1, cropWidth / -2, x_min)), Math.floor(coorchange(2, cropHeight / 2, y_min)),
+        coorchange(3, cropWidth), coorchange(3, cropHeight));
+      con.restore();
+    }
 
     /*--  路径点的绘制  --*/
     var singlespot = [];
