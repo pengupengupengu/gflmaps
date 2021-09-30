@@ -501,12 +501,19 @@ function getMissionOptionsForCampaign(campaign) {
 
   else if(campaign > 6000 && campaign < 7000){
       var area = [0, UI_TEXT["theater_basic"], UI_TEXT["theater_intermediate"], UI_TEXT["theater_advanced"], UI_TEXT["theater_core"]];
-      var place = [0, UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"]];
+      // TODO: place should probably be generated programmatically.
+      var place = [
+        null,
+        [0, UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"]],
+        [0, UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"]],
+        [0, UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"]],
+        [0, UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"], UI_TEXT["theater_nonboss"], UI_TEXT["theater_boss"]],
+      ];
       for(var i = 1; i < 5; i++){
           for(var j = 1; j < 9; j++){
               missionOptions.push({
                 value: (campaign - 6000)*100 + i*10 + j,
-                innerHTML: area[i] + " " + j + " " + place[j]
+                innerHTML: area[i] + " " + j + " " + place[i][j]
               });
           }
       }
