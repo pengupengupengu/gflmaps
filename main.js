@@ -1957,9 +1957,15 @@ function theaterdisplay(){
             var enemy_num = enemystr.slice(enemystr.indexOf("-") + 1, enemystr.indexOf(","));
             var enemy_odd = (enemy_num.indexOf("-", 3) == -1) ? ("0~" + enemy_num[2]) : (enemy_num[4] + "~" + (Number(enemy_num[2]) + Number(enemy_num[4])));
 
-            var enemy_leader;
+            var enemy_leader = null;
             var leader_name;
             for(j in Enemy_team) if(Enemy_team[j]["id"] == enemy_team_id){ enemy_leader = Enemy_team[j]["enemy_leader"]; break;}
+            if (!enemy_leader) {
+              let first_enemy = Enemy_in_team.find((row) => row.enemy_team_id === Number(enemy_team_id));
+              if (first_enemy) {
+                enemy_leader = first_enemy.enemy_character_type_id;
+              }
+            }
             for(j in Enemy_charater_type) if(Enemy_charater_type[j]["id"] == enemy_leader){ leader_name = Enemy_charater_type[j]["name"]; break;}
 
             var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
