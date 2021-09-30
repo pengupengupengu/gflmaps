@@ -1963,6 +1963,10 @@ function theaterdisplay(){
             var enemy_team_id = enemystr.slice(0, enemystr.indexOf("-"));
             var enemy_num = enemystr.slice(enemystr.indexOf("-") + 1, enemystr.indexOf(","));
             var enemy_odd = (enemy_num.indexOf("-", 3) == -1) ? ("0~" + enemy_num[2]) : (enemy_num[4] + "~" + (Number(enemy_num[2]) + Number(enemy_num[4])));
+            if (Theater_area[i].id >= 700) {
+              // HACK: Theater 7 wave count per mob = 1
+              enemy_odd = 1;
+            }
 
             var enemy_leader = null;
             var leader_name;
