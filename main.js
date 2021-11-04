@@ -1731,6 +1731,7 @@ function drawmap(func){
         /*-- 路径点的标号 --*/
         con.textAlign="left";
         if(setmessage.smapspotn == 1){
+            con.strokeStyle = "#111111";
             con.lineWidth= String(coorchange(3, 8));
             con.font = String(coorchange(3, 30)) + `px bold ${fontList}`;
             con.beginPath();
