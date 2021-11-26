@@ -1922,7 +1922,7 @@ function efectcal(enemy_team_id, levelOffset){
         /*-- 攻击：ceiling：22*扩编数*((pow + def_break*0.85) * rate/50 * hit/(hit+35) +2) --*/
         var efect_att = ceiling(22*attr_number*((attr_pow + attr_def_break*0.85) * attr_rate/50 * attr_hit/(attr_hit+35) +2));
         /*-- 防御：ceiling：0.25*(maxlife * (35+dodge)/35 * 300/(300-armor) + 100) * (def_max*2-def+1200*2)/(def_max-def+1200) /2 --*/
-        var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * 300/(300-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
+        var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * 600/(600-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
         efect += ceiling(Number(charatype.effect_ratio) * (efect_att + efect_def));
     }
     return efect;
@@ -2438,6 +2438,9 @@ function mapsetcreat(){
       <div class="mapsetbtn" id="sporttable" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_portals_table']}</div>
       <div class="mapsetbtn" id="sspotsign" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT['display_setting_node_markings']}</div>
       <div class="mapsetbtn" id="senemypile" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT['display_setting_combine_enemies']}</div>
+    </div>
+    <div class="note">
+      Note: The CEs below are calculated with the new formula that CN/TW/KR started using in 2021/09.
     </div>`;
 
     $("#mapsetdiv").css({"user-select":"none", "margin":"5px 0px"});
