@@ -188,7 +188,7 @@ function trans() {
       Mission_targettrain_enemy[i].name = namestr;
     } else {
       const fallback_match = Mission_targettrain_enemy_cn_txt.match(`${Mission_targettrain_enemy[i].name},(.*)`);
-      Mission_targettrain_enemy[i].name = fallback_match ? `[${Mission_targettrain_enemy[i].name}] ${fallback_match[1]}` : prefix;
+      Mission_targettrain_enemy[i].name = fallback_match ? `[${Mission_targettrain_enemy[i].name}] ${fallback_match[1]}` : `[${Mission_targettrain_enemy[i].name}]`;
     }
 
     const desc_match = Mission_targettrain_enemy_txt.match(`${Mission_targettrain_enemy[i].des},(.*)`);
