@@ -20,6 +20,10 @@ sangvis-10001007,Ouroboros
 sangvis-40001007,An intelligent Doll created after the Butterfly Incident with high combat capabilities//c specializing in short-range assaults and defensive battles. But as the test subject in the developmental phase//c her AI is very unstable and difficult to control. Possessing an overwhelming tactical and intellectual advantage over others//c she is very self-assured and conceited//c but she has little actual combat experience and is too unpredictable even for her allies//c which makes her highly dangerous.
 sangvis-10001008,Alchemist
 sangvis-40001008,A Sangvis elite who specializes in all kinds of tactics and interrogations. Occasionally teams up with Destroyer. Arrogant//c brash//c and ruthless//c she will do anything to achieve her goals. She has a sadistic streak and toys with Griffin Dolls to satisfy her perverse tendencies. However//c her mental maturity still compels her to go the extra mile for her Sangvis companions.
+sangvis-10001009,Dreamer
+sangvis-40001009,Combat-oriented and possesses ultra long-range pinpoint sniping capability. A Doll created after the Buttlerfly Incident who answers directly to Elisa. Since she isn't designed to engage enemies directly//c she spends most of her time hanging around Sangvis Ferri HQ and bullying Judge for her own amusement. Her charming smile is a flimsy disguise for her arrogance and capriciousness. She is extremely mentally unstable and egotistical//c and is prone to becoming frenzied and losing control in battle. She has formidable destructive power and will often disregard her allies' safety. Fortunately//c she rarely ever appears in direct combat.
+sangvis-10001010,Gager
+sangvis-40001010,Mostly in charge of issuing commands and deploying units. Relatively high in rank//c she is in command of combat units//c yet is quite adept at combat herself. Answers directly to Agent. Serious//c uptight//c and meticulous//c she always appears cool and businesslike both in speech and action. She holds herself to a code of honor even against her enemies.
 sangvis-30001007,
 sangvis-10002001,Brute
 sangvis-40002001,Sangvis Ferri's new melee combat unit. It approaches enemies at high speed and deals a fearsome amount of damage//c but is only equipped with negligible armor//c making it quite fragile.
@@ -47,6 +51,8 @@ sangvis-40002009,An enhanced S.F. combat dummy//c equipped with short-range assa
 sangvis-40002009,
 sangvis-10002010,Vespid_SWAP
 sangvis-40002010,A Vespid with greatly improved performance. Debuffs friendly units. Delighted over being issued a new set of helmet and body armor.
+sangvis-10002011,Prowler_SWAP
+sangvis-40002011,An upgraded version of the Prowler. The weak firepower and low mobility have been compensated//c making it fully viable in direct confrontations that involve intense crossfires.
 sangvis-10002010,
 sangvis-40002010,
 sangvis-30002010,
