@@ -478,6 +478,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -47: return 5047;
     // PR
     case -48: return 3048;
+    // Xmas mini-event 2
+    case -49: return 5049;
   }
 }
 
