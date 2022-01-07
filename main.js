@@ -480,6 +480,13 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -48: return 3048;
     // Xmas mini-event 2
     case -49: return 5049;
+    // Tutorials
+    case -10000:
+    case -10001:
+    case -10002:
+    case -10003:
+    case -10004:
+    case -10005: return 2009;
   }
 }
 
@@ -537,6 +544,12 @@ function getMissionOptionsForCampaign(campaign) {
   }
 
   /*-- 模拟作战 --*/
+  else if(Number(campaign) === 2009){
+    missionOptions = Mission.filter(({campaign}) => [-10000, -10001, -10002, -10003, -10004, -10005].indexOf(campaign) !== -1).map((mission) => ({
+      value: Number(mission.id),
+      innerHTML: mission.name.replace("//n", " ")
+    }));
+  }
   else if(campaign > 2000 && campaign < 3000){
       for (i in Mission) {
           if ((Mission[i].duplicate_type == campaign - 2000) && (Mission[i].if_emergency == 2)) {
