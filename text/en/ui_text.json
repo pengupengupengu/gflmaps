@@ -138,7 +138,7 @@
     "comment_team_ai_patrol": "This must match team_ai-10000009",
   "team_ai_controllable": "Controllable",
   "team_alignment_ally": "Allied",
-  "team_ce": "CE (<= 2.07 / >= 2.08)",
+  "team_ce": "CE (EN&JP / CN&TW&KR)",
   "team_composition": "Composition",
   "team_location": "Location",
   "team_count": "Count",
@@ -153,7 +153,7 @@
 
   "theater_team_id": "Team ID",
   "theater_team_leader": "Leader",
-  "theater_team_ce": "CE (<= 2.07 / >= 2.08)",
+  "theater_team_ce": "CE (EN&JP / CN&TW&KR)",
   "theater_team_composition": "Composition",
   "theater_team_environment": "Day/Night",
   "theater_team_environment_day": "Day",
