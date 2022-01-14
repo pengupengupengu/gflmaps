@@ -480,6 +480,13 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -48: return 3048;
     // Xmas mini-event 2
     case -49: return 5049;
+    // Tutorials
+    case -10000:
+    case -10001:
+    case -10002:
+    case -10003:
+    case -10004:
+    case -10005: return 2009;
   }
 }
 
@@ -537,6 +544,12 @@ function getMissionOptionsForCampaign(campaign) {
   }
 
   /*-- 模拟作战 --*/
+  else if(Number(campaign) === 2009){
+    missionOptions = Mission.filter(({campaign}) => [-10000, -10001, -10002, -10003, -10004, -10005].indexOf(campaign) !== -1).map((mission) => ({
+      value: Number(mission.id),
+      innerHTML: mission.name.replace("//n", " ")
+    }));
+  }
   else if(campaign > 2000 && campaign < 3000){
       for (i in Mission) {
           if ((Mission[i].duplicate_type == campaign - 2000) && (Mission[i].if_emergency == 2)) {
@@ -1295,7 +1308,8 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     teamAI = enemy_ai;
     teamAIDisplay = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
     teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
-    teamCE = efect == 0 ? efectcal(enemy_team_id) : efect;
+    teamCEPre208 = efect == 0 ? efectcal(enemy_team_id, 0, 300) : efect;
+    teamCEPost208 = efect == 0 ? efectcal(enemy_team_id, 0, 600) : efect;
     teamComposition = enemyoutcal(enemy_team_id);
   }
   
@@ -1308,7 +1322,8 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
   /*-- 利用数组存储效能数据以优化计算 --*/
   spotinfo.push({
     sename: teamLeader,
-    sefect:((efect == 0) ? efectcal(enemy_team_id) : efect),
+    sefectPre208:((efect == 0) ? efectcal(enemy_team_id, 0, 300) : efect),
+    sefectPost208:((efect == 0) ? efectcal(enemy_team_id, 0, 600) : efect),
     seai: teamAI,
     sbuild: 0,
     spotAllyTeam,
@@ -1322,7 +1337,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     <td width="160px">${teamLeader}<\/td>
     <td width="100px">${teamAlignment}<\/td>
     <td width="114px">${teamAIDisplay}<\/td>
-    <td width="100px">${teamCE}<\/td>
+    <td width="100px">${teamCEPre208} / ${teamCEPost208}<\/td>
     <td width="290px">${teamComposition}<\/td>
     <td width="200px">${rareDrops.join(", ")}<\/td>
     <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
@@ -1383,7 +1398,7 @@ function missiondisplay(){
         } else if (spotAllyTeam && spotAllyTeam.enemy_team_id) {
           enemyTeamId = spotAllyTeam.enemy_team_id;
         } else {
-          spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
+          spotinfo.push({sename:0, sefectPre208:0, sefectPost208: 0, seai:0, sbuild:0});
           continue;
         }
       } else if (dspot[i]["hostage_info"] && dspot[i]["hostage_info"].match(/[0-9]+,[1-5]/)) {
@@ -1393,10 +1408,10 @@ function missiondisplay(){
         if (dollCode) {
           loadChibi(dollCode, drawmap);
         }
-        spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0, hostageInfo: {dollName, hp}, chibiCode: dollCode});
+        spotinfo.push({sename:0, sefectPre208:0, sefectPost208: 0, seai:0, sbuild:0, hostageInfo: {dollName, hp}, chibiCode: dollCode});
         continue;
       } else {
-        spotinfo.push({sename:0, sefect:0, seai:0, sbuild:0});
+        spotinfo.push({sename:0, sefectPre208:0, sefectPost208: 0, seai:0, sbuild:0});
         continue;
       }
 
@@ -1723,7 +1738,7 @@ function drawmap(func){
                   ? `${initialMre} / 10 ${UI_TEXT["map_controllable_ally_mre"]}, ${initialAmmo} / 5 ${UI_TEXT["map_controllable_ally_ammo"]}`
                   : UI_TEXT["map_controllable_ally_infinite_supply"]);
             } else {
-              enemySubtitle = "[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefect"];
+              enemySubtitle = "[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefectPre208"] + "/" + spotinfo[i]["sefectPost208"];
             }
             con.strokeText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
             con.fillText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
@@ -1899,7 +1914,7 @@ function traindisplay(){
     });
 }
 
-function efectcal(enemy_team_id, levelOffset){
+function efectcal(enemy_team_id, levelOffset, armorCoef){
     var efect = 0;
     for(j in Enemy_in_team){
         if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) continue;
@@ -1924,15 +1939,15 @@ function efectcal(enemy_team_id, levelOffset){
         /*-- 攻击：ceiling：22*扩编数*((pow + def_break*0.85) * rate/50 * hit/(hit+35) +2) --*/
         var efect_att = ceiling(22*attr_number*((attr_pow + attr_def_break*0.85) * attr_rate/50 * attr_hit/(attr_hit+35) +2));
         /*-- 防御：ceiling：0.25*(maxlife * (35+dodge)/35 * 300/(300-armor) + 100) * (def_max*2-def+1200*2)/(def_max-def+1200) /2 --*/
-        var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * 600/(600-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
+        var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * armorCoef/(armorCoef-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
         efect += ceiling(Number(charatype.effect_ratio) * (efect_att + efect_def));
     }
     return efect;
 }
 
-const theaterCeCalc = (enemyTeamId, offsets) => {
-  const min = efectcal(enemyTeamId, offsets.min);
-  const max = efectcal(enemyTeamId, offsets.max);
+const theaterCeCalc = (enemyTeamId, offsets, armorCoef) => {
+  const min = efectcal(enemyTeamId, offsets.min, armorCoef);
+  const max = efectcal(enemyTeamId, offsets.max, armorCoef);
   return min !== max ? min + "-" + max : min;
 };
 
@@ -1985,7 +2000,7 @@ function theaterdisplay(){
             var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
             thisline += enemy_team_id + `<\/td><td width="160px">`;
             thisline += leader_name + `<\/td><td width="100px">`;
-            thisline += theaterCeCalc(enemy_team_id, theaterLevelAdjustments) + `<\/td><td width="490px">`;
+            thisline += theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + ' / ' + theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + `<\/td><td width="490px">`;
             thisline += enemyoutcal(enemy_team_id) + `<\/td><td width="60px">`;
             thisline += ((enemy_num[0] == 0) ? UI_TEXT["theater_team_environment_day"] : UI_TEXT["theater_team_environment_night"]) + `<\/td><td width="100px">`;
             thisline += enemy_odd + `<\/td><td width="180px">`;
@@ -2440,9 +2455,6 @@ function mapsetcreat(){
       <div class="mapsetbtn" id="sporttable" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; background-color:#f4c430; color:black; cursor:pointer;">${UI_TEXT['display_setting_portals_table']}</div>
       <div class="mapsetbtn" id="sspotsign" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT['display_setting_node_markings']}</div>
       <div class="mapsetbtn" id="senemypile" style="display:inline-block; user-select:none; border:1px #eaeaea solid; padding:5px 10px; cursor:pointer;">${UI_TEXT['display_setting_combine_enemies']}</div>
-    </div>
-    <div class="note">
-      Note: The CEs below are calculated with the new formula that CN/TW/KR started using in 2021/09.
     </div>`;
 
     $("#mapsetdiv").css({"user-select":"none", "margin":"5px 0px"});
