@@ -1233,7 +1233,8 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
   let teamAI = "";
   let teamAIDisplay = "";
   let teamAlignment = "";
-  let teamCE = "";
+  let teamCEPre208 = "";
+  let teamCEPost208 = "";
   let teamComposition = "";
   let chibiCode = null;
 
