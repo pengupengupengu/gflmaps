@@ -480,6 +480,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -48: return 3048;
     // Xmas mini-event 2
     case -49: return 5049;
+    // FP
+    case -51: return 3051;
     // Tutorials
     case -10000:
     case -10001:
@@ -1205,7 +1207,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
   var efect = 0;
   const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
   /*-- 效能欺诈 --*/
-  if (matchingEnemyTeam.effect_ext != 0) {
+  if (matchingEnemyTeam.effect_ext > 0) {
     efect = matchingEnemyTeam.effect_ext;
   }
   teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
@@ -1916,6 +1918,7 @@ function traindisplay(){
 
 function efectcal(enemy_team_id, levelOffset, armorCoef){
     var efect = 0;
+    let data = [];
     for(j in Enemy_in_team){
         if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) continue;
         var enemy_character_type_id = Number(Enemy_in_team[j].enemy_character_type_id);
