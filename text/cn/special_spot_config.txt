@@ -3246,9 +3246,9 @@ special_spot_config-10510504,【标记】失败触发修正触发器
 special_spot_config-20510504,
 special_spot_config-10510505,【标记】失败触发修正生效
 special_spot_config-20510505,
-special_spot_config-10511701,【标记】空袭引导
+special_spot_config-10511701,[avg]-51-EXT-2-3
 special_spot_config-20511701,
-special_spot_config-10511702,[avg]-51-EXT-2-3
+special_spot_config-10511702,【标记】空袭引导生效
 special_spot_config-20511702,
 special_spot_config-10510702,【标记】乱石堆初始化
 special_spot_config-20510702,
