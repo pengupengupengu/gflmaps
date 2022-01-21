@@ -26,6 +26,7 @@ var Gun;
 var Gun_in_ally;
 var Sangvis_in_ally;
 var equip_in_ally_info;
+var trial_info;
 var Building, BuildingMap;
 var Team_ai;
 var Mission_targettrain_enemy;
@@ -302,6 +303,7 @@ const loadData = async () => {
     "Gun_in_ally": loadJsonFile(`./data/${config.dataSource}/Gun_in_ally.json`).then((result) => Gun_in_ally = result),
     "Sangvis_in_ally": loadJsonFile(`./data/${config.dataSource}/Sangvis_in_ally.json`).then((result) => Sangvis_in_ally = result),
     "equip_in_ally_info": loadJsonFile(`./data/${config.dataSource}/equip_in_ally_info.json`).then((result) => equip_in_ally_info = result["equip_in_ally_info"]),
+    "trial_info": loadJsonFile(`./data/${config.dataSource}/trial_info.json`).then((result) => trial_info = result["trial_info"]),
     /*
     "ConstructibleThings": loadJsonFile(`./data/${config.dataSource}/Recommended_formula.json`).then((result) => {
       result.forEach((formula) => {
@@ -552,6 +554,15 @@ function getMissionOptionsForCampaign(campaign) {
       innerHTML: mission.name.replace("//n", " ")
     }));
   }
+  else if(campaign == 2010) {
+    missionOptions = [{
+      value: "defdrill_old_waves",
+      innerHTML: UI_TEXT["defdrill_old_waves"],
+    }, {
+      value: "defdrill_new_waves",
+      innerHTML: UI_TEXT["defdrill_new_waves"],
+    }];
+  }
   else if(campaign > 2000 && campaign < 3000){
       for (i in Mission) {
           if ((Mission[i].duplicate_type == campaign - 2000) && (Mission[i].if_emergency == 2)) {
@@ -707,8 +718,12 @@ function updatemap() {
   }
   $("#missionselect").val(mission);
 
-  if(campaign == 2008) {
+  if (campaign == 2008) {
     traindisplay(); 
+    $("#missioninfo").html("");
+    return;
+  } else if (campaign == 2010) {
+    showDefenseDrill(mission);
     $("#missioninfo").html("");
     return;
   } else if(campaign >= 6000 && campaign < 7000) {
@@ -807,6 +822,7 @@ function missioncreat(){
       .filter(([k, v]) => (Number(k) >= 2000 || availableCampaigns.indexOf(Number(k) - 1000) !== -1))
       .map(([k, v]) => `<option value="${k}" ${initialCampaign == k ? "selected" : ""}>${v}</option>`).join("");
     var missionOptionsHtml = missionOptions.map((opt) => `<option value="${opt.value}" ${initialMission == opt.value ? "selected" : ""}>${opt.innerHTML}</option>`).join("");
+
     var output = `<div style="display:inline-block; padding:6.5px; background:#E0E0E0; color:black; position:relative; top:1px; cursor:default;">${UI_TEXT["map_select"]} ▷</div>
             <div class="eselect"><select id="campaignselect" name="campaignselect">${campaignOptionsHtml}</select></div>
             <div class="eselect"><select id="missionselect" name="missionselect">${missionOptionsHtml}</select></div>
@@ -1500,6 +1516,9 @@ function drawmap(func){
     coparameter = (x_radio > y_radio) ? x_radio : y_radio;
 
     const mission = Mission_map[Number($("#missionselect").val())];
+    if (!mission) {
+      return;
+    }
     const layerIndex = (Number($("#layerselect").val()) || 1) - 1;
     const layerBgName = mission.map_res_name.split(';')[layerIndex];
     const layerBgInfo = mission.map_information.split(';')[layerIndex];
@@ -1915,6 +1934,50 @@ function traindisplay(){
         $(this).css({"background-color":"#f4c430cc", "color":"black"});
         enemydisplay($(this).children("td").eq(0).html());
     });
+}
+
+function showDefenseDrill(mission) {
+  /*-- 清空地图 --*/
+  $("#missiondrawing")[0].getContext("2d").clearRect(0, 0, mapwidth, mapheight);
+  if(setmessage.smaphide == 0) $("#smaphide").click();
+  if(setmessage.sbuildtable == 1) $("#smaphide").click();
+  if(setmessage.sporttable == 1) $("#smaphide").click();
+  if(setmessage.sspotsign == 1) $("#smaphide").click();
+  if(setmessage.senemypile == 1) $("#smaphide").click();
+
+  var output = `<table id="Missiontable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+      <thead style="display:block; background-color:#f4c430; color:black;"><tr>
+      <th style="width:80px;">${UI_TEXT["defdrill_wave"]}</th>
+      <th style="width:100px;">${UI_TEXT["defdrill_team_id"]}</th>
+      <th style="width:900px;">${UI_TEXT["defdrill_composition"]}</th>
+      <th style="width:80px;">${UI_TEXT["defdrill_environment"]}</th>
+      <th style="width:80px;">${UI_TEXT["defdrill_ticket_count"]}</th>
+      </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
+
+  const trials = mission == "defdrill_new_waves" ? trial_info.filter(({id}) => Number(id) >= 110) : trial_info.filter(({id}) => Number(id) < 110);
+
+  output += trials.map((trial) => {
+    let thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="80px">`;
+    thisline += trial.id + `<td width="100px">`;
+    thisline += trial.enemy_team_id + `<\/td><td width="900px">`;
+    thisline += enemyoutcal(trial.enemy_team_id) + `<\/td><td width="80px">`;
+    thisline += UI_TEXT[trial.is_night == "1" ? "defdrill_environment_night" : "defdrill_environment_day"] + `<\/td><td width="80px">`;
+    thisline += trial.reward_voucher + "<\/td><\/tr>";
+    return thisline;
+  }).join("");
+
+  $("#missionshow").html(output);
+  $(".missionline").mouseover(function(){
+      $(this).children("td").css("background-color", "#f4c43033");
+  });
+  $(".missionline").mouseout(function(){
+      $(this).children("td").css("background-color", "");
+  });
+  $(".missionline").click(function(){
+      $(this).parent().children("tr").css({"background-color":"", "color":""});
+      $(this).css({"background-color":"#f4c430cc", "color":"black"});
+      enemydisplay($(this).children("td").eq(1).html());
+  });
 }
 
 function efectcal(enemy_team_id, levelOffset, armorCoef){

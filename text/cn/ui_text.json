@@ -32,7 +32,8 @@
     "2005": "[模拟] 云图回廊",
     "2007": "[模拟] 融合演习",
     "2008": "[模拟] 靶机专训",
-    "10001": "[模拟] 生涯任务教程",
+    "2009": "[模拟] 生涯任务教程",
+    "2010": "[模拟] 防御演习",
 
     "3001": "[主线] 魔方行动",
     "3002": "[主线] 失温症",
@@ -153,6 +154,16 @@
   "target_name": "名称",
   "target_composition": "组成",
   "target_description": "描述",
+
+  "defdrill_wave": "波数",
+  "defdrill_team_id": "编号",
+  "defdrill_composition": "组成",
+  "defdrill_environment": "环境",
+  "defdrill_environment_day": "昼战",
+  "defdrill_environment_night": "夜战",
+  "defdrill_ticket_count": "校准点券数",
+  "defdrill_old_waves": "1波-109波",
+  "defdrill_new_waves": "110波-149波",
 
   "theater_team_id": "编号",
   "theater_team_leader": "队长",

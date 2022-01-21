@@ -33,6 +33,7 @@
     "2007": "[Sim] Coalition Drill",
     "2008": "[Sim] Combat Simulation",
     "2009": "[Sim] Career Quest Tutorials",
+    "2010": "[Sim] Defense Drill",
 
     "3001": "[Event] Cube",
     "3002": "[Event] Arctic Warfare",
@@ -151,6 +152,16 @@
   "target_name": "Name",
   "target_composition": "Composition",
   "target_description": "Description",
+
+  "defdrill_wave": "Wave",
+  "defdrill_team_id": "Enemy Team ID",
+  "defdrill_composition": "Composition",
+  "defdrill_environment": "Day/Night",
+  "defdrill_environment_day": "Day",
+  "defdrill_environment_night": "Night",
+  "defdrill_ticket_count": "Calibration Ticket #",
+  "defdrill_old_waves": "Waves 1 - 109",
+  "defdrill_new_waves": "Waves 110 - 149",
 
   "theater_team_id": "Team ID",
   "theater_team_leader": "Leader",
