@@ -1207,8 +1207,8 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
   var efect = 0;
   const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
   /*-- 效能欺诈 --*/
-  if (matchingEnemyTeam.effect_ext > 0) {
-    efect = matchingEnemyTeam.effect_ext;
+  if (matchingEnemyTeam.effect_ext != 0) {
+    efect = Math.abs(matchingEnemyTeam.effect_ext);
   }
   teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
   rareDrops = [
