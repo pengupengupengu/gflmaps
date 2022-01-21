@@ -1949,9 +1949,9 @@ function showDefenseDrill(mission) {
       <thead style="display:block; background-color:#f4c430; color:black;"><tr>
       <th style="width:80px;">${UI_TEXT["defdrill_wave"]}</th>
       <th style="width:100px;">${UI_TEXT["defdrill_team_id"]}</th>
-      <th style="width:900px;">${UI_TEXT["defdrill_composition"]}</th>
-      <th style="width:80px;">${UI_TEXT["defdrill_environment"]}</th>
-      <th style="width:80px;">${UI_TEXT["defdrill_ticket_count"]}</th>
+      <th style="width:820px;">${UI_TEXT["defdrill_composition"]}</th>
+      <th style="width:120px;">${UI_TEXT["defdrill_environment"]}</th>
+      <th style="width:120px;">${UI_TEXT["defdrill_ticket_count"]}</th>
       </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
 
   const trials = mission == "defdrill_new_waves" ? trial_info.filter(({id}) => Number(id) >= 110) : trial_info.filter(({id}) => Number(id) < 110);
@@ -1959,9 +1959,9 @@ function showDefenseDrill(mission) {
   output += trials.map((trial) => {
     let thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="80px">`;
     thisline += trial.id + `<td width="100px">`;
-    thisline += trial.enemy_team_id + `<\/td><td width="900px">`;
-    thisline += enemyoutcal(trial.enemy_team_id) + `<\/td><td width="80px">`;
-    thisline += UI_TEXT[trial.is_night == "1" ? "defdrill_environment_night" : "defdrill_environment_day"] + `<\/td><td width="80px">`;
+    thisline += trial.enemy_team_id + `<\/td><td width="820px">`;
+    thisline += enemyoutcal(trial.enemy_team_id) + `<\/td><td width="120px">`;
+    thisline += UI_TEXT[trial.is_night == "1" ? "defdrill_environment_night" : "defdrill_environment_day"] + `<\/td><td width="120px">`;
     thisline += trial.reward_voucher + "<\/td><\/tr>";
     return thisline;
   }).join("");
