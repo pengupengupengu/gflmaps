@@ -556,11 +556,11 @@ function getMissionOptionsForCampaign(campaign) {
   }
   else if(campaign == 2010) {
     missionOptions = [{
-      value: "defdrill_old_waves",
-      innerHTML: UI_TEXT["defdrill_old_waves"],
+      value: "defdrill_wave_1",
+      innerHTML: UI_TEXT["defdrill_wave_1"],
     }, {
-      value: "defdrill_new_waves",
-      innerHTML: UI_TEXT["defdrill_new_waves"],
+      value: "defdrill_wave_110",
+      innerHTML: UI_TEXT["defdrill_wave_110"],
     }];
   }
   else if(campaign > 2000 && campaign < 3000){
@@ -1954,7 +1954,7 @@ function showDefenseDrill(mission) {
       <th style="width:120px;">${UI_TEXT["defdrill_ticket_count"]}</th>
       </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
 
-  const trials = mission == "defdrill_new_waves" ? trial_info.filter(({id}) => Number(id) >= 110) : trial_info.filter(({id}) => Number(id) < 110);
+  const trials = mission == "defdrill_wave_110" ? trial_info.filter(({id}) => Number(id) >= 110) : trial_info.filter(({id}) => Number(id) < 110);
 
   output += trials.map((trial) => {
     let thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="80px">`;

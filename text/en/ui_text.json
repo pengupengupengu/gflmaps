@@ -160,8 +160,8 @@
   "defdrill_environment_day": "Day",
   "defdrill_environment_night": "Night",
   "defdrill_ticket_count": "Calibration Ticket #",
-  "defdrill_old_waves": "Waves 1 - 109",
-  "defdrill_new_waves": "Waves 110 - 149",
+  "defdrill_wave_1": "Waves 1 - 109",
+  "defdrill_wave_110": "Waves 110 - 149",
 
   "theater_team_id": "Team ID",
   "theater_team_leader": "Leader",
