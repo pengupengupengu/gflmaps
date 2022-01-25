@@ -163,6 +163,24 @@ mission_targettrain_enemy-30000601,M16A1!
 mission_targettrain_enemy-10000701,Intercepting Squadron
 mission_targettrain_enemy-20000701,Special Target – Intercepting Squadron. While this target is available//c the time and combat data of every attempt will be recorded to facilitate mutual learning among Commanders.
 mission_targettrain_enemy-30000701,Intercepting Squadron
+mission_targettrain_enemy-10000801,01: DR Wrath
+mission_targettrain_enemy-20000801,Powerful enemies from Dual Randomness can be simulated in Target Practice to help Commanders in their preparations. While these targets are available//c the time and combat data of every attempt will be recorded to facilitate mutual learning among Commanders.
+mission_targettrain_enemy-30000801,01: DR Wrath
+mission_targettrain_enemy-10000901,02: DR Manticores
+mission_targettrain_enemy-20000901,Powerful enemies from Dual Randomness can be simulated in Target Practice to help Commanders in their preparations. While these targets are available//c the time and combat data of every attempt will be recorded to facilitate mutual learning among Commanders.
+mission_targettrain_enemy-30000901,02: DR Manticores
+mission_targettrain_enemy-10001001,03: DR Destruction
+mission_targettrain_enemy-20001001,Powerful enemies from Dual Randomness can be simulated in Target Practice to help Commanders in their preparations. While these targets are available//c the time and combat data of every attempt will be recorded to facilitate mutual learning among Commanders.
+mission_targettrain_enemy-30001001,03: DR Destruction
+mission_targettrain_enemy-10001101,04: DR Rippers
+mission_targettrain_enemy-20001101,Powerful enemies from Dual Randomness can be simulated in Target Practice to help Commanders in their preparations. While these targets are available//c the time and combat data of every attempt will be recorded to facilitate mutual learning among Commanders.
+mission_targettrain_enemy-30001101,04: DR Rippers
+mission_targettrain_enemy-10001201,05: DR Invincible
+mission_targettrain_enemy-20001201,Powerful enemies from Dual Randomness can be simulated in Target Practice to help Commanders in their preparations. While these targets are available//c the time and combat data of every attempt will be recorded to facilitate mutual learning among Commanders.
+mission_targettrain_enemy-30001201,05: DR Invincible
+mission_targettrain_enemy-10001301,06: DR Devour
+mission_targettrain_enemy-20001301,Powerful enemies from Dual Randomness can be simulated in Target Practice to help Commanders in their preparations. While these targets are available//c the time and combat data of every attempt will be recorded to facilitate mutual learning among Commanders.
+mission_targettrain_enemy-30001301,06: DR Devour
 mission_targettrain_enemy-10000801,
 mission_targettrain_enemy-20000801,
 mission_targettrain_enemy-30000801,
