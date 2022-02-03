@@ -750,10 +750,11 @@ function updatemap() {
     let totalTeamLimitDisplay = "";
     if (totalTeamLimit == 0) {
       totalTeamLimitDisplay = UI_TEXT["mission_info_unlimited"];
-    } else if (totalTeamLimit.charAt(0) == "*") {
-      totalTeamLimitDisplay = totalTeamLimit.substring(1) + "<br>" + UI_TEXT["mission_info_hoc_excluded"];
     } else {
       totalTeamLimitDisplay = totalTeamLimit;
+      if (totalTeamLimit.charAt(0) == "*") {
+        totalTeamLimitDisplay += "<br>* = " + UI_TEXT["mission_info_hoc_excluded"];
+      }
     }
     $("#missioninfo").html(`
         <table id="Missioninfotable" class="enemydata" style="margin-top: 10px; table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">

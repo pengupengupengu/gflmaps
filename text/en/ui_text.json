@@ -100,8 +100,8 @@
   "mission_info_coalition_limit": "Coalition Team Limit",
   "mission_info_banned": "0 (BANNED)",
   "mission_info_unlimited": "∞",
-  "mission_info_total_team_limit": "Total Team Limit",
-  "mission_info_hoc_excluded": "(Only counts G&K and Coalition, not HOC)",
+  "mission_info_total_team_limit": "Total Team Limit (G&K+HOC+Coalition)",
+  "mission_info_hoc_excluded": "Only G&K+Coalition, no HOC",
   "mission_info_advantaged_dolls": "Advantaged Dolls",
   "mission_info_no_advantaged_dolls": "None",
 
