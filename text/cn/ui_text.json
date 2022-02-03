@@ -102,6 +102,7 @@
   "mission_info_banned": "0",
   "mission_info_unlimited": "∞",
   "mission_info_total_team_limit": "梯队总数上限",
+  "mission_info_hoc_excluded": "（只数人形梯队和融合势力梯队，不包括重装）",
   "mission_info_advantaged_dolls": "优势人形",
   "mission_info_no_advantaged_dolls": "-",
 

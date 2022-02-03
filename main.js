@@ -747,6 +747,14 @@ function updatemap() {
     if (mission_info.adaptive_gun) {
       advantaged_doll_names = mission_info.adaptive_gun.split(",").map((gun_id) => getGunName(gun_id));
     }
+    let totalTeamLimitDisplay = "";
+    if (totalTeamLimit == 0) {
+      totalTeamLimitDisplay = UI_TEXT["mission_info_unlimited"];
+    } else if (totalTeamLimit.charAt(0) == "*") {
+      totalTeamLimitDisplay = totalTeamLimit.substring(1) + "<br>" + UI_TEXT["mission_info_hoc_excluded"];
+    } else {
+      totalTeamLimitDisplay = totalTeamLimit;
+    }
     $("#missioninfo").html(`
         <table id="Missioninfotable" class="enemydata" style="margin-top: 10px; table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
           <thead style="display: table-header-group; background-color:#f4c430; color:black;"><tr>
@@ -764,7 +772,7 @@ function updatemap() {
             <td>${gkTeamLimit != 0 ? (gkTeamLimit != -1 ? gkTeamLimit : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${mission_info.limit_squad != 0 ? (mission_info.limit_squad != -1 ? mission_info.limit_squad : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
             <td>${mission_info.limit_sangvis != 0 ? (mission_info.limit_sangvis != -1 ? mission_info.limit_sangvis : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
-            <td>${totalTeamLimit != 0 ? totalTeamLimit : UI_TEXT["mission_info_unlimited"]}</td>
+            <td>${totalTeamLimitDisplay}</td>
             <td>${advantaged_doll_names.length > 0 ? advantaged_doll_names.join(", ") : UI_TEXT["mission_info_no_advantaged_dolls"]}</td>
           </tr></tbody>
         </table>
