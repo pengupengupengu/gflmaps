@@ -1230,10 +1230,20 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
   let rareDrops = [];
   var teamLeaderEnemyId;
   var efect = 0;
+  let hasFakeCeError = false;
   const matchingEnemyTeam = Enemy_team.find((team) => team.id == enemy_team_id);
   /*-- 效能欺诈 --*/
   if (matchingEnemyTeam.effect_ext != 0) {
     efect = Math.abs(matchingEnemyTeam.effect_ext);
+
+    // When using fake CE, the game client can display the incorrect CE... This is due to single-precision
+    // floating point errors.
+    const enemyUnitCount = Enemy_in_team.filter((unit) => unit.enemy_team_id === enemy_team_id).length;
+    const perUnitCE = Math.fround(efect / enemyUnitCount);
+    const clientTotal = Math.ceil([...Array(enemyUnitCount)].reduce((subtotal) => Math.fround(subtotal + perUnitCE), 0));
+    if (Math.ceil(clientTotal) > efect) {
+      hasFakeCeError = true;
+    }
   }
   teamLeaderEnemyId = matchingEnemyTeam["enemy_leader"];
   rareDrops = [
@@ -1352,6 +1362,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     sename: teamLeader,
     sefectPre208:((efect == 0) ? efectcal(enemy_team_id, 0, 300) : efect),
     sefectPost208:((efect == 0) ? efectcal(enemy_team_id, 0, 600) : efect),
+    hasFakeCeError,
     seai: teamAI,
     sbuild: 0,
     spotAllyTeam,
@@ -1365,7 +1376,8 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     <td width="160px">${teamLeader}<\/td>
     <td width="100px">${teamAlignment}<\/td>
     <td width="114px">${teamAIDisplay}<\/td>
-    <td width="100px">${teamCEPre208} / ${teamCEPost208}<\/td>
+    <td width="100px">${teamCEPre208 + (hasFakeCeError ? 1 : 0)} / ${teamCEPost208 + (hasFakeCeError ? 1 : 0)}
+      ${hasFakeCeError ? " (-1)" : ""}<\/td>
     <td width="290px">${teamComposition}<\/td>
     <td width="200px">${rareDrops.join(", ")}<\/td>
     <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
@@ -1453,6 +1465,9 @@ function missiondisplay(){
           .map((enemyTeamId) => generateEnemyTeamRow(null, enemyTeamId, null, null))
           .join('');
     }
+
+    output += `</tbody></table>
+    <div class="note">Note: "(-1)" means that the client adds 1 extra CE due to a bug. This extra CE doesn't count for scoring.</div>`;
 
     $("#missionshow").html(output);
     $(".missionline").mouseover(function(){
@@ -1769,7 +1784,9 @@ function drawmap(func){
                   ? `${initialMre} / 10 ${UI_TEXT["map_controllable_ally_mre"]}, ${initialAmmo} / 5 ${UI_TEXT["map_controllable_ally_ammo"]}`
                   : UI_TEXT["map_controllable_ally_infinite_supply"]);
             } else {
-              enemySubtitle = "[" + spotinfo[i]["seai"] + "] " + spotinfo[i]["sefectPre208"] + "/" + spotinfo[i]["sefectPost208"];
+              enemySubtitle = "[" + spotinfo[i]["seai"] + "] "
+                + (spotinfo[i]["sefectPre208"] + (spotinfo[i]["hasFakeCeError"] ? 1 : 0)) + "/"
+                + (spotinfo[i]["sefectPost208"] + (spotinfo[i]["hasFakeCeError"] ? 1 : 0));
             }
             con.strokeText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
             con.fillText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
