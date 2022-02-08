@@ -1467,7 +1467,10 @@ function missiondisplay(){
     }
 
     output += `</tbody></table>
-    <div class="note">Note: "(-1)" means that the client adds 1 extra CE due to a bug. This extra CE doesn't count for scoring.</div>`;
+    <div class="note">Note: "(-1)" means that the client adds 1 extra CE due to a bug.
+    The map and table above shows the same CE as the client, not the real CE.
+    This extra CE doesn't count for scoring, so if you kill an enemy with "136480 / 136480 (-1)",
+    you will receive 13647 points because the real CE was 136479.</div>`;
 
     $("#missionshow").html(output);
     $(".missionline").mouseover(function(){
