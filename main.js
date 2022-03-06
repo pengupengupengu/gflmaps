@@ -153,7 +153,7 @@ function trans() {
     }
     // Add " [SWAP]" at the end of the name if the enemy code contains "SWAP" but the name does not.
     // This is because the official English localization sometimes just omits this qualifier...
-    if (Enemy_charater_type[i].code.match(/swap/i) && !Enemy_charater_type[i].name.(/swap/i)) {
+    if (Enemy_charater_type[i].code.match(/swap/i) && !Enemy_charater_type[i].name.match(/swap/i)) {
       Enemy_charater_type[i].name += " [SWAP]";
     }
   }
