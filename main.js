@@ -14,13 +14,13 @@ var fontList = "Noto Sans, Noto Sans SC, Arial";
 var data;
 
 var Enemy_team, Enemy_team_map;
-var Enemy_in_team;
+var Enemy_in_team, Enemy_in_team_by_team_id;
 var Enemy_standard_attribute;
 var Spot;
 var Theater_area;
 
 var Mission, Mission_map;
-var Enemy_charater_type;
+var Enemy_charater_type, Enemy_character_type_by_id;
 var Ally_team;
 var Gun;
 var Gun_in_ally;
@@ -150,6 +150,11 @@ function trans() {
         prefix = `[${Enemy_charater_type[i].name}]`;
       }
       Enemy_charater_type[i].name = fallback_match ? `${prefix} ${fallback_match[1]}` : prefix;
+    }
+    // Add " [SWAP]" at the end of the name if the enemy code contains "SWAP" but the name does not.
+    // This is because the official English localization sometimes just omits this qualifier...
+    if (Enemy_charater_type[i].code.match(/swap/i) && !Enemy_charater_type[i].name.(/swap/i)) {
+      Enemy_charater_type[i].name += " [SWAP]";
     }
   }
 
@@ -282,7 +287,17 @@ const loadData = async () => {
 
   const loaders = {
     "Spot": loadJsonFile(`./data/${config.dataSource}/Spot.json`).then((result) => Spot = result),
-    "Enemy_in_team": loadJsonFile(`./data/${config.dataSource}/Enemy_in_team.json`).then((result) => Enemy_in_team = result),
+    "Enemy_in_team": loadJsonFile(`./data/${config.dataSource}/Enemy_in_team.json`).then((result) => {
+      Enemy_in_team = result;
+
+      Enemy_in_team_by_team_id = {};
+      result.forEach((row) => {
+        if (!(row.enemy_team_id in Enemy_in_team_by_team_id)) {
+          Enemy_in_team_by_team_id[row.enemy_team_id] = [];
+        }
+        Enemy_in_team_by_team_id[row.enemy_team_id].push(row);
+      });
+    }),
     "Enemy_standard_attribute": loadJsonFile(`./data/${config.dataSource}/Enemy_standard_attribute.json`).then((result) => Enemy_standard_attribute = result),
     "Enemy_team": loadJsonFile(`./data/${config.dataSource}/Enemy_team.json`).then((result) => {
       Enemy_team = result;
@@ -297,7 +312,10 @@ const loadData = async () => {
       Mission = result;
       Mission_map = Object.fromEntries(result.map((mission) => [mission.id, mission]));
     }),
-    "Enemy_character_type": loadJsonFile(`./data/${config.dataSource}/Enemy_character_type.json`).then((result) => Enemy_charater_type = result),
+    "Enemy_character_type": loadJsonFile(`./data/${config.dataSource}/Enemy_character_type.json`).then((result) => {
+      Enemy_charater_type = result;
+      Enemy_character_type_by_id = Object.fromEntries(result.map((enemy) => [enemy.id, enemy]));
+    }),
     "Ally_team": loadJsonFile(`./data/${config.dataSource}/Ally_team.json`).then((result) => Ally_team = result),
     "Gun": loadJsonFile(`./data/${config.dataSource}/Gun.json`).then((result) => Gun = result),
     "Gun_in_ally": loadJsonFile(`./data/${config.dataSource}/Gun_in_ally.json`).then((result) => Gun_in_ally = result),
@@ -1238,7 +1256,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
 
     // When using fake CE, the game client can display the incorrect CE... This is due to single-precision
     // floating point errors.
-    const enemyUnitCount = Enemy_in_team.filter((unit) => unit.enemy_team_id === enemy_team_id).length;
+    const enemyUnitCount = Enemy_in_team_by_team_id[enemy_team_id].length;
     const perUnitCE = Math.fround(efect / enemyUnitCount);
     const clientTotal = Math.ceil([...Array(enemyUnitCount)].reduce((subtotal) => Math.fround(subtotal + perUnitCE), 0));
     if (Math.ceil(clientTotal) > efect) {
@@ -2009,36 +2027,30 @@ function showDefenseDrill(mission) {
   });
 }
 
-function efectcal(enemy_team_id, levelOffset, armorCoef){
-    var efect = 0;
-    let data = [];
-    for(j in Enemy_in_team){
-        if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) continue;
-        var enemy_character_type_id = Number(Enemy_in_team[j].enemy_character_type_id);
-        var level = Number(Enemy_in_team[j].level) + (levelOffset || 0);
+function efectcal(enemy_team_id, levelOffset, armorCoef) {
+  var efect = 0;
+  let data = [];
+  Enemy_in_team_by_team_id[Number(enemy_team_id)].forEach(({enemy_character_type_id, level, number, def_percent}) => {
+    var level = Number(level) + (levelOffset || 0);
+    var charatype = Enemy_character_type_by_id[enemy_character_type_id];
 
-        var charatype;
-        for(var k = 0; k < Enemy_charater_type.length; k++){
-            if(Enemy_charater_type[k]["id"] != enemy_character_type_id) continue;
-            charatype = Enemy_charater_type[k]; break;}
-
-        var attr_number = Number(Enemy_in_team[j].number);
-        var attr_pow = enemyattribute(charatype , "pow" , level);
-        var attr_def_break = enemyattribute(charatype , "def_break" , level);
-        var attr_rate = enemyattribute(charatype , "rate" , level);
-        var attr_hit = enemyattribute(charatype , "hit" , level);
-        var attr_maxlife = enemyattribute(charatype , "maxlife" , level);
-        var attr_dodge = enemyattribute(charatype , "dodge" , level);
-        var attr_armor = enemyattribute(charatype , "armor" , level);
-        var attr_def = enemyattribute(charatype , "def" , level);
-        var attr_def_percent = Number(Enemy_in_team[j].def_percent);
-        /*-- 攻击：ceiling：22*扩编数*((pow + def_break*0.85) * rate/50 * hit/(hit+35) +2) --*/
-        var efect_att = ceiling(22*attr_number*((attr_pow + attr_def_break*0.85) * attr_rate/50 * attr_hit/(attr_hit+35) +2));
-        /*-- 防御：ceiling：0.25*(maxlife * (35+dodge)/35 * 300/(300-armor) + 100) * (def_max*2-def+1200*2)/(def_max-def+1200) /2 --*/
-        var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * armorCoef/(armorCoef-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
-        efect += ceiling(Number(charatype.effect_ratio) * (efect_att + efect_def));
-    }
-    return efect;
+    var attr_number = Number(number);
+    var attr_pow = enemyattribute(charatype , "pow" , level);
+    var attr_def_break = enemyattribute(charatype , "def_break" , level);
+    var attr_rate = enemyattribute(charatype , "rate" , level);
+    var attr_hit = enemyattribute(charatype , "hit" , level);
+    var attr_maxlife = enemyattribute(charatype , "maxlife" , level);
+    var attr_dodge = enemyattribute(charatype , "dodge" , level);
+    var attr_armor = enemyattribute(charatype , "armor" , level);
+    var attr_def = enemyattribute(charatype , "def" , level);
+    var attr_def_percent = Number(def_percent);
+    /*-- 攻击：ceiling：22*扩编数*((pow + def_break*0.85) * rate/50 * hit/(hit+35) +2) --*/
+    var efect_att = ceiling(22*attr_number*((attr_pow + attr_def_break*0.85) * attr_rate/50 * attr_hit/(attr_hit+35) +2));
+    /*-- 防御：ceiling：0.25*(maxlife * (35+dodge)/35 * armorCoef/(armorCoef-armor) + 100) * (def_max*2-def+1200*2)/(def_max-def+1200) /2 --*/
+    var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * armorCoef/(armorCoef-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
+    efect += ceiling(Number(charatype.effect_ratio) * (efect_att + efect_def));
+  });
+  return efect;
 }
 
 const theaterCeCalc = (enemyTeamId, offsets, armorCoef) => {
@@ -2091,7 +2103,9 @@ function theaterdisplay(){
                 enemy_leader = first_enemy.enemy_character_type_id;
               }
             }
-            for(j in Enemy_charater_type) if(Enemy_charater_type[j]["id"] == enemy_leader){ leader_name = Enemy_charater_type[j]["name"]; break;}
+            if (enemy_leader && (enemy_leader in Enemy_character_type_by_id)) {
+              leader_name = Enemy_character_type_by_id[enemy_leader].name;
+            }
 
             var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
             thisline += enemy_team_id + `<\/td><td width="160px">`;
@@ -2123,23 +2137,18 @@ function theaterdisplay(){
     });
 }
 
-function enemyoutcal(enemy_team_id){
-    let enemies = {};
-    let enemies_ids_in_order = new Set();
-    for(j in Enemy_in_team){
-        if(Enemy_in_team[j]["enemy_team_id"] != enemy_team_id) {
-          continue;
-        }
-        var enemy_character_type_id = Number(Enemy_in_team[j]["enemy_character_type_id"]);
-
-        if (!(enemy_character_type_id in enemies)) {
-          let enemy_character_type = Enemy_charater_type.find((e) => e.id == enemy_character_type_id);
-          enemies[enemy_character_type_id] = {name: enemy_character_type ? enemy_character_type.name : "?", count: 0};
-          enemies_ids_in_order.add(enemy_character_type_id);
-        }
-        enemies[enemy_character_type_id].count += Number(Enemy_in_team[j]["number"]);
+function enemyoutcal(enemy_team_id) {
+  let enemies = {};
+  let enemies_ids_in_order = new Set();
+  Enemy_in_team_by_team_id[Number(enemy_team_id)].forEach(({enemy_character_type_id, number}) => {
+    if (!(enemy_character_type_id in enemies)) {
+      let enemy_character_type = Enemy_charater_type.find((e) => e.id == enemy_character_type_id);
+      enemies[enemy_character_type_id] = {name: enemy_character_type ? enemy_character_type.name : "?", count: 0};
+      enemies_ids_in_order.add(enemy_character_type_id);
     }
-    return [...enemies_ids_in_order].map((id) => `${enemies[id].name} x${enemies[id].count}`).join(" ");
+    enemies[enemy_character_type_id].count += number;
+  });
+  return [...enemies_ids_in_order].map((id) => `${enemies[id].name} x${enemies[id].count}`).join(" ");
 }
 
 function enemyselectcreat(){
@@ -2387,77 +2396,69 @@ function enemydisplay(enemy_team_id){
         <\/tr><\/thead>
         <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">`;
 
-      for(var i = 0; i < Enemy_in_team.length; i++){
-          if(Enemy_in_team[i]["enemy_team_id"] != enemy_team_id) continue;
-          var enemy_character_type_id = Number(Enemy_in_team[i].enemy_character_type_id);
-          var level = Number(Enemy_in_team[i].level);
+      Enemy_in_team_by_team_id[Number(enemy_team_id)].forEach(({enemy_character_type_id, level, number, def_percent, coordinator_x, coordinator_y}) => {
+        /*-- 敌人type 基础属性/当前属性 --*/
+        var charatype = Enemy_character_type_by_id[enemy_character_type_id];
 
-          /*-- 敌人type 基础属性/当前属性 --*/
-          var charatype;
-          for(var j = 0; j < Enemy_charater_type.length; j++){
-              if(Number(Enemy_charater_type[j]["id"]) != enemy_character_type_id) continue;
-              charatype = Enemy_charater_type[j];
-          }
-          
-          let displayedValues = {};
-          if (theaterLevelAdjustments) {
-            displayedValues = {
-              level: (level % 1000 + theaterLevelAdjustments.min) + "-" + (level % 1000 + theaterLevelAdjustments.max),
-              hp: getTheaterEnemyAttributeRange(charatype, "maxlife", level, theaterLevelAdjustments),
-              pow: getTheaterEnemyAttributeRange(charatype, "pow", level, theaterLevelAdjustments),
-              rate: getTheaterEnemyAttributeRange(charatype, "rate", level, theaterLevelAdjustments),
-              hit: getTheaterEnemyAttributeRange(charatype, "hit", level, theaterLevelAdjustments),
-              dodge: getTheaterEnemyAttributeRange(charatype, "dodge", level, theaterLevelAdjustments),
-              range: getTheaterEnemyAttributeRange(charatype, "range", level, theaterLevelAdjustments),
-              speed: getTheaterEnemyAttributeRange(charatype, "speed", level, theaterLevelAdjustments),
-              armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, theaterLevelAdjustments),
-              armor: getTheaterEnemyAttributeRange(charatype, "armor", level, theaterLevelAdjustments),
-              shield: getTheaterEnemyAttributeRange(charatype, "shield", level, theaterLevelAdjustments),
-              def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, theaterLevelAdjustments),
-              def: getTheaterEnemyAttributeRange(charatype, "def", level, theaterLevelAdjustments),
-            };
-          } else {
-            displayedValues = {
-              level: level % 1000,
-              hp: bround(enemyattribute(charatype , "maxlife" , level)),
-              pow: enemyattribute(charatype , "pow" , level),
-              rate: enemyattribute(charatype , "rate" , level),
-              hit: enemyattribute(charatype , "hit" , level),
-              dodge: enemyattribute(charatype , "dodge" , level),
-              range: enemyattribute(charatype , "range" , level),
-              speed: enemyattribute(charatype , "speed" , level),
-              armor_piercing: enemyattribute(charatype , "armor_piercing" , level),
-              armor: enemyattribute(charatype , "armor" , level),
-              shield: enemyattribute(charatype , "shield" , level),
-              def_break: enemyattribute(charatype , "def_break" , level),
-              def: enemyattribute(charatype , "def" , level),
-            };
-          }
+        let displayedValues = {};
+        if (theaterLevelAdjustments) {
+          displayedValues = {
+            level: (level % 1000 + theaterLevelAdjustments.min) + "-" + (level % 1000 + theaterLevelAdjustments.max),
+            hp: getTheaterEnemyAttributeRange(charatype, "maxlife", level, theaterLevelAdjustments),
+            pow: getTheaterEnemyAttributeRange(charatype, "pow", level, theaterLevelAdjustments),
+            rate: getTheaterEnemyAttributeRange(charatype, "rate", level, theaterLevelAdjustments),
+            hit: getTheaterEnemyAttributeRange(charatype, "hit", level, theaterLevelAdjustments),
+            dodge: getTheaterEnemyAttributeRange(charatype, "dodge", level, theaterLevelAdjustments),
+            range: getTheaterEnemyAttributeRange(charatype, "range", level, theaterLevelAdjustments),
+            speed: getTheaterEnemyAttributeRange(charatype, "speed", level, theaterLevelAdjustments),
+            armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, theaterLevelAdjustments),
+            armor: getTheaterEnemyAttributeRange(charatype, "armor", level, theaterLevelAdjustments),
+            shield: getTheaterEnemyAttributeRange(charatype, "shield", level, theaterLevelAdjustments),
+            def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, theaterLevelAdjustments),
+            def: getTheaterEnemyAttributeRange(charatype, "def", level, theaterLevelAdjustments),
+          };
+        } else {
+          displayedValues = {
+            level: level % 1000,
+            hp: bround(enemyattribute(charatype , "maxlife" , level)),
+            pow: enemyattribute(charatype , "pow" , level),
+            rate: enemyattribute(charatype , "rate" , level),
+            hit: enemyattribute(charatype , "hit" , level),
+            dodge: enemyattribute(charatype , "dodge" , level),
+            range: enemyattribute(charatype , "range" , level),
+            speed: enemyattribute(charatype , "speed" , level),
+            armor_piercing: enemyattribute(charatype , "armor_piercing" , level),
+            armor: enemyattribute(charatype , "armor" , level),
+            shield: enemyattribute(charatype , "shield" , level),
+            def_break: enemyattribute(charatype , "def_break" , level),
+            def: enemyattribute(charatype , "def" , level),
+          };
+        }
 
-          var thisline = `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;"><td class="enemycell" index="1" width="160px">`;
-          thisline += charatype["name"] + `<\/td><td class="enemycell" index="2" width="59px">`;
-          thisline += Number(Enemy_in_team[i].number) + `<\/td><td class="enemycell" index="3" width="59px">`;
-          thisline += displayedValues.level + `<\/td><td class="enemycell" index="4" width="59px">`;
-          thisline += displayedValues.hp + `<\/td><td class="enemycell" index="5" width="59px">`;
-          thisline += displayedValues.pow + `<\/td><td class="enemycell" index="6" width="59px">`;
-          thisline += displayedValues.rate + `<\/td><td class="enemycell" index="7" width="59px">`;
-          thisline += displayedValues.hit + `<\/td><td class="enemycell" index="8" width="59px">`;
-          thisline += displayedValues.dodge + `<\/td><td class="enemycell" index="9" width="59px">`;
-          thisline += displayedValues.range + `<\/td><td class="enemycell" index="10" width="59px">`;
-          thisline += displayedValues.speed + `<\/td><td class="enemycell" index="11" width="59px">`;
-          thisline += displayedValues.armor_piercing + `<\/td><td class="enemycell" index="12" width="59px">`;
-          thisline += displayedValues.armor + `<\/td><td class="enemycell" index="13" width="59px">`;
-          thisline += displayedValues.shield + `<\/td><td class="enemycell" index="14" width="59px">`;
-          thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="15" width="79px">`;
-          thisline += displayedValues.def + `<\/td><td class="enemycell" index="16" width="79px">`;
-          thisline += Number(Enemy_in_team[i].def_percent) + `%<\/td><td class="enemycell" index="17" width="100px">`;
-          thisline += "(" + Enemy_in_team[i].coordinator_x + "," + Enemy_in_team[i].coordinator_y + `)<\/td><\/tr>`;
+        var thisline = `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;"><td class="enemycell" index="1" width="160px">`;
+        thisline += charatype["name"] + `<\/td><td class="enemycell" index="2" width="59px">`;
+        thisline += Number(number) + `<\/td><td class="enemycell" index="3" width="59px">`;
+        thisline += displayedValues.level + `<\/td><td class="enemycell" index="4" width="59px">`;
+        thisline += displayedValues.hp + `<\/td><td class="enemycell" index="5" width="59px">`;
+        thisline += displayedValues.pow + `<\/td><td class="enemycell" index="6" width="59px">`;
+        thisline += displayedValues.rate + `<\/td><td class="enemycell" index="7" width="59px">`;
+        thisline += displayedValues.hit + `<\/td><td class="enemycell" index="8" width="59px">`;
+        thisline += displayedValues.dodge + `<\/td><td class="enemycell" index="9" width="59px">`;
+        thisline += displayedValues.range + `<\/td><td class="enemycell" index="10" width="59px">`;
+        thisline += displayedValues.speed + `<\/td><td class="enemycell" index="11" width="59px">`;
+        thisline += displayedValues.armor_piercing + `<\/td><td class="enemycell" index="12" width="59px">`;
+        thisline += displayedValues.armor + `<\/td><td class="enemycell" index="13" width="59px">`;
+        thisline += displayedValues.shield + `<\/td><td class="enemycell" index="14" width="59px">`;
+        thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="15" width="79px">`;
+        thisline += displayedValues.def + `<\/td><td class="enemycell" index="16" width="79px">`;
+        thisline += Number(def_percent) + `%<\/td><td class="enemycell" index="17" width="100px">`;
+        thisline += "(" + coordinator_x + "," + coordinator_y + `)<\/td><\/tr>`;
 
-          output += thisline;
+        output += thisline;
 
-          dcoordinator(1, "#e91e63", Number(Enemy_in_team[i].coordinator_x), Number(Enemy_in_team[i].coordinator_y));
-          dcoordinator(5, "#e91e63", Number(Enemy_in_team[i].coordinator_x), Number(Enemy_in_team[i].coordinator_y), charatype["name"]);
-      }
+        dcoordinator(1, "#e91e63", coordinator_x, coordinator_y);
+        dcoordinator(5, "#e91e63", coordinator_x, coordinator_y, charatype["name"]);
+      });
       output += "</tbody></table>";
     }
 
