@@ -3386,6 +3386,8 @@ special_spot_config-10500046,
 special_spot_config-20500046,【标记】试作型检测
 special_spot_config-10500050,[avg]-50-EXT-1-3-2
 special_spot_config-20500050,【标记】配方
+special_spot_config-10500099,
+special_spot_config-20500099,
 special_spot_config-10500101,
 special_spot_config-20500101,【标记】战败
 special_spot_config-10500301,
