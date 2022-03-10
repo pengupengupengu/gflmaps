@@ -5998,6 +5998,10 @@ building-10500101,【标记】死亡判定
 building-40500101,
 building-20500101,【标记】略
 building-30500101,本次战役中无法破坏该设施
+building-10500200,万能甜点制造机
+building-40500200,
+building-20500200,【标记】略
+building-30500200,本次战役中无法破坏该设施
 building-10500301,【标记】刷怪点
 building-40500301,
 building-20500301,【标记】略
