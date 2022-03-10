@@ -502,6 +502,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -49: return 5049;
     // FP
     case -51: return 3051;
+    // Valentine's mini-event 2
+    case -50: return 5050;
     // Tutorials
     case -10000:
     case -10001:
