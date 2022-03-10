@@ -3398,6 +3398,8 @@ special_spot_config-10500303,
 special_spot_config-20500303,【标记】召唤小怪3
 special_spot_config-10500304,
 special_spot_config-20500304,【标记】召唤BOSS
+special_spot_config-10500400,[avg]-50-EXT-1-4-0
+special_spot_config-20500400,
 special_spot_config-10500406,[avg]-50-EXT-1-4-5
 special_spot_config-20500406,
 special_spot_config-10500407,[avg]-50-EXT-1-4-6
