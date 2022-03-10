@@ -3389,7 +3389,7 @@ special_spot_config-20500050,【标记】配方
 special_spot_config-10500099,
 special_spot_config-20500099,
 special_spot_config-10500101,
-special_spot_config-20500101,【标记】战败
+special_spot_config-20500101,
 special_spot_config-10500301,
 special_spot_config-20500301,【标记】召唤小怪1
 special_spot_config-10500302,
