@@ -1338,21 +1338,18 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     /*-- enemyai 敌方行动逻辑 --*/
     let enemy_ai;
     let enemy_ai_num = matchingEnemyTeam["ai"];
+    // force_id = {1 (mission), 2 (enemy), 3 (ally), 4 (friend)}
+    if (matchingEnemyTeam["if_stay"]) {
+      enemy_ai_num = 999;
+      enemy_ai = Team_ai.find(({force_id, ai_type}) => force_id === 1 && ai_type === enemy_ai_num)?.name;
+    } else if(enemy_ai_num == 0) {
+      enemy_ai_num = Mission_map[Number($("#missionselect").val())].enemy_ai_type;
+      enemy_ai = Team_ai.find(({force_id, ai_type}) => force_id === 1 && ai_type === enemy_ai_num)?.name;
+    } else {
+      enemy_ai = Team_ai.find(({force_id, ai_type}) => force_id === 2 && ai_type === enemy_ai_num)?.name;
+    }
     let enemy_ai_con = matchingEnemyTeam["ai_content"];
-    if(enemy_ai_num == 0) {
-      for (j in Mission) {
-        if (Mission[j].id == $("#missionselect").val()) {
-          enemy_ai_num = Mission[j].enemy_ai_type;
-          break;
-        }
-      }
-    }
-    for (j in Team_ai) {
-      if(enemy_ai_num == Team_ai[j].ai_type) {
-        enemy_ai = Team_ai[j].name; break;
-      }
-    }
-    
+
     teamID = enemy_team_id;
 
     const teamLeaderEnemyCharacterType = Enemy_charater_type.find(e => e.id == teamLeaderEnemyId);

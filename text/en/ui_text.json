@@ -68,11 +68,12 @@
     "5049": "[Mini-Event] One Coin Short",
     "5050": "[Mini-Event] [Second White Day Mini-Event]",
 
-    "6004": "[Theater] 1&2",
-    "6005": "[Theater] 3&4",
-    "6006": "[Theater] 5&6 (CNTWKR + EN)",
+    "6004": "[Theater] 1+2",
+    "6005": "[Theater] 3+4",
+    "6006": "[Theater] 5+6 (CNTWKR + EN)",
     "6007": "[Theater] 7 (CNTWKR)",
-    "6807": "[Theater] 7 (EN) / 5 (JP)"
+    "6807": "[Theater] 7 (EN) / 5 (JP)",
+    "6008": "[Theater] 8 (CNTWKR)"
   },
 
   "endless_map": "Ranking",
