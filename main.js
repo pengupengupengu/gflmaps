@@ -107,6 +107,7 @@ const controllableAllyTeamRegex = /2([01])([01])(0|1:(\d+),(\d+))/;
 
 let missionIdToSuspectedSpawns = {};
 let theaterAreaToLevelAdjustments = {};
+let defDrillTeamsToLevels = {};
 
 // CHANGES FROM GFWIKI: For most data, if the asset text file does not contain a name or the name is blank,
 //     then just use the table ID (i.e. "[mission-10000125]" for 13-1). This is so that names don't appear blank
@@ -255,6 +256,24 @@ const calculateTheaterLevelAdjustments = () => {
   //console.log(theaterAreaToLevelAdjustments);
 };
 
+const calculateDefDrillTeamLevels = () => {
+  defDrillTeamsToLevels = {};
+  
+  trial_info
+    .map(({enemy_team_id, enemy_level}) => ({enemy_team_id: Number(enemy_team_id), enemy_level: Number(enemy_level)}))
+    .forEach(({enemy_team_id, enemy_level}) => {
+      if (!(enemy_team_id in defDrillTeamsToLevels)) {
+        defDrillTeamsToLevels[enemy_team_id] = {min: enemy_level, max: enemy_level};
+      }
+      if (defDrillTeamsToLevels[enemy_team_id].min > enemy_level) {
+        defDrillTeamsToLevels[enemy_team_id].min = enemy_level;
+      }
+      if (defDrillTeamsToLevels[enemy_team_id].max < enemy_level) {
+        defDrillTeamsToLevels[enemy_team_id].max = enemy_level;
+      }
+    });
+};
+
 firstcreat();
 
 const loadImageAsset = (path) => {
@@ -380,6 +399,7 @@ const loadData = async () => {
   
   calculateSuspectedSpawns();
   calculateTheaterLevelAdjustments();
+  calculateDefDrillTeamLevels();
 
   trans();
   $("#loadtips").hide();
@@ -2356,6 +2376,7 @@ function enemydisplay(enemy_team_id){
       output = '';
       
       let theaterLevelAdjustments = null;
+      let defDrillLevels = null;
       const missionId = Number($("#missionselect").val());
       if (Number($("#campaignselect").val()) >= 6000
            && missionId in theaterAreaToLevelAdjustments
@@ -2370,6 +2391,14 @@ function enemydisplay(enemy_team_id){
             generally stronger at wave 10 than it would be at wave 1. The stats below reflect the
             min (${theaterLevelAdjustments.min}) and max (${theaterLevelAdjustments.max}) level
             adjustments of the currently selected theater area "${theaterAreaName}".
+          </div>`;
+      } else if (enemy_team_id in defDrillTeamsToLevels) {
+        defDrillLevels = defDrillTeamsToLevels[enemy_team_id];
+        
+        output = `
+          <div class="note">
+            This team is used in Defense Drill, which specifies enemy levels for each Defense Drill stage.
+            Enemy stats below are computed from the Defense Drill level range.
           </div>`;
       }
       
@@ -2415,6 +2444,25 @@ function enemydisplay(enemy_team_id){
             shield: getTheaterEnemyAttributeRange(charatype, "shield", level, theaterLevelAdjustments),
             def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, theaterLevelAdjustments),
             def: getTheaterEnemyAttributeRange(charatype, "def", level, theaterLevelAdjustments),
+          };
+        } else if (defDrillLevels) {
+          const adjustments = {min: defDrillLevels.min - level, max: defDrillLevels.max - level};
+          displayedValues = {
+            level: (defDrillLevels.min % 1000) === (defDrillLevels.max % 1000)
+              ? (defDrillLevels.min % 1000)
+              : (defDrillLevels.min % 1000) + "-" + (defDrillLevels.max % 1000),
+            hp: getTheaterEnemyAttributeRange(charatype, "maxlife", level, adjustments),
+            pow: getTheaterEnemyAttributeRange(charatype, "pow", level, adjustments),
+            rate: getTheaterEnemyAttributeRange(charatype, "rate", level, adjustments),
+            hit: getTheaterEnemyAttributeRange(charatype, "hit", level, adjustments),
+            dodge: getTheaterEnemyAttributeRange(charatype, "dodge", level, adjustments),
+            range: getTheaterEnemyAttributeRange(charatype, "range", level, adjustments),
+            speed: getTheaterEnemyAttributeRange(charatype, "speed", level, adjustments),
+            armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, adjustments),
+            armor: getTheaterEnemyAttributeRange(charatype, "armor", level, adjustments),
+            shield: getTheaterEnemyAttributeRange(charatype, "shield", level, adjustments),
+            def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, adjustments),
+            def: getTheaterEnemyAttributeRange(charatype, "def", level, adjustments),
           };
         } else {
           displayedValues = {
