@@ -22,7 +22,7 @@ var Theater_area;
 var Mission, Mission_map;
 var Enemy_charater_type, Enemy_character_type_by_id;
 var Ally_team;
-var Gun;
+var Gun, Gun_by_id;
 var Gun_in_ally;
 var Sangvis_in_ally;
 var equip_in_ally_info;
@@ -109,6 +109,25 @@ let missionIdToSuspectedSpawns = {};
 let theaterAreaToLevelAdjustments = {};
 let defDrillTeamsToLevels = {};
 
+const wellKnownEnemyCodes = new Set([
+  "Punish",
+  "Visjnoe",
+  "Cherub",
+  "Obelisk_partB",
+  "Obelisk_partA",
+  "Riotguard",
+  "Metalmax",
+  //"Executioner",
+  //"Grenadier",
+  "Mastersergeant",
+  "Nyto_Black_SMG",
+  "Nyto_Black_Hammer",
+  "Nyto_Black_RF",
+  "Nyto_White_Commander",
+  "Cerberus_White",
+  "Teal",
+]);
+
 // CHANGES FROM GFWIKI: For most data, if the asset text file does not contain a name or the name is blank,
 //     then just use the table ID (i.e. "[mission-10000125]" for 13-1). This is so that names don't appear blank
 //     when using dataSource=CN and langCode=EN.
@@ -140,6 +159,15 @@ function trans() {
     var namestr = namepos !== -1 ? Enemy_charater_type_txt.slice(namepos + Enemy_charater_type[i].name.length + 1, Enemy_charater_type_txt.indexOf("\n", namepos) - 1).trim().replace("//c", UI_TEXT["comma"]) : null;
     if (namestr) {
       Enemy_charater_type[i].name = namestr;
+      if (wellKnownEnemyCodes.has(Enemy_charater_type[i].code)) {
+        // Certain enemies are known by their codes longer than their localized names, so their codes are
+        // added back for clarification.
+        Enemy_charater_type[i].name = `[${Enemy_charater_type[i].code}] ${namestr}`;
+      } else if (Enemy_charater_type[i].code.match(/swap/i) && !Enemy_charater_type[i].name.match(/swap/i)) {
+        // Add " [SWAP]" at the end of the name if the enemy code contains "SWAP" but the name does not.
+        // This is because the official English localization sometimes just omits this qualifier...
+        Enemy_charater_type[i].name += " [SWAP]";
+      }
     } else {
       let prefix = "";
       const fallback_match = Enemy_charater_type_cn_txt.match(`${Enemy_charater_type[i].name},(.*)`);
@@ -151,11 +179,6 @@ function trans() {
         prefix = `[${Enemy_charater_type[i].name}]`;
       }
       Enemy_charater_type[i].name = fallback_match ? `${prefix} ${fallback_match[1]}` : prefix;
-    }
-    // Add " [SWAP]" at the end of the name if the enemy code contains "SWAP" but the name does not.
-    // This is because the official English localization sometimes just omits this qualifier...
-    if (Enemy_charater_type[i].code.match(/swap/i) && !Enemy_charater_type[i].name.match(/swap/i)) {
-      Enemy_charater_type[i].name += " [SWAP]";
     }
   }
 
@@ -237,6 +260,12 @@ const calculateSuspectedSpawns = () => {
       missionIdToSuspectedSpawns[lastMissionId].push(enemyTeam.id);
     }
   });
+
+  // AW+ spawns.
+  missionIdToSuspectedSpawns[10105] = [...new Set([
+    ...(missionIdToSuspectedSpawns[10105] || []),
+    2021,2022,2023,2024,2025,2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2141,2142,2143,2144,2145,2146,2147,2148,2149,2150
+  ])];
 };
 
 const calculateTheaterLevelAdjustments = () => {
@@ -336,7 +365,10 @@ const loadData = async () => {
       Enemy_character_type_by_id = Object.fromEntries(result.map((enemy) => [enemy.id, enemy]));
     }),
     "Ally_team": loadJsonFile(`./data/${config.dataSource}/Ally_team.json`).then((result) => Ally_team = result),
-    "Gun": loadJsonFile(`./data/${config.dataSource}/Gun.json`).then((result) => Gun = result),
+    "Gun": loadJsonFile(`./data/${config.dataSource}/Gun.json`).then((result) => {
+      Gun = result;
+      Gun_by_id = Object.fromEntries(result.map((gun) => [gun.id, gun]));
+    }),
     "Gun_in_ally": loadJsonFile(`./data/${config.dataSource}/Gun_in_ally.json`).then((result) => Gun_in_ally = result),
     "Sangvis_in_ally": loadJsonFile(`./data/${config.dataSource}/Sangvis_in_ally.json`).then((result) => Sangvis_in_ally = result),
     "equip_in_ally_info": loadJsonFile(`./data/${config.dataSource}/equip_in_ally_info.json`).then((result) => equip_in_ally_info = result["equip_in_ally_info"]),
@@ -712,14 +744,52 @@ const getSangvisName = (sangvis_id, excludeIdFromCnName) => {
   }
 };
 
+const dollType = {
+  0: 'all',
+  1: 'hg',
+  2: 'smg',
+  3: 'rf',
+  4: 'ar',
+  5: 'mg',
+  6: 'sg',
+};
+
 const getAllyGuns = (gunInAllyIds) =>
   gunInAllyIds.map(gunInAllyId => {
     const gunInAllyRow = Gun_in_ally.find(row => row.id == gunInAllyId);
+    const gun = Gun_by_id[gunInAllyRow.gun_id];
+    const baseStats = gfcore.api.getDollStats(dollType[gun.type], {
+      hp: gun.ratio_life,
+      pow: gun.ratio_pow,
+      hit: gun.ratio_hit,
+      dodge: gun.ratio_dodge,
+      speed: gun.ratio_speed,
+      rate: gun.ratio_rate,
+      armorPiercing: gun.armor_piercing,
+      criticalPercent: gun.crit,
+      armor: gun.ratio_armor,
+    }, gun.eat_ratio, {
+      level: gunInAllyRow.level,
+      dummyLink: gunInAllyRow.number,
+      favor: 50,
+      growth: false
+    });
+    // The stats here might have rounding errors due to the game zealously applying ceil/floor to every result
+    // in a specific order.
+    const approxStats = {
+      life: gunInAllyRow.life,
+      pow: Math.floor(0.95 * (baseStats.pow + gunInAllyRow.pow)),
+      rate: baseStats.rate + gunInAllyRow.rate,
+      hit: Math.floor(0.95 * (baseStats.hit + gunInAllyRow.hit)),
+      dodge: Math.floor(0.95 * (baseStats.dodge + gunInAllyRow.dodge)),
+    };
+
     const equips = [gunInAllyRow.equip1, gunInAllyRow.equip2, gunInAllyRow.equip3]
       .filter(id => !!id)
       .map(equipInAllyId => equip_in_ally_info.find(equip => equip.id == equipInAllyId));
     const numpadPosition = {7: 1, 8: 4, 9: 7, 12: 2, 13: 5, 14: 8, 17: 3, 18: 6, 19: 9}[gunInAllyRow.position] || "?";
     return {
+      approxStats,
       gunInAllyRow,
       name: (gunInAllyRow ? getGunName(gunInAllyRow.gun_id) : null) || `[Gun_in_ally-${gunInAllyId}] ???`,
       code: (Gun.find((doll) => doll.id == gunInAllyRow.gun_id) || {}).code,
@@ -2306,11 +2376,11 @@ function enemydisplay(enemy_team_id){
              <td class="enemycell" index="1" width="219px">${gun.name}<\/td>
              <td class="enemycell" index="2" width="59px">${gun.gunInAllyRow.number}<\/td>
              <td class="enemycell" index="3" width="59px">${gun.gunInAllyRow.gun_level}<\/td>
-             <td class="enemycell" index="4" width="59px">${gun.gunInAllyRow.life}<\/td>
-             <td class="enemycell" index="5" width="59px">${gun.gunInAllyRow.pow}<\/td>
-             <td class="enemycell" index="6" width="59px">${gun.gunInAllyRow.rate}<\/td>
-             <td class="enemycell" index="7" width="59px">${gun.gunInAllyRow.hit}<\/td>
-             <td class="enemycell" index="8" width="59px">${gun.gunInAllyRow.dodge}<\/td>
+             <td class="enemycell" index="4" width="59px">${gun.approxStats.life}<\/td>
+             <td class="enemycell" index="5" width="59px">${gun.approxStats.pow}<\/td>
+             <td class="enemycell" index="6" width="59px">${gun.approxStats.rate}<\/td>
+             <td class="enemycell" index="7" width="59px">${gun.approxStats.hit}<\/td>
+             <td class="enemycell" index="8" width="59px">${gun.approxStats.dodge}<\/td>
              <td class="enemycell" index="9" width="453px">${equips}<\/td>
              <td class="enemycell" index="10" width="100px">${gun.numpadPosition}<\/td><\/tr>`
         }).join("");
