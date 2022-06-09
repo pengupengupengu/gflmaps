@@ -253,7 +253,7 @@ const calculateSuspectedSpawns = () => {
   Enemy_team.forEach((enemyTeam) => {
     if (enemyTeam.id in enemyTeamIdToMissionId) {
       lastMissionId = enemyTeamIdToMissionId[enemyTeam.id];
-    } else if (lastMissionId) {
+    } else if (lastMissionId && (enemyTeam.id < 1051100 || enemyTeam.id >= 1200000)) {
       if (!(lastMissionId in missionIdToSuspectedSpawns)) {
         missionIdToSuspectedSpawns[lastMissionId] = [];
       }
@@ -517,7 +517,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // -29 is DD+
     // -30 is Rabbit Hunt rerun
     // Isomer
-    case -31: return 3031;
+    case -31:
+    case -53: return 3031;
     // VA-11 HALL-A
     case -32: return 4032;
     // SC
@@ -556,6 +557,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -51: return 3051;
     // Valentine's mini-event 2
     case -50: return 5050;
+    // -53 is Iso+
     // Tutorials
     case -10000:
     case -10001:
