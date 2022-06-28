@@ -468,7 +468,7 @@ equip-20000158,CRIT RATE+<critical_percent><%>//nDMG+<pow>$Type88 only
 equip-30000158,Abandoning the outdated propellant propulsion method of lead delivery//c the newly upgraded Type88 is now equipped with a high-performance acceleration coil//c which can accelerate projectiles to Mach 1.5 in 0.2 seconds. Isn't this a bit overpowered?
 equip-10000159,Tactical Headwear
 equip-20000159,DMG+<pow> EVA+<dodge>//n CRIT DMG+<critical_harm_rate><%> $416 only
-equip-30000159,No description
+equip-30000159,After 416's Neural Upgrade//c she is equipped with all new Enhanced Situational Awareness System. It may look like a simple hairpin//c but on the contrary it has 22 sensors and antennas of various types built-in to greatly enhance HK416's combat efficiency.
 equip-10000160,No32 MKI
 equip-20000160,CRIT RATE+<critical_percent><%>//nROF+<rate>$Lee Enfield only
 equip-30000160,Telescopic sight produced exclusively for Lee Enfield No. 4 MK. I (T) at the beginning of the last century//c furnished with an exquisite brass finish. The faded scope lens witnessed countless lives lost. Can only be equipped by Lee Enfield.
@@ -790,6 +790,18 @@ equip-30000265,A bullpup pistol grip designed for M37. Suitable for rapid firing
 equip-10000266,ImpulsIIA/C
 equip-20000266,EVA+<dodge>//nCRIT RATE+<critical_percent><%>$Px4 Storm only
 equip-30000266,A 9mm suppressor designed specially for Px4 Storm. The shortened length of the compact version makes it more suited to combat in small//c enclosed spaces. A personal favorite of Px4 Storm's.
+equip-10000267,Kurtz-Conversion Short Barrel
+equip-20000267,CRIT RATE+<critical_percent><%>//n EVA+<dodge> ACC+<hit>$M9 only
+equip-30000267,A short barrel originally designed for the P38K//c but with some modifications from IOP//c it can now be mounted on P38. Compared to the original long version//c the shorter barrel makes it more nimble and easier to conceal.
+equip-10000268,DBP10 (Type 03)
+equip-20000268,DMG+<pow>//n CRIT DMG+<critical_harm_rate><%> $Type 03 only
+equip-30000268,DBP19 rounds that IOP recalibrated specially for Type 03. There is a significant improvement in muzzle velocity compared to the regular version.
+equip-10000269,ILWLP
+equip-20000269,EVA+<dodge>//n NIGHT VISION+<night_view_percent><%> $Gr Mk23 only
+equip-30000269,A rail-grabber mounting tactical system designed specially for Gr Mk23. It is jam-packed full of features//c including co-aligned visual and infrared aiming laser//c an IR illuminator//c and a flashlight.
+equip-10000270,OMEGA Rail
+equip-20000270,DMG+<pow> ACC+<hit>//n CRIT RATE+<critical_percent><%> Enhances skill $CZ75 only
+equip-30000270,A full-sized rail for the CZ75B model. Coupled with the OMEGA trigger mechanism//c the weapon can now be fired with improved speed and fluidity.
 equip-10000267,
 equip-20000267,
 equip-30000267,
