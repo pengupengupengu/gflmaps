@@ -557,7 +557,11 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -51: return 3051;
     // Valentine's mini-event 2
     case -50: return 5050;
+    // Summer mini-event 3
+    case -52: return 5052;
     // -53 is Iso+
+    // UNKNOWN SUMMER MINI-EVENT
+    case -54: return 3054;
     // Tutorials
     case -10000:
     case -10001:
