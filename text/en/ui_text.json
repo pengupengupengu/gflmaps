@@ -48,7 +48,7 @@
     "3044": "[Event] Mirror Stage",
     "3048": "[Event] Poincaré Recurrence",
     "3051": "[Event] Fixed Point",
-    "3054": "[Event] [2022 SUMMER MAJOR EVENT]",
+    "3054": "[Event] Longitudinal Strain",
 
     "4008": "[Collab] Operation Rabbit Hunt (ArcSys)",
     "4014": "[Collab] Hitoribocchi (Honkai 2 - CN Only)",
@@ -146,7 +146,7 @@
     "comment_team_ai_patrol": "This must match team_ai-10000009",
   "team_ai_controllable": "Controllable",
   "team_alignment_ally": "Allied",
-  "team_ce": "CE (EN&JP / CN&TW&KR)",
+  "team_ce": "CE (ENJP / CNTWKR)",
   "team_composition": "Composition",
   "team_location": "Location",
   "team_count": "Count",

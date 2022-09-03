@@ -690,9 +690,12 @@ function getMissionOptionsForCampaign(campaign) {
           /*-- 去除剧情关卡 --*/
           if(Mission[i].special_type == 8 || Mission[i].special_type == 9) continue;
           if ((Mission[i].campaign == - (campaign - 5000)) && (Mission[i].if_emergency != 2)) {
+              var innerHTML = Mission[i].sub + " ";
+              if (isRanking(Mission[i])) innerHTML += `[${UI_TEXT["endless_map"]}] `;
+              innerHTML += Mission[i].name.replace("//n", " ");
               missionOptions.push({
                 value: Number(Mission[i].id),
-                innerHTML: Mission[i].sub + " " + Mission[i].name.replace("//n", " ")
+                innerHTML
               });
           }
       }
