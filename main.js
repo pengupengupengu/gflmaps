@@ -323,6 +323,12 @@ const loadImageAsset = (path) => {
   });
 };
 
+const isRanking = (mission) => (
+  mission.endless_mode === 1 || mission.endless_mode === 2
+    // This seems to hold for Fixed Point's maps.
+    || mission.score_prize !== ""
+);
+
 const getChibiPath = (code) => `map_chibis/${code}_wait0.gif`;
 const getChibi = (code) => loadedImageAssets[getChibiPath(code)];
 const loadChibi = (code, redrawFunc) => {
@@ -669,7 +675,7 @@ function getMissionOptionsForCampaign(campaign) {
           else if(campaign > 4000 && ((- Number(camp) - (campaign - 4000 - 1)) > 6)) innerHTML = "复刻 " + Mission[i].sub + " ";
           else innerHTML = String(- Number(camp) - (campaign - ((campaign > 4000) ? 4000 : 3000) - 1)) + "-" + Mission[i].sub + " ";
           /*-- 秃洞的识别 无尽模式 --*/
-          if (Mission[i].endless_mode == 1 || Mission[i].endless_mode == 2) innerHTML += `[${UI_TEXT["endless_map"]}] `;
+          if (isRanking(Mission[i])) innerHTML += `[${UI_TEXT["endless_map"]}] `;
           innerHTML += Mission[i].name.replace("//n", " ");
           missionOptions.push({
             value: Number(Mission[i].id),
@@ -700,7 +706,7 @@ function getMissionOptionsForCampaign(campaign) {
 
           missionOptions.push({
             value: Number(Mission[i].id),
-            innerHTML: Mission[i].campaign + "-" + Mission[i].sub + " " + ((Mission[i].endless_mode == 1 || Mission[i].endless_mode == 2) ? `[${UI_TEXT["endless_map"]}] ` : "") + Mission[i].name.replace("//n", " ")
+            innerHTML: Mission[i].campaign + "-" + Mission[i].sub + " " + (isRanking(Mission[i]) ? `[${UI_TEXT["endless_map"]}] ` : "") + Mission[i].name.replace("//n", " ")
           });
       }
 
