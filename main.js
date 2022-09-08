@@ -857,7 +857,7 @@ function updatemap() {
     return;
   }
 
-  const mission_info = Mission.find((m) => m.id == mission);
+  const mission_info = Mission_map[Number(mission)];
   if (mission_info) {
     Object.keys(Object.fromEntries(mission_info.map_res_name.split(';').map((bgName) => [bgName])))
       .forEach((bgName) => {
@@ -867,41 +867,146 @@ function updatemap() {
         }
       });
     
-    const [gkTeamLimit, totalTeamLimit] = mission_info.limit_team.indexOf(",") != -1 ? mission_info.limit_team.split(",") : [mission_info.limit_team, 0];
-    let advantaged_doll_names = [];
+    let turnLimit = mission_info.turn_limit > 0 ? mission_info.turn_limit : UI_TEXT["mission_info_unlimited"];
+    let advantagedDollsNames = [];
     if (mission_info.adaptive_gun) {
-      advantaged_doll_names = mission_info.adaptive_gun.split(",").map((gun_id) => getGunName(gun_id));
+      advantagedDollsNames = mission_info.adaptive_gun.split(",").map((gun_id) => getGunName(gun_id));
     }
-    let totalTeamLimitDisplay = "";
-    if (totalTeamLimit == 0) {
-      totalTeamLimitDisplay = UI_TEXT["mission_info_unlimited"];
+    let advantagedDolls = advantagedDollsNames.length > 0 ? advantagedDollsNames.join(", ") : UI_TEXT["mission_info_no_advantaged_dolls"];
+    let tableBody = "";
+    let notes = [];
+
+    // LS Map 2
+    if (mission_info.id === 11118) {
+      tableBody =
+        `<thead style="display: table-header-group; background-color:#f4c430; color:black;"><tr>
+           <th>${Mission_map[11117].name} Win Condition</th>
+           <th>${UI_TEXT["mission_info_environment"]}</th>
+           <th>${UI_TEXT["mission_info_turn_limit"]}</th>
+           <th>${UI_TEXT["mission_info_gk_limit"]}</th>
+           <th>${UI_TEXT["mission_info_hoc_limit"]}</th>
+           <th>${UI_TEXT["mission_info_coalition_limit"]}</th>
+           <th>${UI_TEXT["mission_info_total_team_limit"]}</th>
+           <th>${UI_TEXT["mission_info_advantaged_dolls"]}</th>
+         </tr></thead>
+         <tbody>
+           <tr>
+             <td>[ALL]</td>
+             <td>${mission_info.special_type > 0 ? UI_TEXT["mission_info_environment_night"] : UI_TEXT["mission_info_environment_day"]}</td>
+             <td>${turnLimit}</td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td>${advantagedDolls}</td>
+           </tr>
+           <tr>
+             <td>Survive 5 Turns</td>
+             <td></td>
+             <td></td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td></td>
+           </tr>
+           <tr>
+             <td>Get 3 Missions</td>
+             <td></td>
+             <td></td>
+             <td>10</td>
+             <td>4</td>
+             <td>3</td>
+             <td>10*</td>
+             <td></td>
+           </tr>
+           <tr>
+             <td>Accept A545's Mission</td>
+             <td></td>
+             <td></td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td></td>
+           </tr>
+           <tr>
+             <td>Accept PKP's Mission</td>
+             <td></td>
+             <td></td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td></td>
+           </tr>
+           <tr>
+             <td>Accept PM1910's Mission</td>
+             <td></td>
+             <td></td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td></td>
+           </tr>
+           <tr>
+             <td>Accept AR18's Mission</td>
+             <td></td>
+             <td></td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td>?</td>
+             <td></td>
+           </tr>
+         </tbody>`;
+      notes.push(UI_TEXT["mission_info_hoc_excluded"]);
     } else {
-      totalTeamLimitDisplay = totalTeamLimit;
-      if (totalTeamLimit.charAt(0) == "*") {
-        totalTeamLimitDisplay += "<br>* = " + UI_TEXT["mission_info_hoc_excluded"];
+      const [gkTeamLimit, totalTeamLimit] = mission_info.limit_team.indexOf(",") != -1 ? mission_info.limit_team.split(",") : [mission_info.limit_team, 0];
+      let gkLimitDisplay = gkTeamLimit != 0 ? (gkTeamLimit != -1 ? gkTeamLimit : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"];
+      let hocLimit = mission_info.limit_squad != 0 ? (mission_info.limit_squad != -1 ? mission_info.limit_squad : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"];
+      let coalitionLimit = mission_info.limit_sangvis != 0 ? (mission_info.limit_sangvis != -1 ? mission_info.limit_sangvis : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"];
+      let totalTeamLimitDisplay = "";
+      if (totalTeamLimit == 0) {
+        totalTeamLimitDisplay = UI_TEXT["mission_info_unlimited"];
+      } else {
+        totalTeamLimitDisplay = totalTeamLimit;
+        if (totalTeamLimit.indexOf("*") !== -1) {
+          notes.push(UI_TEXT["mission_info_hoc_excluded"]);
+        }
       }
+      // LS Map 1
+      if (mission_info.id === 11117) {
+        turnLimit = `<= 4 [1]`;
+        notes.push(`[1] One of the win conditions is "Survive 5 Turns", but the map can end earlier with other win conditions.`);
+      }
+      tableBody =
+        `<thead style="display: table-header-group; background-color:#f4c430; color:black;"><tr>
+           <th>${UI_TEXT["mission_info_environment"]}</th>
+           <th>${UI_TEXT["mission_info_turn_limit"]}</th>
+           <th>${UI_TEXT["mission_info_gk_limit"]}</th>
+           <th>${UI_TEXT["mission_info_hoc_limit"]}</th>
+           <th>${UI_TEXT["mission_info_coalition_limit"]}</th>
+           <th>${UI_TEXT["mission_info_total_team_limit"]}</th>
+           <th>${UI_TEXT["mission_info_advantaged_dolls"]}</th>
+         </tr></thead>
+         <tbody><tr>
+           <td>${mission_info.special_type > 0 ? UI_TEXT["mission_info_environment_night"] : UI_TEXT["mission_info_environment_day"]}</td>
+           <td>${turnLimit}</td>
+           <td>${gkLimitDisplay}</td>
+           <td>${hocLimit}</td>
+           <td>${coalitionLimit}</td>
+           <td>${totalTeamLimitDisplay}</td>
+           <td>${advantagedDolls}</td>
+         </tr></tbody>`;
     }
+    
     $("#missioninfo").html(`
         <table id="Missioninfotable" class="enemydata" style="margin-top: 10px; table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-          <thead style="display: table-header-group; background-color:#f4c430; color:black;"><tr>
-            <th>${UI_TEXT["mission_info_environment"]}</th>
-            <th>${UI_TEXT["mission_info_turn_limit"]}</th>
-            <th>${UI_TEXT["mission_info_gk_limit"]}</th>
-            <th>${UI_TEXT["mission_info_hoc_limit"]}</th>
-            <th>${UI_TEXT["mission_info_coalition_limit"]}</th>
-            <th>${UI_TEXT["mission_info_total_team_limit"]}</th>
-            <th>${UI_TEXT["mission_info_advantaged_dolls"]}</th>
-          </tr></thead>
-          <tbody><tr>
-            <td>${mission_info.special_type > 0 ? UI_TEXT["mission_info_environment_night"] : UI_TEXT["mission_info_environment_day"]}</td>
-            <td>${mission_info.turn_limit > 0 ? mission_info.turn_limit : UI_TEXT["mission_info_unlimited"]}</td>
-            <td>${gkTeamLimit != 0 ? (gkTeamLimit != -1 ? gkTeamLimit : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
-            <td>${mission_info.limit_squad != 0 ? (mission_info.limit_squad != -1 ? mission_info.limit_squad : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
-            <td>${mission_info.limit_sangvis != 0 ? (mission_info.limit_sangvis != -1 ? mission_info.limit_sangvis : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"]}</td>
-            <td>${totalTeamLimitDisplay}</td>
-            <td>${advantaged_doll_names.length > 0 ? advantaged_doll_names.join(", ") : UI_TEXT["mission_info_no_advantaged_dolls"]}</td>
-          </tr></tbody>
+          ${tableBody}
         </table>
+        <p>${notes.join("<br>")}</p>
     `);
   } else {
     $("#missioninfo").html("");
@@ -1498,8 +1603,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     <td width="160px">${teamLeader}<\/td>
     <td width="100px">${teamAlignment}<\/td>
     <td width="114px">${teamAIDisplay}<\/td>
-    <td width="100px">${teamCEPre208 + (hasFakeCeError ? 1 : 0)} / ${teamCEPost208 + (hasFakeCeError ? 1 : 0)}
-      ${hasFakeCeError ? " (-1)" : ""}<\/td>
+    <td width="100px">${teamCEPre208} / ${teamCEPost208}*<\/td>
     <td width="290px">${teamComposition}<\/td>
     <td width="200px">${rareDrops.join(", ")}<\/td>
     <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
@@ -1589,10 +1693,7 @@ function missiondisplay(){
     }
 
     output += `</tbody></table>
-    <div class="note">Note: "(-1)" means that the client adds 1 extra CE due to a bug.
-    The map and table above shows the same CE as the client, not the real CE.
-    This extra CE doesn't count for scoring, so if you kill an enemy with "136480 / 136480 (-1)",
-    you will receive 13647 points because the real CE was 136479.</div>`;
+    <div class="note">Note: "*" means that the 2.09 client added 1 extra CE due to a bug. This bug was fixed in 3.01.</div>`;
 
     $("#missionshow").html(output);
     $(".missionline").mouseover(function(){
