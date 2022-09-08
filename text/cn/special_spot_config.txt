@@ -3754,11 +3754,11 @@ special_spot_config-16540153,【标记】控制台IV初始化
 special_spot_config-26540153,
 special_spot_config-16540154,【标记】密码台初始化
 special_spot_config-26540154,
-special_spot_config-16540155,[avg]-54-ColtWalker_2_1
+special_spot_config-16540155,[avg]-54-B-6Point1
 special_spot_config-26540155,
-special_spot_config-16540156,[avg]-54-ColtWalker_2_2
+special_spot_config-16540156,[avg]-54-B-6Point2
 special_spot_config-26540156,
-special_spot_config-16540157,[avg]-54-ColtWalker_2_3
+special_spot_config-16540157,[avg]-54-B-6Point3
 special_spot_config-26540157,
 special_spot_config-16540158,【标记】乱石堆初始化
 special_spot_config-26540158,
@@ -3922,6 +3922,8 @@ special_spot_config-10541331,【标记】净化一切
 special_spot_config-20541331,
 special_spot_config-10541341,【标记】净化一切
 special_spot_config-20541341,
+special_spot_config-10541351,[avg]-54-A-13Point1
+special_spot_config-20541351,
 special_spot_config-10541302,【标记】炮击阵地
 special_spot_config-20541302,
 special_spot_config-10541303,【标记】乱石堆
@@ -3946,7 +3948,7 @@ special_spot_config-10544211,【标记】可拾取
 special_spot_config-20544211,
 special_spot_config-10544202,【标记】油桶初始化
 special_spot_config-20544202,
-special_spot_config-10544221,avg
+special_spot_config-10544221,[avg]-54-C-15Point2
 special_spot_config-20544221,
 special_spot_config-10544203,【标记】树林
 special_spot_config-20544203,
