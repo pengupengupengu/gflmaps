@@ -924,10 +924,10 @@ function updatemap() {
              <td>Accept A545's Mission</td>
              <td></td>
              <td></td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
+             <td>10</td>
+             <td>3</td>
+             <td>2</td>
+             <td>10*</td>
              <td></td>
            </tr>
            <tr>
