@@ -1555,7 +1555,7 @@ ally_team-16543602,敌军增援
 ally_team-16540009,Я教官
 ally_team-16540010,艾尔玛
 ally_team-16540011,玛姬
-ally_team-16540012,忤逆
+ally_team-16540012,忤逆小队
 ally_team-16540013,艾尔玛
 ally_team-16540014,艾尔玛
 ally_team-16540015,艾尔玛

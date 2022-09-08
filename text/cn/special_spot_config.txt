@@ -3756,7 +3756,7 @@ special_spot_config-16540154,【标记】密码台初始化
 special_spot_config-26540154,
 special_spot_config-16540155,[avg]-54-B-6Point1
 special_spot_config-26540155,
-special_spot_config-16540156,[avg]-54-B-6Point2
+special_spot_config-16540156,【标记】密码台2
 special_spot_config-26540156,
 special_spot_config-16540157,[avg]-54-B-6Point3
 special_spot_config-26540157,
@@ -3834,6 +3834,8 @@ special_spot_config-16540193,[avg]-54-ALLTIP_AR18_2
 special_spot_config-26540193,
 special_spot_config-16540194,【标记】照明触发范围2
 special_spot_config-26540194,
+special_spot_config-16540195,[avg]-54-B-6Point2
+special_spot_config-26540195,
 special_spot_config-10540400,【标记】失败
 special_spot_config-20540400,
 special_spot_config-10541411,【标记】烟花阻挡
