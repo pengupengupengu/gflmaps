@@ -880,7 +880,7 @@ function updatemap() {
     if (mission_info.id === 11118) {
       tableBody =
         `<thead style="display: table-header-group; background-color:#f4c430; color:black;"><tr>
-           <th>${Mission_map[11117].name} Win Condition</th>
+           <th>${Mission_map[11117].name} Score</th>
            <th>${UI_TEXT["mission_info_environment"]}</th>
            <th>${UI_TEXT["mission_info_turn_limit"]}</th>
            <th>${UI_TEXT["mission_info_gk_limit"]}</th>
@@ -894,70 +894,20 @@ function updatemap() {
              <td>[ALL]</td>
              <td>${mission_info.special_type > 0 ? UI_TEXT["mission_info_environment_night"] : UI_TEXT["mission_info_environment_day"]}</td>
              <td>${turnLimit}</td>
-             <td></td>
-             <td></td>
-             <td></td>
-             <td></td>
+             <td>10</td>
+             <td>1-4</td>
+             <td>0-3</td>
+             <td>10*</td>
              <td>${advantagedDolls}</td>
            </tr>
            <tr>
-             <td>Survive 5 Turns</td>
+             <td>>= 350,000</td>
              <td></td>
              <td></td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
              <td></td>
-           </tr>
-           <tr>
-             <td>Get 3 Missions</td>
-             <td></td>
-             <td></td>
-             <td>10</td>
              <td>4</td>
-             <td>3</td>
-             <td>10*</td>
-             <td></td>
-           </tr>
-           <tr>
-             <td>Accept A545's Mission</td>
-             <td></td>
-             <td></td>
-             <td>10</td>
-             <td>3</td>
-             <td>2</td>
-             <td>10*</td>
-             <td></td>
-           </tr>
-           <tr>
-             <td>Accept PKP's Mission</td>
-             <td></td>
-             <td></td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
              <td>?</td>
              <td></td>
-           </tr>
-           <tr>
-             <td>Accept PM1910's Mission</td>
-             <td></td>
-             <td></td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
-             <td></td>
-           </tr>
-           <tr>
-             <td>Accept AR18's Mission</td>
-             <td></td>
-             <td></td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
-             <td>?</td>
              <td></td>
            </tr>
          </tbody>`;
