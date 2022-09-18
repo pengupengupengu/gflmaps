@@ -2241,7 +2241,9 @@ function theaterdisplay(){
         var enemystr = Theater_area[i].enemy_group + ",";
 
         while(enemystr){
-            var enemy_team_id = enemystr.slice(0, enemystr.indexOf("-"));
+            var enemy_team_id = Number(enemystr.slice(0, enemystr.indexOf("-")));
+            // Some theater teams are stitched from EN/JP data. Those teams are given the ID space in 300e7 and 400e7.
+            const displayTeamId = (Theater_area[i].source_server ? `(${Theater_area[i].source_server}) ` : "") + (enemy_team_id % 10000000);
             var enemy_num = enemystr.slice(enemystr.indexOf("-") + 1, enemystr.indexOf(","));
             var enemy_odd = (enemy_num.indexOf("-", 3) == -1) ? ("0~" + enemy_num[2]) : (enemy_num[4] + "~" + (Number(enemy_num[2]) + Number(enemy_num[4])));
             if (Theater_area[i].id >= 700) {
@@ -2249,9 +2251,9 @@ function theaterdisplay(){
               enemy_odd = 1;
             }
 
-            var enemy_leader = null;
+            const teamData = Enemy_team_map[enemy_team_id];
+            let enemy_leader = teamData?.enemy_leader;
             var leader_name;
-            for(j in Enemy_team) if(Enemy_team[j]["id"] == enemy_team_id){ enemy_leader = Enemy_team[j]["enemy_leader"]; break;}
             if (!enemy_leader) {
               let first_enemy = Enemy_in_team.find((row) => row.enemy_team_id === Number(enemy_team_id));
               if (first_enemy) {
@@ -2263,7 +2265,7 @@ function theaterdisplay(){
             }
 
             var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
-            thisline += enemy_team_id + `<\/td><td width="160px">`;
+            thisline += displayTeamId + `<\/td><td width="160px">`;
             thisline += leader_name + `<\/td><td width="100px">`;
             thisline += theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + ' / ' + theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + `<\/td><td width="490px">`;
             thisline += enemyoutcal(enemy_team_id) + `<\/td><td width="60px">`;
