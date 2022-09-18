@@ -2264,7 +2264,7 @@ function theaterdisplay(){
               leader_name = Enemy_character_type_by_id[enemy_leader].name;
             }
 
-            var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
+            var thisline = `<tr class="missionline" data-team-id="${enemy_team_id}" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
             thisline += displayTeamId + `<\/td><td width="160px">`;
             thisline += leader_name + `<\/td><td width="100px">`;
             thisline += theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + ' / ' + theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + `<\/td><td width="490px">`;
@@ -2290,7 +2290,7 @@ function theaterdisplay(){
     $(".missionline").click(function(){
         $(this).parent().children("tr").css({"background-color":"", "color":""});
         $(this).css({"background-color":"#f4c430cc", "color":"black"});
-        enemydisplay($(this).children("td").eq(0).html());
+        enemydisplay(Number($(this).attr("data-team-id")));
     });
 }
 
@@ -2309,7 +2309,7 @@ function enemyoutcal(enemy_team_id) {
 }
 
 function enemyselectcreat(){
-  const options = Enemy_team.map(team => String(team.id))
+  const options = [...new Set(Enemy_in_team.map(({enemy_team_id}) => enemy_team_id))].sort().map((x) => String(x))
     .concat(Ally_team.filter(team => team.ai.match(controllableAllyTeamRegex)).map(team => `ally_team-${team.id}`));
   const optionsHtml = options.map(id => `<option value="${id}">${id}</option>`).join("");
 
