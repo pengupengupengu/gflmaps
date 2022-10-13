@@ -301,6 +301,7 @@ const calculateDefDrillTeamLevels = () => {
         defDrillTeamsToLevels[enemy_team_id].max = enemy_level;
       }
     });
+  console.log(defDrillTeamsToLevels);
 };
 
 firstcreat();
@@ -2530,7 +2531,9 @@ function enemydisplay(enemy_team_id){
             min (${theaterLevelAdjustments.min}) and max (${theaterLevelAdjustments.max}) level
             adjustments of the currently selected theater area "${theaterAreaName}".
           </div>`;
-      } else if (enemy_team_id in defDrillTeamsToLevels) {
+      } else if ((enemy_team_id in defDrillTeamsToLevels)
+          && defDrillTeamsToLevels[enemy_team_id].min > 0
+          && defDrillTeamsToLevels[enemy_team_id].max > 0) {
         defDrillLevels = defDrillTeamsToLevels[enemy_team_id];
         
         output = `
