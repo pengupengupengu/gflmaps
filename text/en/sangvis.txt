@@ -34,6 +34,12 @@ sangvis-10001014,Alina
 sangvis-40001014,One of Paradeus' Nytos. She descends upon the battlefield like a pure white angel of death//c cutting through steel and harvesting lives with her scythe. She takes pride in being one of the earliest advanced Nytos and only shows her cute and gentle side to those she deems worthy.
 sangvis-10001015,Architect - NVW Model
 sangvis-40001015,Architect - Naval Warfare Specialized Model//c NVW Model for short//c is a naval warfare Doll body that IOP created by breaking down and making modifications to an abandoned Sangvis project. When not on the seaside//c Architect will alter her surroundings into a naval environment with stored materials before entering combat. Constructing suitable battle fronts is an architect's job//c after all.
+sangvis-10001016,Intruder - Sorceress of the End
+sangvis-40001016,Intruder - Sorceress of the End is a Doll body specializing in military encounters that IOP created from simulation data gathered by extensive analysis and experimentation on Intruder. With new technology applied to her emotion module//c not only does the Sorceress of the End model possess immense command and support capabilities//c she can also instill crippling fear in her enemies' minds on a small battlefield//c effectively destroying their morale.
+sangvis-10001017,Destroyer - Dashing Reindeer
+sangvis-40001017,Destroyer - Dashing Reindeer is a specialized model developed for combat in snow//c ensuring that Destroyer can maintain her high speed and accuracy even in the cold. This model also features enhanced firepower and explosive strength. At Destroyer's own forceful insistence//c the appearance is based on a reindeer//c and her ammo is packaged as Christmas hanging ornaments//c so that she can deliver sweet death to her enemies.
+sangvis-10001018,Hunter - Nightfall Moth
+sangvis-40001018,Hunter - Nightfall Moth is a uniquely-specialized assassination model. Her clothing incorporates structures similar to those of insect wing scales//c and the colors they reflect can be adjusted in order to blend into the environment. In keeping with Hunter's personal preferences//c they default to a cornflower blue color under normal circumstances//c which seems to exert a certain degree of hypnotic effect. In combat//c this effect is primarily shown by filling the air with blue flower petals or by suddenly changing the background. This also implies that by the time you see the abovementioned scenery//c you have already stepped into Hunter's trap. 
 sangvis-30001007,
 sangvis-10002001,Brute
 sangvis-40002001,Sangvis Ferri's new melee combat unit. It approaches enemies at high speed and deals a fearsome amount of damage//c but is only equipped with negligible armor//c making it quite fragile.
@@ -69,6 +75,12 @@ sangvis-10002013,Striker_SWAP
 sangvis-40002013,An upgraded version of the Striker. With improved firepower and sturdier armor//c it deals more damage and is more effective in suppressing enemy fire.
 sangvis-10002014,Aegis_SWAP
 sangvis-40002014,An upgraded version of the Military Aegis hacked by Sangvis Ferri. Outfitted with contemporary high-spec military armor and a reinforced shield//c its melee combat capabilities also see a devastating improvement.
+sangvis-10002015,Jaeger SWAP
+sangvis-40002015,An upgraded version of Jaeger. The long-range sniping weapon is enhanced in terms of firepower and accuracy//c and the unit itself is no longer as fragile as it used to be//c making it a more formidable enemy.
+sangvis-10002016,Gingerbread Guard
+sangvis-40002016,A high-tier Sangvis holiday unit equipped with a gingerbread shield and candy cane. As its appearance suggests//c it is very sugary. It is mostly used to defend the very important kitchen or to intercept Dreamer//c who slips in to steal candy while using Destroyer as a diversion.
+sangvis-10002017,Zombie Bride
+sangvis-40002017,Resentment clad in gorgeous silk endlessly roams the corridors of the silent mansion. Don't be deceived by her beautiful appearance; if she throws the bouquet she's holding at you//c make sure to duck.
 sangvis-10002010,
 sangvis-40002010,
 sangvis-30002010,
