@@ -76,7 +76,8 @@
     "6007": "[Theater] 7 (CNTWKR)",
     "6807": "[Theater] 7+8 (EN) / 5+6 (JP)",
     "6817": "[Theater] 7 (JP) (fixed)",
-    "6008": "[Theater] 8 (CNTWKR)"
+    "6008": "[Theater] 8 (CNTWKR)",
+    "6009": "[Theater] 9 (CNTWKR)"
   },
 
   "endless_map": "Ranking",
