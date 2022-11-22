@@ -529,7 +529,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // VA-11 HALL-A
     case -32: return 4032;
     // SC
-    case -33: return 3033;
+    case -33:
+    case -55: return 3033;
     // Halloween mini-event 1
     case -34: return 5034;
     // Christmas mini-event
@@ -569,6 +570,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // -53 is Iso+
     // UNKNOWN SUMMER MINI-EVENT
     case -54: return 3054;
+    // -55 is SC+
     // Tutorials
     case -10000:
     case -10001:
