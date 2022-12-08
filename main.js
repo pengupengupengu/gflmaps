@@ -571,6 +571,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // UNKNOWN SUMMER MINI-EVENT
     case -54: return 3054;
     // -55 is SC+
+    // E&S
+    case -56: return 3056;
     // Tutorials
     case -10000:
     case -10001:
