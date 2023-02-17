@@ -573,6 +573,11 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // -55 is SC+
     // E&S
     case -56: return 3056;
+    // ZLSR
+    case -57: return 4057;
+    // WTF is 58
+    // Maze Conjecture
+    case -59: return 5059;
     // Tutorials
     case -10000:
     case -10001:
