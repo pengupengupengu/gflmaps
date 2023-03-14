@@ -1101,7 +1101,7 @@ special_spot_config-20500411,Lewis
 special_spot_config-10500412,[avg]-50-3-3
 special_spot_config-20500412,Falcon
 special_spot_config-10500413,[avg]-50-3-4
-special_spot_config-20500413,Type97
+special_spot_config-20500413,Type79
 special_spot_config-10500414,[avg]-50-3-5
 special_spot_config-20500414,Type97
 special_spot_config-10500415,[avg]-50-3-6
@@ -1121,7 +1121,7 @@ special_spot_config-20500421,Lewis
 special_spot_config-10500422,[avg]-50-3-1
 special_spot_config-20500422,Falcon
 special_spot_config-10500423,[avg]-50-3-1
-special_spot_config-20500423,Type97
+special_spot_config-20500423,Type79
 special_spot_config-10500424,[avg]-50-3-1
 special_spot_config-20500424,Type97
 special_spot_config-10500425,[avg]-50-3-1
