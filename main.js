@@ -585,8 +585,15 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // ZLSR
     case -57: return 4057;
     // WTF is 58
+    case -58:
+    case -60:
+    case -61:
+    case -62:
+    case -63: return 3058;
     // Maze Conjecture
     case -59: return 5059;
+    // Grey Zone
+    case -404: return 2011;
     // Tutorials
     case -10000:
     case -10001:
@@ -665,6 +672,12 @@ function getMissionOptionsForCampaign(campaign) {
       value: "defdrill_wave_110",
       innerHTML: UI_TEXT["defdrill_wave_110"],
     }];
+  }
+  else if(Number(campaign) === 2011){
+    missionOptions = Mission.filter(({campaign}) => campaign === -404).map((mission) => ({
+      value: Number(mission.id),
+      innerHTML: mission.name.replace("//n", " ")
+    }));
   }
   else if(campaign > 2000 && campaign < 3000){
       for (i in Mission) {
@@ -1517,16 +1530,18 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     /*-- enemyai 敌方行动逻辑 --*/
     let enemy_ai;
     let enemy_ai_num = matchingEnemyTeam["ai"];
+    let ai_row = null;
     // force_id = {1 (mission), 2 (enemy), 3 (ally), 4 (friend)}
     if (matchingEnemyTeam["if_stay"]) {
       enemy_ai_num = 999;
-      enemy_ai = Team_ai.find(({force_id, ai_type}) => force_id === 1 && ai_type === enemy_ai_num)?.name;
+      ai_row = Team_ai.find(({force_id, ai_type}) => force_id === 1 && ai_type === enemy_ai_num);
     } else if(enemy_ai_num == 0) {
       enemy_ai_num = Mission_map[Number($("#missionselect").val())].enemy_ai_type;
-      enemy_ai = Team_ai.find(({force_id, ai_type}) => force_id === 1 && ai_type === enemy_ai_num)?.name;
+      ai_row = Team_ai.find(({force_id, ai_type}) => force_id === 1 && ai_type === enemy_ai_num);
     } else {
-      enemy_ai = Team_ai.find(({force_id, ai_type}) => force_id === 2 && ai_type === enemy_ai_num)?.name;
+      ai_row = Team_ai.find(({force_id, ai_type}) => force_id === 2 && ai_type === enemy_ai_num);
     }
+    enemy_ai = ai_row?.name;
     let enemy_ai_con = matchingEnemyTeam["ai_content"];
 
     teamID = enemy_team_id;
@@ -1541,6 +1556,10 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
 
     teamAI = enemy_ai;
     teamAIDisplay = enemy_ai + ((enemy_ai == UI_TEXT["team_ai_alert"]) ? ("[" + enemy_ai_con + "]") : "");
+    if (ai_row?.pic === "ai_random") {
+      teamAI = UI_TEXT["team_ai_random"];
+      teamAIDisplay = UI_TEXT["team_ai_random"];
+    }
     teamAlignment = spotAllyTeam ? spotAllyTeam.name : UI_TEXT["team_alignment_enemy"];
     teamCEPre208 = efect == 0 ? efectcal(enemy_team_id, 0, 300) : efect;
     teamCEPost208 = efect == 0 ? efectcal(enemy_team_id, 0, 600) : efect;

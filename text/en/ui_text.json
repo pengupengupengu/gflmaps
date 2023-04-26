@@ -34,6 +34,7 @@
     "2008": "[Sim] Combat Simulation",
     "2009": "[Sim] Career Quest Tutorials",
     "2010": "[Sim] Defense Drill",
+    "2011": "[Perma] Grey Zone Exploration",
 
     "3001": "[Event] Cube",
     "3002": "[Event] Arctic Warfare",
@@ -50,6 +51,7 @@
     "3051": "[Event] Fixed Point",
     "3054": "[Event] Longitudinal Strain",
     "3056": "[Event] Eclipses & Saros",
+    "3058": "[Event] Slow Shock",
 
     "4008": "[Collab] Operation Rabbit Hunt (ArcSys)",
     "4014": "[Collab] Hitoribocchi (Honkai 2 - CN Only)",
@@ -58,7 +60,7 @@
     "4038": "[Collab] Dream Theatre (Gunslinger Girl)",
     "4043": "[Collab] Bounty Feast (The Division)",
     "4046": "[Collab] My Devil's Frontline! (Dropkick on My Devil!)",
-    "4057": "[Collab] (Zombieland Saga R)",
+    "4057": "[Collab] The Glistening Bloom (Zombieland Saga R)",
 
     "9999": "UNKNOWN EVENT/COLLAB",
 
@@ -149,6 +151,7 @@
     "comment_team_ai_alert": "This must match team_ai-10000010",
   "team_ai_patrol": "Patrol",
     "comment_team_ai_patrol": "This must match team_ai-10000009",
+  "team_ai_random": "Random",
   "team_ai_controllable": "Controllable",
   "team_alignment_ally": "Allied",
   "team_ce": "CE (ENJP / CNTWKR)",
