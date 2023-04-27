@@ -82,7 +82,7 @@
     "6807": "[战区] 七八期 (EN) / 五六期 (日服)",
     "6817": "[战区] 七八期 (日服)",
     "6008": "[战区] 八期 (原版) / 九期 (EN)",
-    "6009": "[战区] 九期 (原版)"
+    "6009": "[战区] 九十期 (原版)"
   },
 
   "endless_map": "无尽模式",
@@ -219,6 +219,7 @@
   "enemy_mspd": "移速",
   "enemy_ap": "穿甲",
   "enemy_armor": "护甲",
+  "enemy_tenacity": "韧性",
   "enemy_hp_shield": "护盾",
   "enemy_forceshield_pierce": "破防",
   "enemy_forceshield_max": "最大力场",

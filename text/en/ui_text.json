@@ -82,7 +82,7 @@
     "6807": "[Theater] 7+8 (EN) / 5+6 (JP)",
     "6817": "[Theater] 7+8 (JP)",
     "6008": "[Theater] 8 (CNTWKR) / 9 (EN)",
-    "6009": "[Theater] 9 (CNTWKR)"
+    "6009": "[Theater] 9+10 (CNTWKR)"
   },
 
   "endless_map": "Ranking",
@@ -217,6 +217,7 @@
   "enemy_mspd": "MSpd",
   "enemy_ap": "AP",
   "enemy_armor": "Armor",
+  "enemy_tenacity": "Tenacity (Raw Value)",
   "enemy_hp_shield": "HP Shield",
   "enemy_forceshield_pierce": "Force Shield Pierce",
   "enemy_forceshield_max": "Max Force Shield",

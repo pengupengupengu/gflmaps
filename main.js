@@ -584,12 +584,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -56: return 3056;
     // ZLSR
     case -57: return 4057;
-    // WTF is 58
-    case -58:
-    case -60:
-    case -61:
-    case -62:
-    case -63: return 3058;
+    // Slow Shock
+    case -58: return 3058;
     // Maze Conjecture
     case -59: return 5059;
     // Grey Zone
@@ -2594,6 +2590,7 @@ function enemydisplay(enemy_team_id){
           <th style="width:59px;">${UI_TEXT["enemy_mspd"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_ap"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_armor"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_tenacity"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_hp_shield"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_forceshield_pierce"]}<\/th>
           <th style="width:79px;">${UI_TEXT["enemy_forceshield_max"]}<\/th>
@@ -2619,6 +2616,7 @@ function enemydisplay(enemy_team_id){
             speed: getTheaterEnemyAttributeRange(charatype, "speed", level, theaterLevelAdjustments),
             armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, theaterLevelAdjustments),
             armor: getTheaterEnemyAttributeRange(charatype, "armor", level, theaterLevelAdjustments),
+            tenacity: charatype.tenacity,
             shield: getTheaterEnemyAttributeRange(charatype, "shield", level, theaterLevelAdjustments),
             def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, theaterLevelAdjustments),
             def: getTheaterEnemyAttributeRange(charatype, "def", level, theaterLevelAdjustments),
@@ -2638,6 +2636,7 @@ function enemydisplay(enemy_team_id){
             speed: getTheaterEnemyAttributeRange(charatype, "speed", level, adjustments),
             armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, adjustments),
             armor: getTheaterEnemyAttributeRange(charatype, "armor", level, adjustments),
+            tenacity: charatype.tenacity,
             shield: getTheaterEnemyAttributeRange(charatype, "shield", level, adjustments),
             def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, adjustments),
             def: getTheaterEnemyAttributeRange(charatype, "def", level, adjustments),
@@ -2654,6 +2653,7 @@ function enemydisplay(enemy_team_id){
             speed: enemyattribute(charatype , "speed" , level),
             armor_piercing: enemyattribute(charatype , "armor_piercing" , level),
             armor: enemyattribute(charatype , "armor" , level),
+            tenacity: charatype.tenacity,
             shield: enemyattribute(charatype , "shield" , level),
             def_break: enemyattribute(charatype , "def_break" , level),
             def: enemyattribute(charatype , "def" , level),
@@ -2673,10 +2673,11 @@ function enemydisplay(enemy_team_id){
         thisline += displayedValues.speed + `<\/td><td class="enemycell" index="11" width="59px">`;
         thisline += displayedValues.armor_piercing + `<\/td><td class="enemycell" index="12" width="59px">`;
         thisline += displayedValues.armor + `<\/td><td class="enemycell" index="13" width="59px">`;
-        thisline += displayedValues.shield + `<\/td><td class="enemycell" index="14" width="59px">`;
-        thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="15" width="79px">`;
-        thisline += displayedValues.def + `<\/td><td class="enemycell" index="16" width="79px">`;
-        thisline += Number(def_percent) + `%<\/td><td class="enemycell" index="17" width="100px">`;
+        thisline += displayedValues.tenacity + `<\/td><td class="enemycell" index="14" width="59px">`;
+        thisline += displayedValues.shield + `<\/td><td class="enemycell" index="15" width="59px">`;
+        thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="16" width="79px">`;
+        thisline += displayedValues.def + `<\/td><td class="enemycell" index="17" width="79px">`;
+        thisline += Number(def_percent) + `%<\/td><td class="enemycell" index="18" width="100px">`;
         thisline += "(" + coordinator_x + "," + coordinator_y + `)<\/td><\/tr>`;
 
         output += thisline;
