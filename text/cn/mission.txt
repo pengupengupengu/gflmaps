@@ -11394,7 +11394,7 @@ mission-10011365,F4 灰与黑的排列
 mission-20011365,
 mission-30011365,
 mission-40011365,
-mission-10011366,F6 迟钝的红色
+mission-10011366,F6 迟钝的红色|阿佛那斯|阿佛那斯
 mission-20011366,
 mission-30011366,
 mission-40011366,
@@ -11410,7 +11410,7 @@ mission-10011369,F7 人类之子
 mission-20011369,
 mission-30011369,
 mission-40011369,
-mission-10011370,F12 晚钟|A面|B面
+mission-10011370,F12 晚钟|阿佛那斯|电子空间
 mission-20011370,
 mission-30011370,
 mission-40011370,
@@ -11418,7 +11418,7 @@ mission-10011371,F8 记忆的永恒
 mission-20011371,
 mission-30011371,
 mission-40011371,
-mission-10011372,F15 格尔尼卡|A面|B面
+mission-10011372,F15 格尔尼卡|阿佛那斯|中桥
 mission-20011372,
 mission-30011372,
 mission-40011372,
@@ -11478,7 +11478,7 @@ mission-10011386,F3 黑色正方形 EX
 mission-20011386,
 mission-30011386,
 mission-40011386,
-mission-10011387,F6 迟钝的红色 EX
+mission-10011387,F6 迟钝的红色 EX|阿佛那斯|阿佛那斯
 mission-20011387,
 mission-30011387,
 mission-40011387,
@@ -11486,11 +11486,11 @@ mission-10011388,F9 炮声 EX|心智空间|阿佛那斯
 mission-20011388,
 mission-30011388,
 mission-40011388,
-mission-10011389,F12 晚钟 EX|A面|B面
+mission-10011389,F12 晚钟 EX|阿佛那斯|电子空间
 mission-20011389,
 mission-30011389,
 mission-40011389,
-mission-10011390,F15 格尔尼卡 EX|A面|B面
+mission-10011390,F15 格尔尼卡 EX|阿佛那斯|中桥
 mission-20011390,
 mission-30011390,
 mission-40011390,
@@ -11502,7 +11502,7 @@ mission-10011392,F3 黑色正方形 UX
 mission-20011392,
 mission-30011392,
 mission-40011392,
-mission-10011393,F6 迟钝的红色 UX
+mission-10011393,F6 迟钝的红色 UX|阿佛那斯|阿佛那斯|阿佛那斯
 mission-20011393,
 mission-30011393,
 mission-40011393,
@@ -11510,11 +11510,11 @@ mission-10011394,F9 炮声 UX|心智空间|阿佛那斯
 mission-20011394,
 mission-30011394,
 mission-40011394,
-mission-10011395,F12 晚钟 UX|A面|B面
+mission-10011395,F12 晚钟 UX|阿佛那斯|电子空间
 mission-20011395,
 mission-30011395,
 mission-40011395,
-mission-10011396,F15 格尔尼卡 UX|A面|B面
+mission-10011396,F15 格尔尼卡 UX|阿佛那斯|中桥
 mission-20011396,
 mission-30011396,
 mission-40011396,
@@ -11526,11 +11526,11 @@ mission-10011398,四点透视-Ⅰ
 mission-20011398,
 mission-30011398,
 mission-40011398,
-mission-10011399,四点透视-Ⅱ
+mission-10011399,五点透视-Ⅰ
 mission-20011399,
 mission-30011399,
 mission-40011399,
-mission-10011400,五点透视-Ⅰ
+mission-10011400,四点透视-Ⅱ
 mission-20011400,
 mission-30011400,
 mission-40011400,
