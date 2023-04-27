@@ -2591,8 +2591,8 @@ function enemydisplay(enemy_team_id){
           <th style="width:59px;">${UI_TEXT["enemy_ap"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_armor"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_tenacity"]}<\/th>
+          <th style="width:59px;">${UI_TEXT["enemy_debuff_res"]}<\/th>
           <th style="width:59px;">${UI_TEXT["enemy_hp_shield"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_forceshield_pierce"]}<\/th>
           <th style="width:79px;">${UI_TEXT["enemy_forceshield_max"]}<\/th>
           <th style="width:79px;">${UI_TEXT["enemy_forceshield_initial_pct"]}<\/th>
           <th style="width:100px;">${UI_TEXT["enemy_coordinates"]}<\/th>
@@ -2617,8 +2617,9 @@ function enemydisplay(enemy_team_id){
             armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, theaterLevelAdjustments),
             armor: getTheaterEnemyAttributeRange(charatype, "armor", level, theaterLevelAdjustments),
             tenacity: charatype.tenacity,
+            debuff_resistance: charatype.debuff_resistance,
             shield: getTheaterEnemyAttributeRange(charatype, "shield", level, theaterLevelAdjustments),
-            def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, theaterLevelAdjustments),
+            //def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, theaterLevelAdjustments),
             def: getTheaterEnemyAttributeRange(charatype, "def", level, theaterLevelAdjustments),
           };
         } else if (defDrillLevels) {
@@ -2637,8 +2638,9 @@ function enemydisplay(enemy_team_id){
             armor_piercing: getTheaterEnemyAttributeRange(charatype, "armor_piercing", level, adjustments),
             armor: getTheaterEnemyAttributeRange(charatype, "armor", level, adjustments),
             tenacity: charatype.tenacity,
+            debuff_resistance: charatype.debuff_resistance,
             shield: getTheaterEnemyAttributeRange(charatype, "shield", level, adjustments),
-            def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, adjustments),
+            //def_break: getTheaterEnemyAttributeRange(charatype, "def_break", level, adjustments),
             def: getTheaterEnemyAttributeRange(charatype, "def", level, adjustments),
           };
         } else {
@@ -2654,8 +2656,9 @@ function enemydisplay(enemy_team_id){
             armor_piercing: enemyattribute(charatype , "armor_piercing" , level),
             armor: enemyattribute(charatype , "armor" , level),
             tenacity: charatype.tenacity,
+            debuff_resistance: charatype.debuff_resistance,
             shield: enemyattribute(charatype , "shield" , level),
-            def_break: enemyattribute(charatype , "def_break" , level),
+            //def_break: enemyattribute(charatype , "def_break" , level),
             def: enemyattribute(charatype , "def" , level),
           };
         }
@@ -2674,8 +2677,9 @@ function enemydisplay(enemy_team_id){
         thisline += displayedValues.armor_piercing + `<\/td><td class="enemycell" index="12" width="59px">`;
         thisline += displayedValues.armor + `<\/td><td class="enemycell" index="13" width="59px">`;
         thisline += displayedValues.tenacity + `<\/td><td class="enemycell" index="14" width="59px">`;
-        thisline += displayedValues.shield + `<\/td><td class="enemycell" index="15" width="59px">`;
-        thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="16" width="79px">`;
+        thisline += displayedValues.debuff_resistance + `<\/td><td class="enemycell" index="15" width="59px">`;
+        thisline += displayedValues.shield + `<\/td><td class="enemycell" index="16" width="59px">`;
+        //thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="16" width="79px">`;
         thisline += displayedValues.def + `<\/td><td class="enemycell" index="17" width="79px">`;
         thisline += Number(def_percent) + `%<\/td><td class="enemycell" index="18" width="100px">`;
         thisline += "(" + coordinator_x + "," + coordinator_y + `)<\/td><\/tr>`;

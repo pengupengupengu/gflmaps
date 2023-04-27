@@ -220,6 +220,7 @@
   "enemy_ap": "穿甲",
   "enemy_armor": "护甲",
   "enemy_tenacity": "韧性",
+  "enemy_debuff_res": "抗性",
   "enemy_hp_shield": "护盾",
   "enemy_forceshield_pierce": "破防",
   "enemy_forceshield_max": "最大力场",
