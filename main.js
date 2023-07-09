@@ -545,7 +545,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // Christmas mini-event
     case -35: return 5035;
     // PL
-    case -36: return 3036;
+    case -36:
+    case -60: return 3036;
     // Valentine's mini-event
     case -37: return 5037;
     // GSG
@@ -588,6 +589,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -58: return 3058;
     // Maze Conjecture
     case -59: return 5059;
+    // -60 is PL+
     // Grey Zone
     case -404: return 2011;
     // Tutorials
