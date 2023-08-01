@@ -1,0 +1,1975 @@
+ally_team-10000001,Griffin
+ally_team-10000002,Griffin
+ally_team-10000003,Griffin
+ally_team-10000004,Griffin
+ally_team-10000007,Griffin
+ally_team-10000008,Griffin
+ally_team-10000009,Griffin
+ally_team-10000010,Griffin
+ally_team-10000011,Griffin
+ally_team-10000012,Griffin
+ally_team-10000013,Griffin
+ally_team-10000014,Griffin
+ally_team-10000015,Griffin
+ally_team-10000016,Griffin
+ally_team-10000017,Griffin
+ally_team-10000018,Griffin
+ally_team-10000019,Griffin
+ally_team-10000020,Griffin
+ally_team-10000021,Griffin
+ally_team-10000022,Griffin
+ally_team-10000023,Griffin
+ally_team-10000024,Griffin
+ally_team-10000025,Griffin
+ally_team-10000026,Griffin
+ally_team-10000027,Griffin
+ally_team-10000028,Griffin
+ally_team-10000029,Griffin
+ally_team-10000030,Griffin
+ally_team-10000031,Griffin
+ally_team-10000032,Griffin
+ally_team-10000033,Griffin
+ally_team-10000034,Griffin
+ally_team-10000035,Griffin
+ally_team-10000036,Griffin
+ally_team-10000037,Griffin
+ally_team-10000038,Griffin
+ally_team-10000039,Griffin
+ally_team-10000040,Griffin
+ally_team-10000041,Griffin
+ally_team-10000042,Griffin
+ally_team-10000043,Griffin
+ally_team-10000044,Griffin
+ally_team-10000045,Griffin
+ally_team-10000046,Griffin
+ally_team-10000047,Griffin
+ally_team-10000048,Griffin
+ally_team-10000049,Griffin
+ally_team-10000050,Griffin
+ally_team-10000051,Griffin
+ally_team-10000052,Griffin
+ally_team-10000053,Griffin
+ally_team-10000054,Griffin
+ally_team-10000055,Griffin
+ally_team-10000056,Griffin
+ally_team-10000057,Griffin
+ally_team-10000058,Griffin
+ally_team-10000059,Griffin
+ally_team-10000060,Griffin
+ally_team-10000061,Griffin
+ally_team-10000062,Griffin
+ally_team-10000063,Griffin
+ally_team-10000064,Griffin
+ally_team-10000065,Griffin
+ally_team-10000066,Griffin
+ally_team-10000067,Griffin
+ally_team-10000068,Griffin
+ally_team-10000069,Griffin
+ally_team-10000070,Griffin
+ally_team-10000071,Griffin
+ally_team-10000072,Griffin
+ally_team-10000073,Griffin
+ally_team-10000074,Griffin
+ally_team-10000075,Griffin
+ally_team-10000076,Griffin
+ally_team-10000077,Griffin
+ally_team-10000078,Griffin
+ally_team-10000079,Griffin
+ally_team-10000080,Griffin
+ally_team-10000081,Griffin
+ally_team-10000082,Griffin
+ally_team-10000083,Griffin
+ally_team-10000084,Griffin
+ally_team-10000085,Griffin
+ally_team-10000086,Griffin
+ally_team-10000087,Griffin
+ally_team-10000088,Griffin
+ally_team-10000089,Griffin
+ally_team-10000090,Griffin
+ally_team-10000091,Griffin
+ally_team-10000092,Griffin
+ally_team-10000093,Griffin
+ally_team-10000094,Griffin
+ally_team-10090001,Griffin
+ally_team-10090002,Griffin
+ally_team-10090003,Griffin
+ally_team-10090004,Griffin
+ally_team-10090005,Griffin
+ally_team-10090006,Griffin
+ally_team-10090007,Griffin
+ally_team-10090008,Griffin
+ally_team-10090009,Griffin
+ally_team-10090010,Griffin
+ally_team-10090011,Griffin
+ally_team-10090012,Griffin
+ally_team-10090013,Griffin
+ally_team-10090014,Griffin
+ally_team-10090015,Griffin
+ally_team-10090016,Griffin
+ally_team-10090017,Griffin
+ally_team-10090018,Griffin
+ally_team-10090019,Griffin
+ally_team-10090020,Griffin
+ally_team-10090021,Griffin
+ally_team-10090022,Griffin
+ally_team-10090023,Griffin
+ally_team-10090024,Griffin
+ally_team-10000095,Griffin
+ally_team-10000096,Griffin
+ally_team-10000097,Griffin
+ally_team-10000098,Griffin
+ally_team-10000099,Griffin
+ally_team-10000100,Griffin
+ally_team-10000101,Griffin
+ally_team-10000102,Griffin
+ally_team-10000103,Griffin
+ally_team-10000104,Griffin
+ally_team-10010001,Military Infantry
+ally_team-10010002,Military Infantry
+ally_team-10010003,Abandoned
+ally_team-10010004,Military Infantry
+ally_team-10010005,Judge MainFrame
+ally_team-10010006,S.F. Squad
+ally_team-10010007,Memory Fragment
+ally_team-10010008,Military Infantry
+ally_team-10010009,AR Team
+ally_team-10010010,Berserk T-Doll
+ally_team-10010011,Berserk Squad
+ally_team-10010012,Berserk Armor
+ally_team-10010013,AK12
+ally_team-10010014,Abandoned
+ally_team-10010015,M4A1
+ally_team-10010016,ST AR-15
+ally_team-10010017,AK12
+ally_team-10010018,M4A1
+ally_team-10010019,Abandoned
+ally_team-10010020,AN94
+ally_team-10010021,Unknown Target
+ally_team-10010022,Unknown Target
+ally_team-10010023,Unknown Target
+ally_team-10010024,Unknown Target
+ally_team-10010025,S.F. Controlled
+ally_team-10010026,S.F. Controlled
+ally_team-10010027,S.F. Controlled
+ally_team-10010028,S.F. Controlled
+ally_team-10010029,S.F. Controlled
+ally_team-10010030,Unknown Target
+ally_team-10010031,Unknown Target
+ally_team-10010032,Unknown Target
+ally_team-10010033,Unknown Target
+ally_team-10010034,Military Sentry
+ally_team-10010035,Military Sentry
+ally_team-10010036,Military Sentry
+ally_team-10010037,Military Sentry
+ally_team-10010038,Military Sentry
+ally_team-10010039,Military Sentry
+ally_team-10010040,Military Sentry
+ally_team-10010041,Military Sentry
+ally_team-10010042,Military Sentry
+ally_team-10010043,Military Sentry
+ally_team-10010044,Signal - Blocked
+ally_team-10010045,Signal - Noise
+ally_team-10010046,Signal - Low Freq.
+ally_team-10010047,Griffin
+ally_team-10010048,Abandoned
+ally_team-10010049,Abandoned
+ally_team-10010050,Abandoned
+ally_team-10010051,Abandoned
+ally_team-10010052,Abandoned
+ally_team-10010053,Squad 404
+ally_team-10010054,S.F. Controlled
+ally_team-10010055,Abandoned
+ally_team-10010056,Abandoned
+ally_team-10010057,Abandoned
+ally_team-10010058,Squad Defiance
+ally_team-10010059,Signal - Conflict
+ally_team-10010060,Critically Damaged
+ally_team-10010061,Critically Damaged
+ally_team-10010062,Abandoned
+ally_team-10010063,Military Scout
+ally_team-10010064,Military Scout
+ally_team-10010065,Military Scout
+ally_team-10010066,Military Scout
+ally_team-10010067,Squad 404
+ally_team-10010068,Squad Defiance
+ally_team-10010069,Military Guards
+ally_team-10010070,Military Guards
+ally_team-10010071,Military Guards
+ally_team-10010072,Military Guards
+ally_team-10010073,Military Guards
+ally_team-10010074,Military Guards
+ally_team-10010075,Military Guards
+ally_team-10010076,Military Guards
+ally_team-10010077,Military Guards
+ally_team-10010078,Military Guards
+ally_team-10010079,M4A1
+ally_team-10010080,Military Sentry
+ally_team-10010081,Military Sentry
+ally_team-10010082,Military Sentry
+ally_team-10010083,Military Sentry
+ally_team-10010084,Military Sentry
+ally_team-10010085,Rear Cover
+ally_team-10010086,Rear Cover
+ally_team-10010087,Reinforcement
+ally_team-10010088,Defense Squad
+ally_team-10010089,Reinforcement
+ally_team-10090025,Griffin
+ally_team-10090026,Griffin
+ally_team-10090027,Griffin
+ally_team-10090028,Griffin
+ally_team-10010094,Unknown Target
+ally_team-10010095,Unknown Target
+ally_team-10010096,Unknown Target
+ally_team-10010097,Unknown Target
+ally_team-10010098,Unknown Target
+ally_team-10090029,Griffin
+ally_team-10090030,Griffin
+ally_team-10090031,Griffin
+ally_team-10090032,Griffin
+ally_team-10002176,Search Team
+ally_team-10002177,Search Team
+ally_team-10002178,Search Team
+ally_team-10002179,Search Team
+ally_team-10092001,416
+ally_team-10092002,The Dispensables
+ally_team-10092003,The Dispensables
+ally_team-10092004,Abandoned
+ally_team-10092005,The Dispensables
+ally_team-10092006,The Dispensables
+ally_team-10010146,416
+ally_team-10010147,416
+ally_team-10010148,416
+ally_team-10010149,416
+ally_team-10010150,416
+ally_team-10092015,M4 SOPMOD II
+ally_team-10092016,Squad 404
+ally_team-10092017,M4 SOPMOD II
+ally_team-10092018,Abandoned
+ally_team-10092019,Abandoned
+ally_team-10092020,Abandoned
+ally_team-10092021,Abandoned
+ally_team-10092022,Unknown Enemy
+ally_team-10092023,Unknown Enemy
+ally_team-10092024,Unknown Enemy
+ally_team-10092025,Unknown Enemy
+ally_team-10092026,Unknown Enemy
+ally_team-10092027,Unknown Enemy
+ally_team-10092028,Unknown Enemy
+ally_team-10092029,Unknown Enemy
+ally_team-10092030,Unknown Enemy
+ally_team-10092031,Unknown Enemy
+ally_team-10002188,Search Team
+ally_team-10002189,Search Team
+ally_team-10002190,Search Team
+ally_team-10002191,Search Team
+ally_team-10002172,Search Team
+ally_team-10002173,Search Team
+ally_team-10002174,Search Team
+ally_team-10002175,Search Team
+ally_team-10002192,Search Team
+ally_team-10002193,Search Team
+ally_team-10002194,Search Team
+ally_team-10002195,Search Team
+ally_team-10002196,Search Team
+ally_team-10002197,Search Team
+ally_team-10002198,Search Team
+ally_team-10002209,Search Team
+ally_team-10002210,Alert Team
+ally_team-11013101,Task Force DEFY
+ally_team-11013102,Task Force DEFY
+ally_team-10010137,Task Force DEFY
+ally_team-10010138,Task Force DEFY
+ally_team-10002204,Search Team
+ally_team-10002205,Search Team
+ally_team-10002206,Search Team
+ally_team-10002207,Search Team
+ally_team-10002208,Search Team
+ally_team-10010156,Base Defense
+ally_team-10010157,Base Defense
+ally_team-10093001,Search Team
+ally_team-10093002,Search Team
+ally_team-10093003,Search Team
+ally_team-10093004,Search Team
+ally_team-11013201,416
+ally_team-11013202,M4 SOPMOD II
+ally_team-11014101,416
+ally_team-11014102,M4 SOPMOD II
+ally_team-11014103,Task Force DEFY
+ally_team-11014104,Task Force DEFY
+ally_team-10093005,Abandoned
+ally_team-10093006,Abandoned
+ally_team-10093007,Search Team
+ally_team-10093008,Search Team
+ally_team-10093009,Search Team
+ally_team-10093010,Search Team
+ally_team-10093011,Search Team
+ally_team-10093012,Search Team
+ally_team-10093013,Search Team
+ally_team-10093014,Search Team
+ally_team-10093015,Abandoned
+ally_team-10093016,Search Team
+ally_team-10093017,Search Team
+ally_team-10093018,Search Team
+ally_team-10002211,Unlocked Sequence
+ally_team-10002212,Unlocked Sequence
+ally_team-10002213,Encrypted Sequence
+ally_team-10002214,Encrypted Sequence
+ally_team-10002215,Memory Fragment
+ally_team-10002216,Memory Fragment
+ally_team-10002217,Memory Fragment
+ally_team-10002218,Detection Sequence
+ally_team-10002219,Detection Sequence
+ally_team-10002220,Disguise Copy
+ally_team-10002221,RO635
+ally_team-10002222,Unknown Enemy
+ally_team-10002223,Unknown Enemy
+ally_team-10002224,Berserk Sequence
+ally_team-10002225,Unknown Enemy
+ally_team-10002226,Unknown Enemy
+ally_team-10000105,Griffin
+ally_team-10000106,Griffin
+ally_team-10000107,Griffin
+ally_team-10000108,Griffin
+ally_team-10000109,Griffin
+ally_team-10000110,Griffin
+ally_team-10000111,Griffin
+ally_team-10000112,Griffin
+ally_team-10000113,Griffin
+ally_team-10000114,Griffin
+ally_team-10002227,M4 SOPMOD II
+ally_team-10002228,Sangvis Team
+ally_team-10002229,Sangvis Team
+ally_team-10002230,Sangvis Team
+ally_team-10002232,Passerby?
+ally_team-10002233,Passerby?
+ally_team-10002234,Passerby?
+ally_team-10002235,Passerby?
+ally_team-10002236,Unknown Force
+ally_team-10002237,Infected
+ally_team-10002238,Rebels
+ally_team-10002239,Unknown Force
+ally_team-10002240,Bodyguard
+ally_team-10002241,Unknown Force
+ally_team-10002242,Sangvis M16A1
+ally_team-10002243,Sangvis Force
+ally_team-10002244,Unknown Force
+ally_team-10002245,Unknown Force
+ally_team-10002246,Unknown Force
+ally_team-10002247,Unknown Force
+ally_team-10002248,Unknown Force
+ally_team-10002249,Unknown Force
+ally_team-10002250,Garrison
+ally_team-10002251,Garrison
+ally_team-10002252,Garrison
+ally_team-10002253,Garrison
+ally_team-10002254,Garrison
+ally_team-10002255,Garrison
+ally_team-10002256,Garrison
+ally_team-10002257,Garrison
+ally_team-10002258,Garrison
+ally_team-10002259,Unknown Force
+ally_team-10002260,Task Force DEFY
+ally_team-10002261,Sangvis M16A1
+ally_team-10002262,Unknown Force
+ally_team-10002263,Berserk Garrison
+ally_team-10002264,Berserk Garrison
+ally_team-10002265,Passerby?
+ally_team-10002266,Passerby?
+ally_team-10002267,Passerby?
+ally_team-10002268,Passerby?
+ally_team-10002269,Passerby?
+ally_team-10002270,Passerby?
+ally_team-10002271,Unknown Force
+ally_team-10002272,Unknown Force
+ally_team-10002273,Unknown Force
+ally_team-10002274,Unknown Force
+ally_team-10002275,Bodyguard
+ally_team-10002276,Unknown Force
+ally_team-10002277,Rebels
+ally_team-10002278,Unknown Force
+ally_team-10002279,Sangvis M16A1
+ally_team-10002280,Unknown Force
+ally_team-10002281,Unknown Force
+ally_team-10002282,Unknown Force
+ally_team-10002283,Unknown Force
+ally_team-10002284,Unknown Force
+ally_team-10002285,Garrison
+ally_team-10002286,Garrison
+ally_team-10002287,Garrison
+ally_team-10002288,Garrison
+ally_team-10002289,Unknown Force
+ally_team-10002290,Garrison
+ally_team-10002291,Garrison
+ally_team-10002292,Garrison
+ally_team-10002293,Garrison
+ally_team-10002294,Garrison
+ally_team-10002295,Unknown Force
+ally_team-10002296,Berserk Garrison
+ally_team-10002297,Berserk Garrison
+ally_team-10317901,Sangvis Force
+ally_team-10317907,Sangvis Force
+ally_team-10317908,Berserk Garrison
+ally_team-10317909,Rebels
+ally_team-10317910,Rebels
+ally_team-10317911,Rebels
+ally_team-10317912,Rebels
+ally_team-10317913,Rebels
+ally_team-10317914,Rebels
+ally_team-10317915,Rebels
+ally_team-10317916,Rebels
+ally_team-10317917,Rebels
+ally_team-10317918,Rebels
+ally_team-10317919,Rebels
+ally_team-10317920,Rebels
+ally_team-10317921,Rebels
+ally_team-10317922,Rebels
+ally_team-10317923,Rebels
+ally_team-10317924,Rebels
+ally_team-10317925,Rebels
+ally_team-10317926,Rebels
+ally_team-10317927,Rebels
+ally_team-10317928,Rebels
+ally_team-10317929,Rebels
+ally_team-10317930,Rebels
+ally_team-10317931,Rebels
+ally_team-10317932,Rebels
+ally_team-10317933,Rebels
+ally_team-10317934,Rebels
+ally_team-10317935,Rebels
+ally_team-10317936,Rebels
+ally_team-10317937,Rebels
+ally_team-10317938,Rebels
+ally_team-10317939,Rebels
+ally_team-10317940,Rebels
+ally_team-10317941,Rebels
+ally_team-10317942,Rebels
+ally_team-10317943,Rebels
+ally_team-10317944,Rebels
+ally_team-10317945,Rebels
+ally_team-10317946,Rebels
+ally_team-10317947,Rebels
+ally_team-10317948,Rebels
+ally_team-10002298,Sangvis M16A1
+ally_team-10002299,M4A1
+ally_team-10316001,Sangvis Force
+ally_team-10316007,Sangvis Force
+ally_team-10316008,Berserk Garrison
+ally_team-10316009,Rebels
+ally_team-10316010,Rebels
+ally_team-10316011,Rebels
+ally_team-10316012,Rebels
+ally_team-10316013,Rebels
+ally_team-10316014,Rebels
+ally_team-10316015,Rebels
+ally_team-10316016,Rebels
+ally_team-10316017,Rebels
+ally_team-10316018,Rebels
+ally_team-10316019,Rebels
+ally_team-10316020,Rebels
+ally_team-10316021,Rebels
+ally_team-10316022,Rebels
+ally_team-10316023,Rebels
+ally_team-10316024,Rebels
+ally_team-10316025,Rebels
+ally_team-10316026,Rebels
+ally_team-10316027,Rebels
+ally_team-10316028,Rebels
+ally_team-10316029,Rebels
+ally_team-10316030,Rebels
+ally_team-10316031,Rebels
+ally_team-10316032,Rebels
+ally_team-10316033,Rebels
+ally_team-10316034,Rebels
+ally_team-10316035,Rebels
+ally_team-10316036,Rebels
+ally_team-10316037,Rebels
+ally_team-10316038,Rebels
+ally_team-10316039,Rebels
+ally_team-10316040,Rebels
+ally_team-10316041,Rebels
+ally_team-10316042,Rebels
+ally_team-10316043,Rebels
+ally_team-10316044,Rebels
+ally_team-10316045,Rebels
+ally_team-10316046,Rebels
+ally_team-10316047,Rebels
+ally_team-10316048,Rebels
+ally_team-10318201,Sangvis M16A1
+ally_team-10318202,Task Force DEFY
+ally_team-10318301,Sangvis M16A1
+ally_team-10318302,M4A1
+ally_team-10316096,RO635
+ally_team-10316097,M4A1
+ally_team-10316098,ST AR-15
+ally_team-10317996,RO635
+ally_team-10317997,M4A1
+ally_team-10317998,ST AR-15
+ally_team-10090033,Griffin
+ally_team-10090034,Griffin
+ally_team-10090035,Griffin
+ally_team-10090036,Griffin
+ally_team-10002809,Sangvis Force
+ally_team-10002817,Sangvis Force
+ally_team-10002823,Sangvis Force
+ally_team-10002828,Sangvis Force
+ally_team-10002829,Judge
+ally_team-10002832,Sangvis Force
+ally_team-10002833,Sangvis Force
+ally_team-10002835,Sangvis Force
+ally_team-10320305,Griffin
+ally_team-10320306,Griffin
+ally_team-10320606,White Knights
+ally_team-10320804,White Knights
+ally_team-10320805,???
+ally_team-10321001,Sangvis Force
+ally_team-10321002,Sangvis Force
+ally_team-10321003,Sangvis Force
+ally_team-10321004,Sangvis Force
+ally_team-10321102,White Knights
+ally_team-10321301,???
+ally_team-10321302,???
+ally_team-10321303,???
+ally_team-10321608,Offline
+ally_team-10321602,Offline
+ally_team-10321603,Offline
+ally_team-10321604,Offline
+ally_team-10321605,Offline
+ally_team-10321606,Offline
+ally_team-10321607,Offline
+ally_team-10321701,Dana
+ally_team-10330601,Defense System
+ally_team-10331901,Defense System
+ally_team-10331902,Defense System
+ally_team-10331903,Defense System
+ally_team-10332101,Infected
+ally_team-10332102,Infected
+ally_team-10332103,Infected
+ally_team-10332402,Isomer
+ally_team-10333001,Defense System
+ally_team-10333403,Defense System
+ally_team-10334901,Railgun
+ally_team-10334902,Griffin
+ally_team-10334903,Griffin
+ally_team-10334904,Griffin
+ally_team-10334905,Griffin
+ally_team-10334906,Griffin
+ally_team-10334907,Rail Cannon
+ally_team-10334908,???
+ally_team-10334909,Rebels
+ally_team-10334910,Rebels
+ally_team-10334911,Rebels
+ally_team-10334912,Rebels
+ally_team-10334913,Rebels
+ally_team-10334914,Rebels
+ally_team-10334915,Rebels
+ally_team-10334916,Rebels
+ally_team-10334917,Rebels
+ally_team-10334918,Rebels
+ally_team-10334919,Rear Cover
+ally_team-10334920,Rebels
+ally_team-10334921,Rebels
+ally_team-10334922,Rebels
+ally_team-10334923,Rebels
+ally_team-10334924,Rebels
+ally_team-10334925,Rebels
+ally_team-10334926,Rebels
+ally_team-10334927,Rebels
+ally_team-10334928,Rebels
+ally_team-10334929,Rebels
+ally_team-10334930,Rebels
+ally_team-10334931,Rebels
+ally_team-10334932,Rebels
+ally_team-10334933,Rebels
+ally_team-10334934,Rebels
+ally_team-10335101,Active Barrier
+ally_team-10335301,Defense System
+ally_team-10335403,Infected
+ally_team-10335601,Infected
+ally_team-10335602,Infected
+ally_team-10335701,Active Barrier
+ally_team-10335702,Active Barrier
+ally_team-10335703,Active Barrier
+ally_team-10335704,Active Barrier
+ally_team-10335706,Active Barrier
+ally_team-10335805,Infected
+ally_team-10335806,Infected
+ally_team-10335807,Infected
+ally_team-10335808,Infected
+ally_team-10335902,Isomer
+ally_team-10335903,Isomer
+ally_team-10335904,???
+ally_team-10335905,???
+ally_team-10335913,Isomer
+ally_team-10336003,Isomer
+ally_team-10336004,Isomer
+ally_team-10336005,Isomer
+ally_team-10336013,Isomer
+ally_team-10336014,Isomer
+ally_team-10336015,Isomer
+ally_team-10336102,Elimination Program
+ally_team-10336304,Elimination Program
+ally_team-10337201,Railgun
+ally_team-10337202,Griffin
+ally_team-10337203,Griffin
+ally_team-10337204,Griffin
+ally_team-10337205,Griffin
+ally_team-10337206,Griffin
+ally_team-10337207,Railgun
+ally_team-10337208,???
+ally_team-10337209,Rebels
+ally_team-10337210,Rebels
+ally_team-10337211,Rebels
+ally_team-10337212,Rebels
+ally_team-10337213,Rebels
+ally_team-10337214,Rebels
+ally_team-10337215,Rebels
+ally_team-10337216,Rebels
+ally_team-10337217,Rebels
+ally_team-10337218,Rebels
+ally_team-10337219,Rear Cover
+ally_team-10337220,Rebels
+ally_team-10337221,Rebels
+ally_team-10337222,Rebels
+ally_team-10337223,Rebels
+ally_team-10337224,Rebels
+ally_team-10337225,Rebels
+ally_team-10337226,Rebels
+ally_team-10337227,Rebels
+ally_team-10337228,Rebels
+ally_team-10337229,Rebels
+ally_team-10337230,Rebels
+ally_team-10337231,Rebels
+ally_team-10337232,Rebels
+ally_team-10337233,Rebels
+ally_team-10337234,Rebels
+ally_team-10333601,Railgun
+ally_team-10333602,Railgun
+ally_team-10333603,Railgun
+ally_team-10333901,Defense System
+ally_team-10333905,Railgun
+ally_team-10333906,Railgun
+ally_team-10333907,Railgun
+ally_team-10334101,Infected
+ally_team-10334102,Infected
+ally_team-10334103,Infected
+ally_team-10334401,M4A1
+ally_team-10334601,Railgun
+ally_team-10334602,Railgun
+ally_team-10334603,Railgun
+ally_team-10334708,Rebels
+ally_team-10334709,Rebels
+ally_team-10334710,M4A1
+ally_team-10336401,Armored Train - Rear
+ally_team-10336402,Armored Train - Middle
+ally_team-10336403,Armored Train - Front
+ally_team-10336408,Rebels
+ally_team-10336409,Rebels
+ally_team-10336412,Infected
+ally_team-10336413,Infected
+ally_team-10336414,Infected
+ally_team-10336501,Armored Train - Front
+ally_team-10336502,Armored Train - Middle
+ally_team-10336503,Armored Train - Rear
+ally_team-10336504,Rebels
+ally_team-10336509,Rebels
+ally_team-10336601,Armored Train - Rear
+ally_team-10336602,Armored Train - Middle
+ally_team-10336603,Armored Train - Front
+ally_team-10336610,Defense System
+ally_team-10336611,Defense System
+ally_team-10336612,Defense System
+ally_team-10336613,Defense System
+ally_team-10336701,Armored Train - Front
+ally_team-10336704,Infected
+ally_team-10336712,Infected
+ally_team-10336713,Infected
+ally_team-10336717,Infected
+ally_team-10336718,Armored Train - Middle
+ally_team-10336719,Armored Train - Middle
+ally_team-10336801,Armored Train - Front
+ally_team-10336802,Armored Train - Middle
+ally_team-10336803,Armored Train - Rear
+ally_team-10336804,Rebels
+ally_team-10336805,Rebels
+ally_team-10336806,Rebels
+ally_team-10336813,Defense System
+ally_team-10336814,Defense System
+ally_team-10336818,Armored Train - Middle
+ally_team-10336901, ?Tank?
+ally_team-10336911,Rebels
+ally_team-10336912,Rebels
+ally_team-10336914,M4A1
+ally_team-10336915,Armored Train - Middle
+ally_team-10336916,Rebels
+ally_team-10336917,Rebels
+ally_team-10337002,M4A1
+ally_team-10002849,Sangvis Force
+ally_team-10002857,???
+ally_team-10002864,Sangvis Force
+ally_team-10002865,Sangvis Force
+ally_team-10002863,MP41
+ally_team-10000115,Griffin
+ally_team-10000116,Griffin
+ally_team-10000117,Griffin
+ally_team-10000118,Griffin
+ally_team-10000119,Griffin
+ally_team-10000120,Griffin
+ally_team-10000121,Griffin
+ally_team-10000122,Griffin
+ally_team-10000123,Griffin
+ally_team-10000124,Griffin
+ally_team-19120101,Disconnected Neural Cloud
+ally_team-19120102,Disconnected Neural Cloud
+ally_team-19120103,Disconnected Neural Cloud
+ally_team-19120705,Rebels
+ally_team-19121002,Decryption Program
+ally_team-19121003,Decryption Program
+ally_team-19121005,Sangvis Force
+ally_team-13602001,Sangvis Force
+ally_team-13602002,Sangvis Force
+ally_team-13602003,Sangvis Force
+ally_team-13606001,Rebels
+ally_team-13606002,Rebels
+ally_team-13606003,Rebels
+ally_team-13606004,Rebels
+ally_team-13606005,Rebels
+ally_team-13606006,Rebels
+ally_team-13606007,Rebels
+ally_team-13606008,Rebels
+ally_team-13606009,Rebels
+ally_team-13606010,Rebels
+ally_team-13609001,Rebels
+ally_team-13609002,Rebels
+ally_team-13609003,Rebels
+ally_team-13609004,Rebels
+ally_team-13609005,Rebels
+ally_team-13609006,Rebels
+ally_team-13609007,Rebels
+ally_team-13609008,Rebels
+ally_team-13609009,Rebels
+ally_team-13609010,Rebels
+ally_team-13603001,Rebels
+ally_team-13603002,Rebels
+ally_team-13603003,Rebels
+ally_team-13603004,Rebels
+ally_team-13603005,Rebels
+ally_team-13603006,Rebels
+ally_team-13603007,Rebels
+ally_team-13603008,Rebels
+ally_team-10367101,Rebels
+ally_team-13609011,Rebels
+ally_team-13609012,Rebels
+ally_team-13609013,Rebels
+ally_team-13603009,Rebels
+ally_team-13621201,Rebels
+ally_team-10360911,Executioner
+ally_team-13605001,Railgun
+ally_team-13610020,Nyto
+ally_team-10361201,AR Team
+ally_team-10361213,Railgun
+ally_team-10361307,Agent
+ally_team-10361308,Judge
+ally_team-10361309,Sangvis Force
+ally_team-10361310,Sangvis Force
+ally_team-10361311,Sangvis Force
+ally_team-10361312,Sangvis Force
+ally_team-10361402,Rebels
+ally_team-10361403,Yegor
+ally_team-10361501,Resistor Component A
+ally_team-10361502,Resistor Component B
+ally_team-10361503,Resistor Component C
+ally_team-10363001,Rebels
+ally_team-10363002,Rebels
+ally_team-10363003,Rebels
+ally_team-10363004,Rebels
+ally_team-10363005,Rebels
+ally_team-10363006,Rebels
+ally_team-10363007,Rebels
+ally_team-10363008,Rebels
+ally_team-10363009,Rebels
+ally_team-10363010,Rebels
+ally_team-10363011,Rebels
+ally_team-10363012,Rebels
+ally_team-10363013,Rebels
+ally_team-10363045,Paradeus
+ally_team-10363046,Paradeus
+ally_team-10363047,Paradeus
+ally_team-10363048,Paradeus
+ally_team-10363081,Griffin
+ally_team-10363082,Griffin
+ally_team-10363083,Griffin
+ally_team-10363084,Griffin
+ally_team-10363085,Griffin
+ally_team-10363086,Griffin
+ally_team-10363087,AR Team
+ally_team-10363088,Squad 404
+ally_team-10363089,Railgun
+ally_team-10363605,???
+ally_team-10363606,???
+ally_team-10363607,???
+ally_team-10363608,???
+ally_team-10363609,???
+ally_team-10363610,???
+ally_team-10363611,AR Team
+ally_team-10363701,AR Team
+ally_team-10363702,???
+ally_team-10363703,???
+ally_team-10363704,???
+ally_team-10363705,???
+ally_team-10363706,???
+ally_team-10363707,???
+ally_team-10363708,???
+ally_team-10363709,???
+ally_team-10363710,???
+ally_team-10363711,Railgun
+ally_team-10361802,Rebels
+ally_team-10361803,Rebels
+ally_team-10361804,Rebels
+ally_team-10361805,Rebels
+ally_team-10361806,Rebels
+ally_team-10361807,Rebels
+ally_team-10361808,Rebels
+ally_team-10361809,Rebels
+ally_team-10362102,M4A1
+ally_team-10362906,Sangvis Force
+ally_team-10362907,Sangvis Force
+ally_team-10362908,Sangvis Force
+ally_team-10362909,Sangvis Force
+ally_team-10362910,Sangvis Force
+ally_team-10362916,Paradeus
+ally_team-10362917,Paradeus
+ally_team-10362918,Paradeus
+ally_team-10362919,Paradeus
+ally_team-10362920,Paradeus
+ally_team-10362921,Elisa
+ally_team-10362923,Agent
+ally_team-10362925,Judge
+ally_team-10362939,Sangvis Force
+ally_team-10362940,Sangvis Force
+ally_team-10362941,Sangvis Force
+ally_team-10362942,Sangvis Force
+ally_team-10362943,Sangvis Force
+ally_team-10362944,Sangvis Force
+ally_team-10362945,Paradeus
+ally_team-10362946,Paradeus
+ally_team-10362947,Paradeus
+ally_team-10362948,Paradeus
+ally_team-10362205,Sangvis Force
+ally_team-10362206,Sangvis Force
+ally_team-10362207,Sangvis Force
+ally_team-10362208,Sangvis Force
+ally_team-10362209,Sangvis Force
+ally_team-10362210,Sangvis Force
+ally_team-10362211,Sangvis Force
+ally_team-10362212,Sangvis Force
+ally_team-10362213,Sangvis Force
+ally_team-10362301,M4A1
+ally_team-10363501,Executioner
+ally_team-10363502,Scarecrow
+ally_team-10363503,Architect
+ally_team-10363504,Hunter
+ally_team-10362701,???
+ally_team-10362702,???
+ally_team-10362703,???
+ally_team-10362704,???
+ally_team-10362706,UMP40
+ally_team-10362707,Sangvis Force
+ally_team-10362708,Sangvis Force
+ally_team-10370304,???
+ally_team-10370605,Griffin
+ally_team-10370606,Griffin
+ally_team-10370607,Griffin
+ally_team-10370608,Griffin
+ally_team-10370609,Griffin
+ally_team-10370610,Griffin
+ally_team-10370611,Griffin
+ally_team-13000601,Sangvis Force
+ally_team-13000602,Sangvis Force
+ally_team-13000603,Sangvis Force
+ally_team-13000604,Sangvis Force
+ally_team-13000605,Sangvis Force
+ally_team-13000606,Sangvis Force
+ally_team-13000607,Sangvis Force
+ally_team-13000608,Sangvis Force
+ally_team-13000609,Sangvis Force
+ally_team-13000610,Sangvis Force
+ally_team-19130101,Rebels
+ally_team-19130201,Gr SL8
+ally_team-19130301,M16A1
+ally_team-19130303,Rebels
+ally_team-19130305,Rebels
+ally_team-19130401,Sangvis Force
+ally_team-19130501,Yegor
+ally_team-19130601,Angelia
+ally_team-19130701,Offensive Bulwark
+ally_team-19130702,Offensive Bulwark
+ally_team-19130703,Offensive Bulwark
+ally_team-19130704,Offensive Bulwark
+ally_team-19130705,Offensive Bulwark
+ally_team-19130706,Offensive Bulwark
+ally_team-19130707,Offensive Bulwark
+ally_team-19130708,Offensive Bulwark
+ally_team-19130709,Offensive Bulwark
+ally_team-19130710,Offensive Bulwark
+ally_team-19130801,M4A1
+ally_team-19130901,M4A1
+ally_team-19131001,M4A1
+ally_team-10000125,Griffin
+ally_team-10000126,Griffin
+ally_team-10000127,Griffin
+ally_team-10000128,Griffin
+ally_team-10000129,Griffin
+ally_team-10000130,Griffin
+ally_team-10000131,Griffin
+ally_team-10000132,Griffin
+ally_team-10000133,Griffin
+ally_team-10000134,Griffin
+ally_team-10390101,Intercepting Squadron
+ally_team-10390102,Intercepting Squadron
+ally_team-10390103,Reinforcement Squad
+ally_team-10390104,Reinforcement Squad
+ally_team-10390105,Reinforcement Squad
+ally_team-10390106,Rebels
+ally_team-10390107,Rebels
+ally_team-10390108,Rebels
+ally_team-10390109,Rebels
+ally_team-10390110,Rebels
+ally_team-10390111,Rebels
+ally_team-10390112,Rebels
+ally_team-10390149,Rebels
+ally_team-10390150,Rebels
+ally_team-10390151,Rebels
+ally_team-10390152,Rebels
+ally_team-10390153,Rebels
+ally_team-10390154,Rebels
+ally_team-10390155,Rebels
+ally_team-10390156,Rebels
+ally_team-10390157,Rebels
+ally_team-10390158,Sangvis Force
+ally_team-10390159,Sangvis Force
+ally_team-10390160,Sangvis Force
+ally_team-10390161,Sangvis Force
+ally_team-10390162,Sangvis Force
+ally_team-10390163,Sangvis Force
+ally_team-10390164,Sangvis Force
+ally_team-10390165,Rebels
+ally_team-10390166,Rebels
+ally_team-16400300,???
+ally_team-16380101,Angelica
+ally_team-16380200,Rico
+ally_team-16380501,???
+ally_team-16380502,???
+ally_team-16380503,???
+ally_team-16380601,Triela
+ally_team-16380701,???
+ally_team-16380702,???
+ally_team-10381401,Henrietta
+ally_team-10381402,Rico
+ally_team-10381403,Claes
+ally_team-10381404,Triela
+ally_team-10381405,Angelica
+ally_team-10381501,Rico
+ally_team-10381502,Rico
+ally_team-10381503,Training Target
+ally_team-10381504,Training Target EX
+ally_team-10381601,Carcano M1891
+ally_team-10381602,Angelica
+ally_team-10381603,Passer-by?
+ally_team-10381604,Passer-by?
+ally_team-10381605,Passer-by?
+ally_team-10381606,Passer-by?
+ally_team-10381607,Passer-by?
+ally_team-10381608,Passer-by?
+ally_team-10381609,Passer-by?
+ally_team-10381701,Rico
+ally_team-10381708,The Five Republics Faction
+ally_team-10381709,The Five Republics Faction
+ally_team-10381710,The Five Republics Faction
+ally_team-10381901,Carcano M91/38
+ally_team-10381906,The Five Republics Faction
+ally_team-10381907,The Five Republics Faction
+ally_team-10381908,The Five Republics Faction
+ally_team-10381909,The Five Republics Faction
+ally_team-10381910,The Five Republics Faction
+ally_team-10381911,The Five Republics Faction
+ally_team-10381912,The Five Republics Faction
+ally_team-16410501,M16A1
+ally_team-16410502,M16A1
+ally_team-16410503,M16A1
+ally_team-16411001,Architect's Squad
+ally_team-16410301,Architect's Squad
+ally_team-16411099,Gager's Defense Squad
+ally_team-14140101,
+ally_team-14140401,VHS
+ally_team-14140501,Elite
+ally_team-14140502,Elite
+ally_team-14140503,Elite
+ally_team-14140504,Elite
+ally_team-14140505,Elite
+ally_team-14140601,Elite
+ally_team-14140602,Elite
+ally_team-14140603,Elite
+ally_team-14140604,Elite
+ally_team-14140605,Elite
+ally_team-14140801,Ouroboros
+ally_team-14140901,Sleeping Guardian
+ally_team-51030104,Sangvis Force
+ally_team-51030401,Sangvis Force
+ally_team-51030402,Sangvis Force
+ally_team-51050100,Angelia
+ally_team-51050399,AK-15
+ally_team-51050398,RPK-16
+ally_team-51050400,Angelia
+ally_team-51050401,Normal
+ally_team-51050402,Hard
+ally_team-51050403,Nightmare
+ally_team-19410106,Sangvis Force
+ally_team-19410213,Sangvis Force
+ally_team-19410215,Infected
+ally_team-19410216,Infected
+ally_team-19410217,Infected
+ally_team-19410218,Architect
+ally_team-19410308,Sangvis Force
+ally_team-19410311,Sangvis Force
+ally_team-19410312,Sangvis Force
+ally_team-19410313,Sangvis Force
+ally_team-19410314,Sangvis Force
+ally_team-19410315,Sangvis Force
+ally_team-19410316,Sangvis Force
+ally_team-19410317,Sangvis Force
+ally_team-19410318,Sangvis Force
+ally_team-19410323,Tyrant
+ally_team-19410330,On Alert
+ally_team-19410331,On Alert
+ally_team-19410332,On Alert
+ally_team-19410333,On Alert
+ally_team-19410334,On Alert
+ally_team-19410335,On Alert
+ally_team-19410336,Memory Fragment
+ally_team-19410337,Memory Fragment
+ally_team-19410338,Memory Fragment
+ally_team-19410339,Memory Fragment
+ally_team-19411207,???
+ally_team-19411208,???
+ally_team-19411209,Sangvis Force
+ally_team-19411210,Sangvis Force
+ally_team-19411212,???
+ally_team-19411213,Scapegoat_1/F Corridor
+ally_team-19411214,Scapegoat_1/F Patrol
+ally_team-19411215,Scapegoat_2/F Patrol
+ally_team-19411216,Scapegoat_3/F Patrol
+ally_team-19411217,Battered Doll
+ally_team-19411218,God of the Fountain?
+ally_team-19411401,Ouroboros
+ally_team-19411402,Ouroboros
+ally_team-19411403,Ouroboros
+ally_team-19411404,Ouroboros
+ally_team-19411405,Ouroboros
+ally_team-19411406,Ouroboros
+ally_team-19411407,Sangvis Force
+ally_team-19411408,Sangvis Force
+ally_team-19411423,Refugee
+ally_team-19411424,Refugee
+ally_team-19411425,Refugee
+ally_team-19411426,Refugee
+ally_team-19411427,Refugee
+ally_team-19411428,Refugee
+ally_team-19411429,Refugee
+ally_team-19411430,Refugee
+ally_team-19411431,Refugee
+ally_team-10411101,Sangvis Force
+ally_team-10411102,Sangvis Force
+ally_team-10411103,Sangvis Force
+ally_team-10411104,Sangvis Force
+ally_team-10411105,General Liu
+ally_team-10411106,Sangvis Force
+ally_team-10411107,Sangvis Force
+ally_team-10411108,Sangvis Force
+ally_team-10411109,Sangvis Force
+ally_team-10411205,Sangvis Force
+ally_team-10411206,Sangvis Force
+ally_team-10411207,Sangvis Force
+ally_team-10411208,Sangvis Force
+ally_team-10411301,Ouroboros Elite
+ally_team-10411302,Ouroboros
+ally_team-10411303,Ouroboros
+ally_team-16430101,Squad AK-47
+ally_team-16430201,Squad Springfield
+ally_team-16430202,Squad M870
+ally_team-16430203,ART556 & P7
+ally_team-16430401,Blue Roar
+ally_team-16430001,Agent 416
+ally_team-16430002,Agent Vector
+ally_team-53130001,Squad AK-47
+ally_team-53130009,Rikers
+ally_team-53130010,Rikers
+ally_team-53130011,Rikers
+ally_team-53130012,Rikers
+ally_team-53130013,Rikers
+ally_team-53130014,Rikers
+ally_team-53130015,Rikers
+ally_team-53140001,Squad M870
+ally_team-53140002,Squad Springfield
+ally_team-53140003,ART556
+ally_team-53140004,Squad Springfield
+ally_team-53160002,Squad Vector
+ally_team-53170001,Squad Vector
+ally_team-10440001,Dandelion
+ally_team-10440201,Team Puzzle
+ally_team-10440300,AR Team
+ally_team-10440301,Secret Police
+ally_team-10440305,Machlian
+ally_team-10441901,Paradeus
+ally_team-10441902,Paradeus
+ally_team-10441905,Machlian
+ally_team-10442000,RO635
+ally_team-10442002,Paradeus
+ally_team-10442003,Paradeus
+ally_team-10440500,???
+ally_team-10444200,Dandelion
+ally_team-16440001,ST AR-15
+ally_team-16441201,Guard
+ally_team-16441202,Detonator
+ally_team-16440002,AR Team
+ally_team-16440305,Refugee
+ally_team-16441305,Refugee
+ally_team-16440401,Zombie
+ally_team-16441401,Zombie
+ally_team-16440003,Prison Guard
+ally_team-16440004,Armored Hydra
+ally_team-16440005,Machlian
+ally_team-16440006,Narcissus
+ally_team-16440007,Narcissus
+ally_team-16440008,Team Griffin
+ally_team-16440009,Team Griffin
+ally_team-16440010,Morridow
+ally_team-16440011,Morridow
+ally_team-16440012,Machlian
+ally_team-54340001,Angelia
+ally_team-54340006,Police?
+ally_team-54340007,Police?
+ally_team-54350001,Angelia
+ally_team-54350003,Ruffian
+ally_team-54360001,Angelia
+ally_team-54370001,Angelia
+ally_team-54380001,AK-15
+ally_team-54390001,Angelia
+ally_team-54390002,Citizen?
+ally_team-54390003,Citizen?
+ally_team-54390004,Citizen?
+ally_team-54390005,Citizen?
+ally_team-54390006,Citizen?
+ally_team-54390007,Citizen?
+ally_team-54390008,Citizen?
+ally_team-54390009,Citizen?
+ally_team-54390010,Citizen?
+ally_team-54400001,Angelia
+ally_team-54400002,AN-94
+ally_team-54400003,AK-15
+ally_team-54400004,AK-15
+ally_team-54410001,AN-94
+ally_team-54410002,AK-15
+ally_team-54410003,Angelia
+ally_team-54540001,Angelia
+ally_team-54430001,Angelia
+ally_team-54440001,Citizen?
+ally_team-54440002,Citizen?
+ally_team-54440003,Citizen?
+ally_team-54440004,Citizen?
+ally_team-54440005,Prisoner
+ally_team-54440006,Prisoner
+ally_team-54440007,Prisoner
+ally_team-54440008,Prisoner
+ally_team-54440009,Prisoner
+ally_team-54440010,Prison Guard
+ally_team-54440011,Prison Guard
+ally_team-54440012,Commander
+ally_team-54440013,Machlian
+ally_team-55010002,Paradeus
+ally_team-55010003,Paradeus
+ally_team-55010004,Paradeus
+ally_team-55010005,Paradeus
+ally_team-55010006,Paradeus
+ally_team-55010084,Paradeus
+ally_team-55010085,Dummy
+ally_team-55010088,Paradeus
+ally_team-55010089,Paradeus
+ally_team-55010090,Paradeus
+ally_team-55010091,Paradeus
+ally_team-16470401,"Supernova Battle Mech"
+ally_team-16470402,Patrick
+ally_team-16460001,Jashin-chan
+ally_team-16460301,Minos
+ally_team-16460302,Minos
+ally_team-16460303,Minos
+ally_team-16460304,Minos
+ally_team-16460601,Minos
+ally_team-16460602,Minos
+ally_team-16460603,Minos
+ally_team-16460604,Minos
+ally_team-16460605,Minos
+ally_team-16469999,Jashin-chan
+ally_team-16469998,Easter Egg
+ally_team-10460400,Yurine
+ally_team-10460900,Yurine
+ally_team-10460501,Ouroboros
+ally_team-10460502,Ouroboros
+ally_team-10460503,Ouroboros
+ally_team-10461001,Ouroboros
+ally_team-10461002,Ouroboros
+ally_team-10461003,Ouroboros
+ally_team-16480101,Agent J
+ally_team-16480102,Agent K
+ally_team-16480103,Lead
+ally_team-16480104,SP9
+ally_team-16480105,Nele
+ally_team-16480201,Machlian
+ally_team-16480202,Machlian
+ally_team-16480203,Machlian
+ally_team-16480204,Morridow
+ally_team-16480205,M4A1
+ally_team-16480206,AR Team
+ally_team-16480207,J's Squad
+ally_team-16480208,Neural Cloud Barrier
+ally_team-16480209,J's Squad
+ally_team-16480251,Machlian
+ally_team-16480252,Machlian
+ally_team-16480253,Machlian
+ally_team-16480254,Machlian
+ally_team-16480255,Machlian
+ally_team-16480256,Morridow
+ally_team-16480257,M4A1
+ally_team-16480258,AR Team
+ally_team-16480301,No. 3
+ally_team-16480302,No. 15
+ally_team-16480303,No. 14
+ally_team-16480304,No. 1
+ally_team-16480305,No. 2
+ally_team-16480306,No. 11
+ally_team-16480307,No. 12
+ally_team-16480308,No. 13
+ally_team-16480309,No. 16
+ally_team-16480310,No. 17
+ally_team-16480311,No. 4
+ally_team-16480312,No. 5
+ally_team-16480313,No. 6
+ally_team-16485301,No. 3
+ally_team-16485302,No. 15.1
+ally_team-16485303,No. 14
+ally_team-16485304,No. 15.2
+ally_team-16485305,No. 15.3
+ally_team-16485306,Security defense system
+ally_team-16485307,No. 4
+ally_team-16485308,No. 5
+ally_team-16485309,No. 6
+ally_team-16485310,No. 7
+ally_team-16485311,No. 8
+ally_team-16485312,No. 9
+ally_team-16485313,No. 10
+ally_team-16485314,No. 11
+ally_team-16485315,No. 12
+ally_team-16485316,No. 13
+ally_team-16485317,No. 16
+ally_team-16485318,No. 17
+ally_team-16480321,Elite Bodyguard
+ally_team-16480322,Elite Bodyguard
+ally_team-16480323,Elite Bodyguard
+ally_team-16480324,Elite Bodyguard
+ally_team-16480325,Elite Bodyguard
+ally_team-16480331,Morridow
+ally_team-16485331,Morridow
+ally_team-16480341,Dish of Aceso
+ally_team-16480342,Dish of Aceso
+ally_team-16480343,Dish of Aceso
+ally_team-16480344,Staff of Aesclepius
+ally_team-16480345,Staff of Aesclepius
+ally_team-16480346,Staff of Aesclepius
+ally_team-16480347,Elusinian Mysteries
+ally_team-16480348,Elusinian Mysteries
+ally_team-16480349,Elusinian Mysteries
+ally_team-16480841,Dish of Aceso
+ally_team-16480842,Dish of Aceso
+ally_team-16480843,Dish of Aceso
+ally_team-16480844,Staff of Aesclepius
+ally_team-16480845,Staff of Aesclepius
+ally_team-16480846,Staff of Aesclepius
+ally_team-16480847,Elusinian Mysteries
+ally_team-16480848,Elusinian Mysteries
+ally_team-16480849,Elusinian Mysteries
+ally_team-10480001,Dandelion
+ally_team-10480142,Paradeus
+ally_team-10480143,Paradeus
+ally_team-10483400,Paradeus
+ally_team-10483401,Paradeus
+ally_team-10481501,J
+ally_team-10481502,Stasi Agent
+ally_team-10483504,Paradeus
+ally_team-10483600,Commander
+ally_team-10481901,Kryuger
+ally_team-10481902,Kryuger
+ally_team-10481903,Griffin
+ally_team-10481904,Helian
+ally_team-10482001,Persica
+ally_team-10482101,AR Team
+ally_team-10482102,Squad 404
+ally_team-10482103,Agent
+ally_team-10482104,Scarecrow
+ally_team-10482105,Executioner
+ally_team-10482106,Hunter
+ally_team-10482112,Paradeus
+ally_team-10482113,Paradeus
+ally_team-10484012,Paradeus
+ally_team-10484013,Paradeus
+ally_team-10482300,AR Team Dummy
+ally_team-10482431,M4A1 Dummy
+ally_team-10482432,ST AR-15 Dummy
+ally_team-10482433,M4 SOPMOD II Dummy
+ally_team-10482434,M16A1 Dummy
+ally_team-10482435,RO635 Dummy
+ally_team-10484401,Dandelion
+ally_team-10321801,Dana
+ally_team-10321802,Architect
+ally_team-10321803,Architect
+ally_team-10321901,Jericho team
+ally_team-10321903,White Knights
+ally_team-10321904,White Knights
+ally_team-10322001,Dorothy
+ally_team-10322101,Dana
+ally_team-10322102,Architect
+ally_team-10322201,Super-Shorty
+ally_team-10322202,IDW
+ally_team-10322301,Dorothy team
+ally_team-10322302,WA2000
+ally_team-10322304,White Knights
+ally_team-10322305,White Knights
+ally_team-10322306,White Knights
+ally_team-10322307,White Knights
+ally_team-10322308,White Knights
+ally_team-10322309,White Knights
+ally_team-10322310,White Knights
+ally_team-10322311,White Knights
+ally_team-10322401,White Knights
+ally_team-10322402,Jericho
+ally_team-10322403,Super-Shorty
+ally_team-10322405,White Knights
+ally_team-10322406,White Knights
+ally_team-10322501,Dana team
+ally_team-10322502,Jericho team
+ally_team-10322503,Dorothy team
+ally_team-10322504,Super-Shorty team
+ally_team-10490101,M21 team
+ally_team-10490201,Griffin T-Doll
+ally_team-10490202,Griffin T-Doll
+ally_team-10490203,Griffin T-Doll
+ally_team-10490204,Griffin T-Doll
+ally_team-10490205,Griffin T-Doll
+ally_team-10490206,Suomi
+ally_team-10490301,CAWS
+ally_team-10490302,FP-6
+ally_team-10490303,100 Shiki
+ally_team-10490304,VSK-94
+ally_team-10490401,FP-6
+ally_team-16000001,M4A1
+ally_team-16000002,M4A1
+ally_team-16000003,ST AR-15
+ally_team-16000004,M4 SOPMOD II 
+ally_team-16000005,RO635
+ally_team-16000007,AR Squad
+ally_team-16000008,RF Squad
+ally_team-16000009,MG Squad
+ally_team-16000010,RO635
+ally_team-16000011,ST AR-15
+ally_team-16000012,Night Battle Squad
+ally_team-16000013,Clueless
+ally_team-16000014,Undercover Cop
+ally_team-16000015,???
+ally_team-16000016,Pewpew
+ally_team-16000017,AR Squad
+ally_team-16000018,RF Squad
+ally_team-16000019,AR Squad
+ally_team-16000020,AR Squad
+ally_team-16000021,AR Squad
+ally_team-16000022,AR Squad
+ally_team-16000023,Assault Rifle Squad
+ally_team-16000024,Rifle Squad
+ally_team-16000025,Machine Gun Squad
+ally_team-16000026,Alchemist
+ally_team-10510200,M16A1
+ally_team-10510205,ELID
+ally_team-10510206,ELID
+ally_team-10510300,Regular Army
+ally_team-10510400,Dupierre
+ally_team-10510500,Romy's Squad
+ally_team-10510507,Stasi Agent
+ally_team-10510601,Agent
+ally_team-10510602,Scarecrow
+ally_team-10510603,Executioner
+ally_team-10510604,Hunter
+ally_team-10510700,Umbrella Squad
+ally_team-10510704,Paradeus
+ally_team-10511804,Paradeus
+ally_team-10512804,Paradeus
+ally_team-10510800,Nitrogen Squad
+ally_team-10510804,Paradeus
+ally_team-10510805,Paradeus
+ally_team-10511904,Paradeus
+ally_team-10511905,Paradeus
+ally_team-10512904,Paradeus
+ally_team-10512905,Paradeus
+ally_team-10510900,Unicorn Squad
+ally_team-10510901,Chess Queen
+ally_team-10511000,Nitrogen Squad
+ally_team-10511105,Paradeus
+ally_team-10512101,Grig
+ally_team-10513101,Grig
+ally_team-10512205,Paradeus
+ally_team-10513205,Paradeus
+ally_team-10513700,Griffin
+ally_team-10513710,Griffin
+ally_team-10513720,Griffin
+ally_team-16510001,Griffin Backup
+ally_team-16510002,Griffin Backup
+ally_team-16510003,Reinforcement Squad
+ally_team-16510004,Reinforcement Squad
+ally_team-16510005,Reinforcement Squad
+ally_team-16510006,Level 70 HG
+ally_team-16510007,Level 90 AR
+ally_team-16510008,Level 100 AR
+ally_team-16510009,Level 90 RF
+ally_team-16510010,Level 100 RF
+ally_team-16510011,Level 90 MG
+ally_team-16510012,Level 100 MG
+ally_team-16511201,Bramedb
+ally_team-16511202,Lady Gray
+ally_team-16511203,Stalwart Defenders
+ally_team-16511204,Stalwart Defenders
+ally_team-16511301,Nemhran
+ally_team-16511302,Nemhran
+ally_team-16512201,Bramedb
+ally_team-16512202,Lady Gray
+ally_team-16512203,Stalwart Defenders
+ally_team-16512204,Stalwart Defenders
+ally_team-16513201,Bramedb
+ally_team-16513202,Lady Gray
+ally_team-16513203,Stalwart Defenders
+ally_team-16513204,Stalwart Defenders
+ally_team-16512301,Nemhran
+ally_team-16513301,Nemhran
+ally_team-16512302,Nemhran
+ally_team-16513302,Nemhran
+ally_team-16510013,Architect
+ally_team-16510014,Gager
+ally_team-16510015,Manticore
+ally_team-16510016,Wolfpack Squad
+ally_team-16510017,Nitrogen Squad
+ally_team-16510018,M16A1
+ally_team-16510019,Beak
+ally_team-16510020,2887
+ally_team-16510021,Hydra
+ally_team-16510022,Wolfpack Squad
+ally_team-16510023,BGM-71
+ally_team-16510024,PP-93
+ally_team-16510025,QLZ-04
+ally_team-16510026,RPK-16
+ally_team-16510027,RPK-16
+ally_team-10500100,Commander
+ally_team-10500301,Sangvis Force
+ally_team-10500302,Sangvis Force
+ally_team-10500303,Sangvis Force
+ally_team-10500304,Sangvis Force
+ally_team-10500401,Sangvis Force
+ally_team-10500403,Sangvis Force
+ally_team-10500404,Sangvis Force
+ally_team-10500405,Sangvis Force
+ally_team-10500410,Persica
+ally_team-10500411,Lewis
+ally_team-10500412,Falcon
+ally_team-10500413,Type 79
+ally_team-10500414,Type 97
+ally_team-10500415,Hunter - Nightfall Moth
+ally_team-10500416,LWMMG
+ally_team-10500417,K5
+ally_team-10500418,M1 Garand
+ally_team-10500419,P22
+ally_team-10500420,T77
+ally_team-104040912,???
+ally_team-104040913,Rebels
+ally_team-104040914,Rebels
+ally_team-104040915,Rebels
+ally_team-104040916,Rebels
+ally_team-104040959,Rebels
+ally_team-104040960,Rebels
+ally_team-104040961,Rebels
+ally_team-104040962,Rebels
+ally_team-104040963,Rebels
+ally_team-104040964,Rebels
+ally_team-104040965,Rebels
+ally_team-104040966,Rebels
+ally_team-104040967,RO635
+ally_team-104040968,M4A1
+ally_team-104040969,AN94
+ally_team-104040970,???
+ally_team-104040971,???
+ally_team-104040972,???
+ally_team-104040973,???
+ally_team-104040974,???
+ally_team-104040975,???
+ally_team-104040976,???
+ally_team-16520001,Reinforcement Squad
+ally_team-16520002,Commander
+ally_team-19521004,Enemy
+ally_team-19521005,Enemy
+ally_team-10520600,Commander
+ally_team-10520800,Type95
+ally_team-10520801,Astra
+ally_team-10520802,M1 Garand
+ally_team-10520803,Five-seven
+ally_team-10520804,UKM-2000
+ally_team-10520805,Lewis
+ally_team-10540400,Instructor Я
+ally_team-10541400,Maggie
+ally_team-10542700,Erma
+ally_team-10542710,Erma - Dummy
+ally_team-10542711,Erma - Dummy
+ally_team-10541300,Lyudmila
+ally_team-10542902,Train Robber
+ally_team-10543402,Train Robber
+ally_team-10543902,Train Robber
+ally_team-10540704,Rebel
+ally_team-10541004,Rebel
+ally_team-10541304,Rebel
+ally_team-10543200,Rebel
+ally_team-10543204,???
+ally_team-10543700,Rebel
+ally_team-10543704,???
+ally_team-10544200,Rebel
+ally_team-10544204,???
+ally_team-10544205,Rebel
+ally_team-10544298,Griffin
+ally_team-10544299,Griffin
+ally_team-16540001,Noonday Star
+ally_team-16540002,Squad Morningstar
+ally_team-16540003,Squad Evenstar
+ally_team-16540004,Midnight Star
+ally_team-16549110,???
+ally_team-16549111,???
+ally_team-16549112,???
+ally_team-16549120,???
+ally_team-16549121,???
+ally_team-16549122,???
+ally_team-16549130,???
+ally_team-16549131,???
+ally_team-16549132,???
+ally_team-16549140,???
+ally_team-16549141,???
+ally_team-16549142,???
+ally_team-16540005,Noonday Star
+ally_team-16540006,Squad Morningstar
+ally_team-16540007,Squad Evenstar
+ally_team-16540008,Midnight Star
+ally_team-16541501,Deepwater Vortex
+ally_team-16542501,Deepwater Vortex
+ally_team-16543501,Deepwater Vortex
+ally_team-16541602,Enemy Reinforcements
+ally_team-16542602,Enemy Reinforcements
+ally_team-16543602,Enemy Reinforcements
+ally_team-16540009,Instructor Я
+ally_team-16540010,Erma
+ally_team-16540011,Maggie
+ally_team-16540012,Wolfpack Squad
+ally_team-16540013,Erma
+ally_team-16540014,Erma
+ally_team-16540015,Erma
+ally_team-16540016,Erma
+ally_team-16540017,Erma - Dummy
+ally_team-16540018,Erma & Co.
+ally_team-19550102,???
+ally_team-19550103,M4
+ally_team-19550104,Railgun
+ally_team-19550105,Railgun
+ally_team-19550117,Rebel
+ally_team-19550118,Rebel
+ally_team-19550119,Rebel
+ally_team-19550120,Rebel
+ally_team-19550121,Rebel
+ally_team-19550122,Rebel
+ally_team-19550123,Rebel
+ally_team-19550124,Rebel
+ally_team-19550125,Rebel
+ally_team-19550126,Rebel
+ally_team-19550127,Rebel
+ally_team-19550128,Rebel
+ally_team-19550129,Rebel
+ally_team-19550130,Rebel
+ally_team-19550131,Rebel
+ally_team-19550132,Rebel
+ally_team-19550133,Rebel
+ally_team-19550134,Rebel
+ally_team-19550135,Rebel
+ally_team-19550136,Rebel
+ally_team-19550137,Rebel
+ally_team-19550138,Rebel
+ally_team-19550139,Rebel
+ally_team-19550140,Rebel
+ally_team-19550141,Rebel
+ally_team-19550142,Rebel
+ally_team-19550143,Rebel
+ally_team-19550144,Rebel
+ally_team-19550145,Rebel
+ally_team-19550146,Rebel
+ally_team-19550147,Rebel
+ally_team-19550148,Rebel
+ally_team-19550149,Rebel
+ally_team-19550150,Rebel
+ally_team-19550151,Rebel
+ally_team-19550152,Rebel
+ally_team-19550153,Rebel
+ally_team-19550154,Rebel
+ally_team-19550155,Rebel
+ally_team-19550156,Rebel
+ally_team-19550157,Rebel
+ally_team-19550158,Rebel
+ally_team-19550159,Rebel
+ally_team-19550160,Rebel
+ally_team-19550161,Rebel
+ally_team-19550162,Rebel
+ally_team-19550163,Rebel
+ally_team-19550181,Supporting NPC
+ally_team-19550182,Supporting NPC
+ally_team-16560001,???
+ally_team-16560002,???
+ally_team-16560003,SCAR-L
+ally_team-16560004,SCAR-H
+ally_team-16560005,Daybreak Squad
+ally_team-16560006,???
+ally_team-16560007,???
+ally_team-16560008,Aliana
+ally_team-16560009,Aliana
+ally_team-16560010,Amaris
+ally_team-10590001,Griffin
+ally_team-10590002,Griffin
+ally_team-10590003,Griffin
+ally_team-10590004,M16A1
+ally_team-10570001,Ai Mizuno
+ally_team-10570002,Junko Konno
+ally_team-10570003,Lily Hoshikawa
+ally_team-10570004,Saki Nikaido
+ally_team-10570005,Yugiri
+ally_team-10570006,Sakura Minamoto
+ally_team-10570007,Tae Yamada
+ally_team-10575001,Sakura Minamoto
+ally_team-10575002,Tae Yamada
+ally_team-10575003,Saki Nikaido
+ally_team-10570008,Commander
+ally_team-10570009,Gray Singer
+ally_team-10570010,Green Singer
+ally_team-10570011,Red Singer
+ally_team-10570012,Spirited Vocalist
+ally_team-10570013,Fiery Guitarist
+ally_team-10570014,Breakneck Drummer
+ally_team-10570015,Bassist with Shades
+ally_team-10570016,Mysterious Keyboardist
+ally_team-10105601,Spectator
+ally_team-10105602,Spectator
+ally_team-10078001,Griffin
+ally_team-16000027,Alchemist
+ally_team-16000028,AR Squad
+ally_team-16000029,RF Squad
+ally_team-16000030,MG Squad
+ally_team-10007001,
+ally_team-10007002,
+ally_team-10007003,
+ally_team-10007004,
+ally_team-10007005,
+ally_team-10007006,
+ally_team-10007007,
+ally_team-10007008,
+ally_team-10007009,
+ally_team-10007010,
+ally_team-10007011,
+ally_team-10007012,
+ally_team-10007013,
+ally_team-10007014,
+ally_team-10007015,
+ally_team-10007101,
+ally_team-10007102,
+ally_team-10007103,
+ally_team-10007104,
+ally_team-10007105,
+ally_team-10007106,
+ally_team-10007107,
+ally_team-10007108,
+ally_team-10007109,
+ally_team-10007110,
+ally_team-10007111,
+ally_team-10007112,
+ally_team-10007113,
+ally_team-10007201,
+ally_team-10007202,
+ally_team-10007207,
+ally_team-10007208,
+ally_team-10007209,
+ally_team-10007210,
+ally_team-10007211,
+ally_team-10007212,
+ally_team-10007213,
+ally_team-10007214,
+ally_team-10007301,
+ally_team-10007302,
+ally_team-10007303,
+ally_team-10007304,
+ally_team-10007305,
+ally_team-10007306,
+ally_team-10007307,
+ally_team-10007308,
+ally_team-10007309,
+ally_team-10007310,
+ally_team-10007311,
+ally_team-10007312,
+ally_team-10007313,
+ally_team-16580001,
+ally_team-16580002,
+ally_team-16580003,
+ally_team-16589121,
+ally_team-16589122,
+ally_team-16589123,
+ally_team-16589124,
+ally_team-16589125,
+ally_team-16589126,
+ally_team-16589127,
+ally_team-16589128,
+ally_team-16589129,
+ally_team-16589130,
+ally_team-16589131,
+ally_team-16589132,
+ally_team-16589133,
+ally_team-16589134,
+ally_team-16589135,
+ally_team-16589136,
+ally_team-16589137,
+ally_team-16589138,
+ally_team-16589139,
+ally_team-16589140,
+ally_team-16589141,
+ally_team-16589142,
+ally_team-16589143,
+ally_team-16589144,
+ally_team-16589145,
+ally_team-16589146,
+ally_team-16589147,
+ally_team-16589148,
+ally_team-16589149,
+ally_team-16589150,
+ally_team-16589221,
+ally_team-16589222,
+ally_team-16589223,
+ally_team-16589224,
+ally_team-16589225,
+ally_team-16589226,
+ally_team-16589227,
+ally_team-16589228,
+ally_team-16589229,
+ally_team-16589230,
+ally_team-16589231,
+ally_team-16589232,
+ally_team-16589233,
+ally_team-16589234,
+ally_team-16589235,
+ally_team-16589236,
+ally_team-16589237,
+ally_team-16589238,
+ally_team-16589239,
+ally_team-16589240,
+ally_team-16589241,
+ally_team-16589242,
+ally_team-16589243,
+ally_team-16589244,
+ally_team-16589245,
+ally_team-16589246,
+ally_team-16589247,
+ally_team-16589248,
+ally_team-16589249,
+ally_team-16589250,
+ally_team-16589101,
+ally_team-16589105,
+ally_team-16589108,
+ally_team-16589110,
+ally_team-16589205,
+ally_team-16589208,
+ally_team-16589209,
+ally_team-16589210,
+ally_team-16589151,
+ally_team-16589251,
+ally_team-16580101,
+ally_team-16580102,AN-94
+ally_team-16580103,
+ally_team-16580104,AK-15
+ally_team-16580105,
+ally_team-16580106,
+ally_team-16580107,
+ally_team-16580108,
+ally_team-16580109,RPK-16
+ally_team-16580110,RPK-16
+ally_team-16580111,RPK-16
+ally_team-16580112,Task Force DEFY
+ally_team-16580113,
+ally_team-16580114,
+ally_team-16580115,Task Force DEFY
+ally_team-16580116,
+ally_team-16580117,
+ally_team-16580118,
+ally_team-16580119,RO635
+ally_team-16580120,Nyto
+ally_team-16580121,Nyto
+ally_team-16580122,
+ally_team-19583801,
+ally_team-19585701,
+ally_team-19587201,
+ally_team-19587208,Paradeus
+ally_team-19584001,
+ally_team-19584002,
+ally_team-19584003,Paradeus
+ally_team-19584004,Paradeus
+ally_team-19584005,Paradeus
+ally_team-19584006,
+ally_team-19585801,
+ally_team-19585802,
+ally_team-19585803,Paradeus
+ally_team-19585804,Paradeus
+ally_team-19585805,Paradeus
+ally_team-19585806,
+ally_team-19587301,
+ally_team-19587302,
+ally_team-19587303,
+ally_team-19587304,Paradeus
+ally_team-19587305,Paradeus
+ally_team-19587306,Paradeus
+ally_team-19587307,
+ally_team-19584201,
+ally_team-19584202,
+ally_team-19584203,
+ally_team-19584204,Morridow
+ally_team-19584205,Nemhran
+ally_team-19585901,
+ally_team-19585902,
+ally_team-19585903,
+ally_team-19585904,Morridow
+ally_team-19585905,Nemhran
+ally_team-19587401,
+ally_team-19587402,
+ally_team-19587403,
+ally_team-19587404,
+ally_team-19587405,Morridow
+ally_team-19587406,Nemhran
+ally_team-19584091,
+ally_team-19584092,Nemhran
+ally_team-10581501,
+ally_team-10581505,AR Team
+ally_team-10584901,
+ally_team-10584902,
+ally_team-10584903,
+ally_team-10584905,AR Team
+ally_team-10583600,Dandelion
+ally_team-10583601,Morridow
+ally_team-10583602,Paradeus
+ally_team-10583603,Paradeus
+ally_team-10583604,Paradeus
+ally_team-10583605,Paradeus
+ally_team-10583606,Paradeus
+ally_team-10583607,Paradeus
+ally_team-10583608,Paradeus
+ally_team-10583609,Paradeus
+ally_team-10583610,Paradeus
+ally_team-10583611,Paradeus
+ally_team-10583612,Paradeus
+ally_team-10583613,Paradeus
+ally_team-10583614,Paradeus
+ally_team-10583615,Paradeus
+ally_team-10583616,Paradeus
+ally_team-10585601,Morridow
+ally_team-10585602,Paradeus
+ally_team-10585603,Paradeus
+ally_team-10585604,Paradeus
+ally_team-10585605,Paradeus
+ally_team-10585606,Paradeus
+ally_team-10585607,Paradeus
+ally_team-10585608,Paradeus
+ally_team-10585609,Paradeus
+ally_team-10585610,Paradeus
+ally_team-10585611,Paradeus
+ally_team-10585612,Paradeus
+ally_team-10585613,Paradeus
+ally_team-10585614,Paradeus
+ally_team-10585615,Paradeus
+ally_team-10585616,Paradeus
+ally_team-10587101,Morridow
+ally_team-10587102,Paradeus
+ally_team-10587103,Paradeus
+ally_team-10587104,Paradeus
+ally_team-10587105,Paradeus
+ally_team-10587106,Paradeus
+ally_team-10587107,Paradeus
+ally_team-10587108,Paradeus
+ally_team-10587109,Paradeus
+ally_team-10587110,Paradeus
+ally_team-10587111,Paradeus
+ally_team-10587112,Paradeus
+ally_team-10587113,Paradeus
+ally_team-10587114,Paradeus
+ally_team-10587115,Paradeus
+ally_team-10587116,Paradeus
+ally_team-10587117,Paradeus
+ally_team-10587118,Paradeus
+ally_team-10587119,Paradeus
+ally_team-10587120,Paradeus
+ally_team-10587121,Paradeus
+ally_team-10580901,
+ally_team-10580902,
+ally_team-10584701,
+ally_team-10584702,
+ally_team-10581101,
+ally_team-10581103,
+ally_team-10584801,
+ally_team-10584802,
+ally_team-10584803,
+ally_team-10583401,BGM-71
+ally_team-10585501,BGM-71
+ally_team-10587001,BGM-71
+ally_team-10583402,
+ally_team-10585502,
+ally_team-10587002,
+ally_team-10580301,
+ally_team-10580302,
+ally_team-10580303,
+ally_team-10580305,Aliana
+ally_team-10580306,Aliana
+ally_team-10580307,Aliana
+ally_team-68550301,
+ally_team-68700201,
+ally_team-68700401,
+ally_team-16363001,
+ally_team-16363002,
+ally_team-16363003,
+ally_team-16363004,
+ally_team-16363005,
+ally_team-16363006,
+ally_team-16363007,
+ally_team-16363008,
+ally_team-16363009,
+ally_team-16363010,
+ally_team-16363011,
+ally_team-16363012,
+ally_team-16363013,
+ally_team-16363045,
+ally_team-16363046,
+ally_team-16363047,
+ally_team-16363048,
+ally_team-16363081,
+ally_team-16363082,
+ally_team-16363083,
+ally_team-16363084,
+ally_team-16363085,
+ally_team-16363086,
+ally_team-16363087,
+ally_team-16363088,
+ally_team-16363089,
