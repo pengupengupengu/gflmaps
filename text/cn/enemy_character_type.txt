@@ -2350,6 +2350,15 @@ enemy_character_type-30900542,
 enemy_character_type-20900543,娜希斯
 enemy_character_type-10900543,精英//c必杀//c义体
 enemy_character_type-30900543,
+enemy_character_type-20900544,AA-02 负罪者
+enemy_character_type-10900544,精英//c巨型//c装甲//c支援//c弱化
+enemy_character_type-30900544,
+enemy_character_type-20900545,代理人
+enemy_character_type-10900545,精英//c代理人
+enemy_character_type-30900545,
+enemy_character_type-20900546,代理人
+enemy_character_type-10900546,精英//c代理人
+enemy_character_type-30900546,
 enemy_character_type-20080001,盾牌娘
 enemy_character_type-10080001,
 enemy_character_type-30080001,
@@ -2575,12 +2584,3 @@ enemy_character_type-30910150,
 enemy_character_type-20910151,SCARL
 enemy_character_type-10910151,精英
 enemy_character_type-30910151,
-enemy_character_type-20900544,AA-02 负罪者
-enemy_character_type-10900544,精英//c巨型//c装甲//c支援//c弱化
-enemy_character_type-30900544,
-enemy_character_type-20900545,代理人
-enemy_character_type-10900545,精英//c代理人
-enemy_character_type-30900545,
-enemy_character_type-20900546,代理人
-enemy_character_type-10900546,精英//c代理人
-enemy_character_type-30900546,
