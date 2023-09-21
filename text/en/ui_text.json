@@ -35,6 +35,7 @@
     "2009": "[Sim] Career Quest Tutorials",
     "2010": "[Sim] Defense Drill",
     "2011": "[Perma] Grey Zone Exploration",
+    "2012": "[Sim] Mobile Armor Tutorials",
 
     "3001": "[Event] Cube",
     "3002": "[Event] Arctic Warfare",
@@ -74,6 +75,7 @@
     "5050": "[Mini-Event] [Second White Day Mini-Event]",
     "5052": "[Mini-Event] [Third Summer Mini-Event]",
     "5059": "[Mini-Event] [Maze Conjecture]",
+    "5061": "[Mini-Event] [Mind Voyage]",
 
     "6004": "[Theater] 1+2",
     "6005": "[Theater] 3+4",
@@ -110,9 +112,10 @@
   "mission_info_gk_limit": "G&K Team Limit",
   "mission_info_hoc_limit": "HOC Team Limit",
   "mission_info_coalition_limit": "Coalition Team Limit",
+  "mission_info_vehicle_limit": "Mobile Armor Limit",
   "mission_info_banned": "0 (BANNED)",
   "mission_info_unlimited": "∞",
-  "mission_info_total_team_limit": "Total Team Limit (G&K+HOC+Coalition)",
+  "mission_info_total_team_limit": "Total Team Limit",
   "mission_info_hoc_excluded": "* = G&K+Coalition, doesn't count HOC",
   "mission_info_advantaged_dolls": "Advantaged Dolls",
   "mission_info_no_advantaged_dolls": "None",

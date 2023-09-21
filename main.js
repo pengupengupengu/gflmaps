@@ -590,6 +590,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // Maze Conjecture
     case -59: return 5059;
     // -60 is PL+
+    case -61: return 5061;
     // Grey Zone
     case -404: return 2011;
     // Tutorials
@@ -599,6 +600,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -10003:
     case -10004:
     case -10005: return 2009;
+    // Mobile Armor Tutorials
+    case -10006: return 2012;
   }
 }
 
@@ -673,6 +676,12 @@ function getMissionOptionsForCampaign(campaign) {
   }
   else if(Number(campaign) === 2011){
     missionOptions = Mission.filter(({campaign}) => campaign === -404).map((mission) => ({
+      value: Number(mission.id),
+      innerHTML: mission.name.replace("//n", " ")
+    }));
+  }
+  else if(Number(campaign) === 2012){
+    missionOptions = Mission.filter(({campaign}) => campaign === -10006).map((mission) => ({
       value: Number(mission.id),
       innerHTML: mission.name.replace("//n", " ")
     }));
@@ -916,6 +925,7 @@ function updatemap() {
            <th>${UI_TEXT["mission_info_gk_limit"]}</th>
            <th>${UI_TEXT["mission_info_hoc_limit"]}</th>
            <th>${UI_TEXT["mission_info_coalition_limit"]}</th>
+           <th>${UI_TEXT["mission_info_vehicle_limit"]}</th>
            <th>${UI_TEXT["mission_info_total_team_limit"]}</th>
            <th>${UI_TEXT["mission_info_advantaged_dolls"]}</th>
          </tr></thead>
@@ -927,6 +937,7 @@ function updatemap() {
              <td>10</td>
              <td>1-4</td>
              <td>0-3</td>
+             <td>N/A</td>
              <td>10*</td>
              <td>${advantagedDolls}</td>
            </tr>
@@ -937,6 +948,7 @@ function updatemap() {
              <td></td>
              <td>4</td>
              <td>?</td>
+             <td>N/A</td>
              <td></td>
              <td></td>
            </tr>
@@ -947,6 +959,7 @@ function updatemap() {
       let gkLimitDisplay = gkTeamLimit != 0 ? (gkTeamLimit != -1 ? gkTeamLimit : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"];
       let hocLimit = mission_info.limit_squad != 0 ? (mission_info.limit_squad != -1 ? mission_info.limit_squad : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"];
       let coalitionLimit = mission_info.limit_sangvis != 0 ? (mission_info.limit_sangvis != -1 ? mission_info.limit_sangvis : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"];
+      let vehicleLimit = mission_info.limit_vehicle != 0 ? (mission_info.limit_vehicle != -1 ? mission_info.limit_vehicle : UI_TEXT["mission_info_banned"]) : UI_TEXT["mission_info_unlimited"];
       let totalTeamLimitDisplay = "";
       if (totalTeamLimit == 0) {
         totalTeamLimitDisplay = UI_TEXT["mission_info_unlimited"];
@@ -968,6 +981,7 @@ function updatemap() {
            <th>${UI_TEXT["mission_info_gk_limit"]}</th>
            <th>${UI_TEXT["mission_info_hoc_limit"]}</th>
            <th>${UI_TEXT["mission_info_coalition_limit"]}</th>
+           <th>${UI_TEXT["mission_info_vehicle_limit"]}</th>
            <th>${UI_TEXT["mission_info_total_team_limit"]}</th>
            <th>${UI_TEXT["mission_info_advantaged_dolls"]}</th>
          </tr></thead>
@@ -977,6 +991,7 @@ function updatemap() {
            <td>${gkLimitDisplay}</td>
            <td>${hocLimit}</td>
            <td>${coalitionLimit}</td>
+           <td>${vehicleLimit}</td>
            <td>${totalTeamLimitDisplay}</td>
            <td>${advantagedDolls}</td>
          </tr></tbody>`;
