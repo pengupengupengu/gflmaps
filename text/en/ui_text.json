@@ -76,6 +76,7 @@
     "5052": "[Mini-Event] [Third Summer Mini-Event]",
     "5059": "[Mini-Event] [Maze Conjecture]",
     "5061": "[Mini-Event] [Mind Voyage]",
+    "5062": "[Mini-Event] [Reloading]",
 
     "6004": "[Theater] 1+2",
     "6005": "[Theater] 3+4",
@@ -84,7 +85,8 @@
     "6807": "[Theater] 7+8 (EN) / 5+6 (JP)",
     "6817": "[Theater] 7+8 (JP)",
     "6008": "[Theater] 8 (CNTWKR) / 9 (EN)",
-    "6009": "[Theater] 9+10 (CNTWKR)"
+    "6009": "[Theater] 9+10 (CNTWKR)",
+    "6011": "[Theater] 11 (CNTWKR)"
   },
 
   "endless_map": "Ranking",

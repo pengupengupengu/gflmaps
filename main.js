@@ -591,6 +591,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -59: return 5059;
     // -60 is PL+
     case -61: return 5061;
+    case -62: return 5062;
     // Grey Zone
     case -404: return 2011;
     // Tutorials
