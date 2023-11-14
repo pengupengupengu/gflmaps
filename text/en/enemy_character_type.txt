@@ -86,13 +86,13 @@ enemy_character_type-20010029,Nightmare
 enemy_character_type-10010029,Melee
 enemy_character_type-30010029,
 enemy_character_type-20010030,Typhon
-enemy_character_type-10010030,Elite//cHigh Threat//cArmor//cPiercing
+enemy_character_type-10010030,Elite//c High-Threat//c Colossal//c Armor//c Piercing
 enemy_character_type-30010030,
 enemy_character_type-20010031,Typhon
-enemy_character_type-10010031,Elite//cHigh Threat//cArmor//cPiercing
+enemy_character_type-10010031,Elite//c High-Threat//c Colossal//c Armor//c Piercing
 enemy_character_type-30010031,
 enemy_character_type-20010032,Typhon
-enemy_character_type-10010032,Elite//cHigh Threat//cArmor//cPiercing
+enemy_character_type-10010032,Elite//c High-Threat//c Colossal//c Armor//c Piercing
 enemy_character_type-30010032,
 enemy_character_type-20010033,Dactyl
 enemy_character_type-10010033,Elite//c Armor//c Minelayer
@@ -104,7 +104,7 @@ enemy_character_type-20010035,Rodelero
 enemy_character_type-10010035,Armor//c Force Field//c Piercing
 enemy_character_type-30010035,
 enemy_character_type-20010036,Doppelsöldner
-enemy_character_type-10010036,Grenade Barrage//c Heavy Armor//c Forcefield
+enemy_character_type-10010036,High-Threat//c Colossal//c Armor//c Force Field//c AoE Damage
 enemy_character_type-30010036,
 enemy_character_type-20010037,ELID_Armed
 enemy_character_type-10010037,Normal
@@ -113,16 +113,16 @@ enemy_character_type-20010038,ELID_Unarmed
 enemy_character_type-10010038,Melee
 enemy_character_type-30010038,
 enemy_character_type-20010039,Uhlan
-enemy_character_type-10010039,Elite//c Armor//c Force Field
+enemy_character_type-10010039,Elite//c Colossal//c Armor//c Force Field
 enemy_character_type-30010039,
 enemy_character_type-20010040,Rodelero
 enemy_character_type-10010040,Armor//c Force Field//c Piercing
 enemy_character_type-30010040,
 enemy_character_type-20010041,Doppelsöldner
-enemy_character_type-10010041,Grenade Barrage//c Heavy Armor//c Forcefield
+enemy_character_type-10010041,High-Threat//c Colossal//c Armor//c Force Field//c AoE Damage
 enemy_character_type-30010041,
 enemy_character_type-20010042,Uhlan
-enemy_character_type-10010042,Elite//c Armor//c Force Field
+enemy_character_type-10010042,Elite//c Colossal//c Armor//c Force Field
 enemy_character_type-30010042,
 enemy_character_type-20010043,Strelet
 enemy_character_type-10010043,Force Field
@@ -131,22 +131,22 @@ enemy_character_type-20010044,Alcoholic Dragoon
 enemy_character_type-10010044,Assault//c High-Speed//c Armored
 enemy_character_type-30010044,
 enemy_character_type-20010045,Alcoholic Great Swordsman
-enemy_character_type-10010045,Grenade Barrage//c Heavy Armor//c Forcefield
+enemy_character_type-10010045,High-Threat//c Colossal//c Armor//c Force Field//c AoE Damage
 enemy_character_type-30010045,
 enemy_character_type-20010046,Manticore
-enemy_character_type-10010046,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10010046,Elite//c Colossal//c Armor//c Dangerous
 enemy_character_type-30010046,
 enemy_character_type-20010047,Hydra
 enemy_character_type-10010047,Fully Armed//c Precision Targeting//c Invincible
 enemy_character_type-30010047,
 enemy_character_type-20010048,Doppelsöldner
-enemy_character_type-10010048,Grenade Barrage//c Heavy Armor//c Forcefield
+enemy_character_type-10010048,High-Threat//c Colossal//c Armor//c Force Field//c AoE Damage
 enemy_character_type-30010048,
 enemy_character_type-20010049,Uhlan
-enemy_character_type-10010049,Elite//c Armor//c Force Field
+enemy_character_type-10010049,Elite//c Colossal//c Armor//c Force Field
 enemy_character_type-30010049,
 enemy_character_type-20010050,Minotaurus
-enemy_character_type-10010050,Melee//c Armor//c Damage Immunity
+enemy_character_type-10010050,Colossal//c Melee//c Armor//c Damage Immunity
 enemy_character_type-30010050,
 enemy_character_type-20010051,Orthrus
 enemy_character_type-10010051,Shield
@@ -161,10 +161,10 @@ enemy_character_type-20010054,Pathfinder
 enemy_character_type-10010054,Melee//c Armor
 enemy_character_type-30010054,
 enemy_character_type-20010055,Gladiator
-enemy_character_type-10010055,Armor//c Force Field//c Weaken
+enemy_character_type-10010055,Armor//c Colossal//c Force Field//c Debuff
 enemy_character_type-30010055,
 enemy_character_type-20010056,Patroller
-enemy_character_type-10010056,Elite//c Armor//c Shield//c Armor-Piercing
+enemy_character_type-10010056,Elite//c Colossal//c Armor//c Shield//c Armor-Piercing
 enemy_character_type-30010056,
 enemy_character_type-20010057,Gunner
 enemy_character_type-10010057,High Threat//cForce Field//cWeaken
@@ -173,19 +173,19 @@ enemy_character_type-20010058,Abandoned Isomer
 enemy_character_type-10010058,Melee
 enemy_character_type-30010058,
 enemy_character_type-20010059,Argonauts - Carina
-enemy_character_type-10010059,Lethal//c Auto Defensive Facility//c Support
+enemy_character_type-10010059,Colossal//c Lethal//c Auto Defense Facility//c Support
 enemy_character_type-30010059,
 enemy_character_type-20010061,Argonauts - Carina
 enemy_character_type-10010061,
 enemy_character_type-30010061,
 enemy_character_type-20010062,Argonauts - Vela
-enemy_character_type-10010062,Lethal//c Auto Defensive Facility//c Support
+enemy_character_type-10010062,Colossal//c Lethal//c Auto Defense Facility//c Support
 enemy_character_type-30010062,
 enemy_character_type-20010063,Argonauts - Vela
 enemy_character_type-10010063,
 enemy_character_type-30010063,
 enemy_character_type-20010064,Argonauts - Puppis
-enemy_character_type-10010064,Lethal//c Auto Defensive Facility//c Support
+enemy_character_type-10010064,Colossal//c Lethal//c Auto Defense Facility//c Support
 enemy_character_type-30010064,
 enemy_character_type-20010065,Argonauts - Puppis
 enemy_character_type-10010065,
@@ -203,16 +203,16 @@ enemy_character_type-20010070,Xmas Dinergate
 enemy_character_type-10010070,Melee
 enemy_character_type-30010070,
 enemy_character_type-20010071,Kratos
-enemy_character_type-10010071,Elite//c Melee//c Armor//c Shield
+enemy_character_type-10010071,Elite//c Colossal//c Melee//c Armorr//c Shield
 enemy_character_type-30010071,
 enemy_character_type-20010072,Acheron
 enemy_character_type-10010072,Elite//c Armor//c Shield
 enemy_character_type-30010072,
 enemy_character_type-20010073,Coeus
-enemy_character_type-10010073,Elite//cHigh Threat//cArmor//cSuppress//cWeaken
+enemy_character_type-10010073,Elite//c High-Threat//c Colossal//c Armor//c Suppression//c Debuff
 enemy_character_type-30010073,
 enemy_character_type-20010074,Rioter
-enemy_character_type-10010074,Technique – Berserk
+enemy_character_type-10010074,Technique - Berserk
 enemy_character_type-30010074,
 enemy_character_type-20010075,Agent
 enemy_character_type-10010075,Elite//c Infiltrate
@@ -227,10 +227,10 @@ enemy_character_type-20010078,Hymnal Organ
 enemy_character_type-10010078,High Threat//cIntensify//cAnti-Individual
 enemy_character_type-30010078,
 enemy_character_type-20010079,Gladiator
-enemy_character_type-10010079,Armor//c Force Field//c Weaken
+enemy_character_type-10010079,Colossal//c Armor//c Force Field//c Debuff
 enemy_character_type-30010079,
 enemy_character_type-20010080,Patroler
-enemy_character_type-10010080,Elite//c Armor//c Shield//c Armor-Piercing
+enemy_character_type-10010080,Elite//c Colossal//c Armor//c Shield//c Armor-Piercing
 enemy_character_type-30010080,
 enemy_character_type-20010081,Gunner
 enemy_character_type-10010081,High Threat//cForce Field//cWeaken
@@ -245,7 +245,7 @@ enemy_character_type-20010084,Asklepian
 enemy_character_type-10010084,Elite//cHigh Threat//cBlind//cPiercing
 enemy_character_type-30010084,
 enemy_character_type-20010085,Aceso's Flask
-enemy_character_type-10010085,Elite//c Piercing
+enemy_character_type-10010085,Elite//c Colossal//c Piercing
 enemy_character_type-30010085,
 enemy_character_type-20010086,Sentinel
 enemy_character_type-10010086,Shields Raised
@@ -280,7 +280,7 @@ enemy_character_type-30010095,
 enemy_character_type-20010096,Northern Elite Agent
 enemy_character_type-10010096,Elite
 enemy_character_type-30010096,
-enemy_character_type-20010097,
+enemy_character_type-20010097,Gangster
 enemy_character_type-10010097,Normal
 enemy_character_type-30010097,
 enemy_character_type-20010098,Professional Bodyguard
@@ -295,21 +295,45 @@ enemy_character_type-30010100,
 enemy_character_type-20010101,Rampaging Refugee
 enemy_character_type-10010101,Normal
 enemy_character_type-30010101,
-enemy_character_type-20010102,
-enemy_character_type-10010102,
+enemy_character_type-20010102,Lycaon
+enemy_character_type-10010102,High-Threat//c Scattered Shots//c AoE Damage
 enemy_character_type-30010102,
-enemy_character_type-20010103,
-enemy_character_type-10010103,
+enemy_character_type-20010103,Aspis
+enemy_character_type-10010103,Elite//c High-Threat
 enemy_character_type-30010103,
-enemy_character_type-20010104,
-enemy_character_type-10010104,
+enemy_character_type-20010104,Cyclops_MG
+enemy_character_type-10010104,Elite//c Consecutive Shots//c Armor-Piercing
 enemy_character_type-30010104,
-enemy_character_type-20010105,
+enemy_character_type-20010105,Cerynitis SWAP
 enemy_character_type-10010105,High Threat//cArmor
 enemy_character_type-30010105,
-enemy_character_type-20010106,
+enemy_character_type-20010106,Aegis_GA_SWAP
 enemy_character_type-10010106,Armored//c Shielded
 enemy_character_type-30010106,
+enemy_character_type-20010107,Arachne
+enemy_character_type-10010107,Elite//c Resilient//c Colossal//c Armor//c Spawner
+enemy_character_type-30010107,
+enemy_character_type-20010108,Arachne's Clone
+enemy_character_type-10010108,Melee//c High-Speed//c Agile//c Armor//c Debuff
+enemy_character_type-30010108,
+enemy_character_type-20010109,Troy
+enemy_character_type-10010109,Elite//c Resilient//c Colossal//c Armor//c AoE Damage//c Damage Immunity
+enemy_character_type-30010109,
+enemy_character_type-20010110,Technician
+enemy_character_type-10010110,Elite//c Spawner
+enemy_character_type-30010110,
+enemy_character_type-20010111,Ladon
+enemy_character_type-10010111,Elite//c High-Threat//c Colossal//c Armor//c Damage Immunity//c AoE Damage//c Shield
+enemy_character_type-30010111,
+enemy_character_type-20010112,Cannoneer
+enemy_character_type-10010112,High-Threat//c AoE Damage//c Debuff
+enemy_character_type-30010112,
+enemy_character_type-20010113,Beslan Police
+enemy_character_type-10010113,Elite
+enemy_character_type-30010113,
+enemy_character_type-20010114,Weakened Asklepian
+enemy_character_type-10010114,Elite//cHigh Threat//cBlind//cPiercing
+enemy_character_type-30010114,
 enemy_character_type-20011001,Prowler SWAP
 enemy_character_type-10011001,Normal
 enemy_character_type-30011001,
@@ -422,7 +446,7 @@ enemy_character_type-20015010,Jaeger
 enemy_character_type-10015010,Assault//c Precise
 enemy_character_type-30015010,
 enemy_character_type-20015011,Manticore
-enemy_character_type-10015011,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10015011,High-Threat//c Colossal//c Armor//c Dangerous
 enemy_character_type-30015011,
 enemy_character_type-20015012,Orthrus
 enemy_character_type-10015012,Minimum Damage//c Exploit Weakness
@@ -431,10 +455,10 @@ enemy_character_type-20015013,Centaurus
 enemy_character_type-10015013,Explosive Arrows//c Damage Over Time
 enemy_character_type-30015013,
 enemy_character_type-20015014,Doppelsöldner
-enemy_character_type-10015014,Grenade Barrage//c Heavy Armor//c Forcefield
+enemy_character_type-10015014,High-Threat//c Colossal//c Armor//c Force Field//c AoE Damage
 enemy_character_type-30015014,
 enemy_character_type-20015015,Doppelsöldner
-enemy_character_type-10015015,Grenade Barrage//c Heavy Armor//c Forcefield
+enemy_character_type-10015015,High-Threat//c Colossal//c Armor//c Force Field//c AoE Damage
 enemy_character_type-30015015,
 enemy_character_type-20015016,Strelet
 enemy_character_type-10015016,Force Field
@@ -443,7 +467,7 @@ enemy_character_type-20015017,Rodelero
 enemy_character_type-10015017,Jumps//c Laser//c Forcefield
 enemy_character_type-30015017,
 enemy_character_type-20015018,Patroller
-enemy_character_type-10015018,Shield//c Highly Evasive//c Two Modes
+enemy_character_type-10015018,Elite//c Colossal//c Armor//c Shield//c Armor-Piercing
 enemy_character_type-30015018,
 enemy_character_type-20015019,Vespid
 enemy_character_type-10015019,Normal
@@ -503,25 +527,25 @@ enemy_character_type-20020009,Jaguar
 enemy_character_type-10020009,Explosive Arrows//c Damage Over Time
 enemy_character_type-30020009,
 enemy_character_type-20012059,Argonauts - Carina
-enemy_character_type-10012059,Lethal//c Auto Defensive Facility//c Support
+enemy_character_type-10012059,Colossal//c Lethal//c Auto Defense Facility//c Support
 enemy_character_type-30012059,
 enemy_character_type-20012061,Argonauts - Carina
 enemy_character_type-10012061,
 enemy_character_type-30012061,
 enemy_character_type-20012062,Argonauts - Vela
-enemy_character_type-10012062,Lethal//c Auto Defensive Facility//c Support
+enemy_character_type-10012062,Colossal//c Lethal//c Auto Defense Facility//c Support
 enemy_character_type-30012062,
 enemy_character_type-20012063,Argonauts - Vela
 enemy_character_type-10012063,
 enemy_character_type-30012063,
 enemy_character_type-20012064,Argonauts - Puppis
-enemy_character_type-10012064,Lethal//c Auto Defensive Facility//c Support
+enemy_character_type-10012064,Colossal//c Lethal//c Auto Defense Facility//c Support
 enemy_character_type-30012064,
 enemy_character_type-20012065,Argonauts - Puppis
 enemy_character_type-10012065,
 enemy_character_type-30012065,
 enemy_character_type-20012050,Minotaurus
-enemy_character_type-10012050,Melee//c Armor//c Damage Immunity
+enemy_character_type-10012050,Colossal//c Melee//c Armor//c Damage Immunity
 enemy_character_type-30012050,
 enemy_character_type-20012051,Orthrus
 enemy_character_type-10012051,Shield
@@ -536,10 +560,10 @@ enemy_character_type-20012054,Pathfinder
 enemy_character_type-10012054,Melee//c Armor
 enemy_character_type-30012054,
 enemy_character_type-20012055,Gladiator
-enemy_character_type-10012055,Armor//c Force Field//c Weaken
+enemy_character_type-10012055,Armor//c Colossal//c Force Field//c Debuff
 enemy_character_type-30012055,
 enemy_character_type-20012056,Patroller
-enemy_character_type-10012056,Elite//c Armor//c Force Field//c Armor-Piercing
+enemy_character_type-10012056,Elite//c Colossal//c Armor//c Shield//c Armor-Piercing
 enemy_character_type-30012056,
 enemy_character_type-20012057,Gunner
 enemy_character_type-10012057,High Threat//cForce Field//cWeaken
@@ -551,10 +575,10 @@ enemy_character_type-20012066,Pyxis
 enemy_character_type-10012066,Armor//c Running Fire
 enemy_character_type-30012066,
 enemy_character_type-20012067,Gladiator
-enemy_character_type-10012067,Armor//c Force Field//c Weaken
+enemy_character_type-10012067,Colossal//c Armor//c Force Field//c Debuff
 enemy_character_type-30012067,
 enemy_character_type-20012068,Patroler
-enemy_character_type-10012068,Elite//c Armor//c Shield//c Armor-Piercing
+enemy_character_type-10012068,Elite//c Colossal//c Armor//c Shield//c Armor-Piercing
 enemy_character_type-30012068,
 enemy_character_type-20012069,Gunner
 enemy_character_type-10012069,High Threat//cForce Field//cWeaken
@@ -572,7 +596,7 @@ enemy_character_type-20012073,Asklepian
 enemy_character_type-10012073,Elite//cHigh Threat//cBlind//cPiercing
 enemy_character_type-30012073,
 enemy_character_type-20012074,Aceso's Flask
-enemy_character_type-10012074,Elite//c Piercing
+enemy_character_type-10012074,Elite//c Colossal//c Piercing
 enemy_character_type-30012074,
 enemy_character_type-20012075,Sentinel
 enemy_character_type-10012075,Shields Raised
@@ -589,7 +613,7 @@ enemy_character_type-30012078,
 enemy_character_type-20012079,Murat
 enemy_character_type-10012079,Elite//cHigh Threat//cCore//cCommand
 enemy_character_type-30012079,
-enemy_character_type-20012097,
+enemy_character_type-20012097,Gangster
 enemy_character_type-10012097,Normal
 enemy_character_type-30012097,
 enemy_character_type-20012098,Professional Bodyguard
@@ -604,21 +628,42 @@ enemy_character_type-30012100,
 enemy_character_type-20012101,Rampaging Refugee
 enemy_character_type-10012101,Normal
 enemy_character_type-30012101,
-enemy_character_type-20012102,
-enemy_character_type-10012102,
+enemy_character_type-20012102,Lycaon
+enemy_character_type-10012102,High-Threat//c Scattered Shots//c AoE Damage
 enemy_character_type-30012102,
-enemy_character_type-20012103,
-enemy_character_type-10012103,
+enemy_character_type-20012103,Aspis
+enemy_character_type-10012103,Elite//c High-Threat
 enemy_character_type-30012103,
-enemy_character_type-20012104,
-enemy_character_type-10012104,
+enemy_character_type-20012104,Cyclops_MG
+enemy_character_type-10012104,Elite//c Consecutive Shots//c Armor-Piercing
 enemy_character_type-30012104,
-enemy_character_type-20012105,
+enemy_character_type-20012105,Cerynitis SWAP
 enemy_character_type-10012105,High Threat//cArmor
 enemy_character_type-30012105,
-enemy_character_type-20012106,
+enemy_character_type-20012106,Aegis_GA_SWAP
 enemy_character_type-10012106,Armored//c Shielded
 enemy_character_type-30012106,
+enemy_character_type-20012107,Arachne
+enemy_character_type-10012107,Elite//c Resilient//c Colossal//c Armor//c Spawner
+enemy_character_type-30012107,
+enemy_character_type-20012108,Arachne's Clone
+enemy_character_type-10012108,Melee//c High-Speed//c Agile//c Armor//c Debuff
+enemy_character_type-30012108,
+enemy_character_type-20012109,Troy
+enemy_character_type-10012109,Elite//c Resilient//c Colossal//c Armor//c AoE Damage//c Damage Immunity
+enemy_character_type-30012109,
+enemy_character_type-20012110,Technician
+enemy_character_type-10012110,Elite//c Spawner
+enemy_character_type-30012110,
+enemy_character_type-20012111,Ladon
+enemy_character_type-10012111,Elite//c High-Threat//c Colossal//c Armor//c Damage Immunity//c AoE Damage//c Shield
+enemy_character_type-30012111,
+enemy_character_type-20012112,Cannoneer
+enemy_character_type-10012112,High-Threat//c AoE Damage//c Debuff
+enemy_character_type-30012112,
+enemy_character_type-20012113,Weakened Asklepian
+enemy_character_type-10012113,Elite//cHigh Threat//cBlind//cPiercing
+enemy_character_type-30012113,
 enemy_character_type-20013001,Corpse Bride
 enemy_character_type-10013001,Normal
 enemy_character_type-30013001,
@@ -803,7 +848,7 @@ enemy_character_type-20013231,Truffle Chococalorie Bomb
 enemy_character_type-10013231,Destructive//c Keep Away!
 enemy_character_type-30013231,
 enemy_character_type-20013232,Roaming Fool
-enemy_character_type-10013232,Armor//c Force Field//c Weaken
+enemy_character_type-10013232,Colossal//c Armor//c Force Field//c Debuff
 enemy_character_type-30013232,
 enemy_character_type-20013233,Spearfishing Seer
 enemy_character_type-10013233,Armor//c Force Field//c Piercing
@@ -811,60 +856,144 @@ enemy_character_type-30013233,
 enemy_character_type-20013234,Lycan Surfer
 enemy_character_type-10013234,High Threat//cForce Field//cWeaken
 enemy_character_type-30013234,
-enemy_character_type-20013235,
+enemy_character_type-20013235,Possessed Roomba
 enemy_character_type-10013235,Elite//c Armor//c Minelayer
 enemy_character_type-30013235,
-enemy_character_type-20013236,
+enemy_character_type-20013236,Super Duster
 enemy_character_type-10013236,Armored//c Shielded
 enemy_character_type-30013236,
-enemy_character_type-20013237,
+enemy_character_type-20013237,Hell's Chef
 enemy_character_type-10013237,Elite//c AoE Damage
 enemy_character_type-30013237,
 enemy_character_type-20013238,Bathhouse Assassin
-enemy_character_type-10013238,Shielded Advance
+enemy_character_type-10013238,Melee//c Damage Immunity
 enemy_character_type-30013238,
 enemy_character_type-20013239,Bathhouse Assassin
 enemy_character_type-10013239,Armor//c Force Field//c Weaken
 enemy_character_type-30013239,
 enemy_character_type-20013240,Speed Demon's Wheel
-enemy_character_type-10013240,Melee//c Armor
+enemy_character_type-10013240,High-Speed//c AoE Damage
 enemy_character_type-30013240,
 enemy_character_type-20013241,Truck-kun
-enemy_character_type-10013241,Elite//c High-Threat
+enemy_character_type-10013241,Elite//c High-Threat//c High-Speed//c Highly Dangerous
 enemy_character_type-30013241,
 enemy_character_type-20013242,Bubble Machine
-enemy_character_type-10013242,Armor//c Spawner
+enemy_character_type-10013242,Spawner
 enemy_character_type-30013242,
 enemy_character_type-20013243,Drifting Bubble
-enemy_character_type-10013243,Melee//c Armor
+enemy_character_type-10013243,AoE Damage
 enemy_character_type-30013243,
 enemy_character_type-20013244,Romero
-enemy_character_type-10013244,Elite//c High-Speed//c Boost
+enemy_character_type-10013244,High-Speed//c Armor-Piercing
 enemy_character_type-30013244,
 enemy_character_type-20013245,Gray Singer
-enemy_character_type-10013245,Griffin//c Shield
+enemy_character_type-10013245,Griffin
 enemy_character_type-30013245,
 enemy_character_type-20013246,Green Singer
-enemy_character_type-10013246,Griffin//c Shield
+enemy_character_type-10013246,Griffin
 enemy_character_type-30013246,
 enemy_character_type-20013247,Red Singer
-enemy_character_type-10013247,Griffin//c Shield
+enemy_character_type-10013247,Griffin
 enemy_character_type-30013247,
 enemy_character_type-20013248,Spirited Vocalist
-enemy_character_type-10013248,Griffin//c Shield
+enemy_character_type-10013248,Griffin
 enemy_character_type-30013248,
 enemy_character_type-20013249,Fiery Guitarist
-enemy_character_type-10013249,Griffin//c Shield
+enemy_character_type-10013249,Griffin
 enemy_character_type-30013249,
 enemy_character_type-20013250,Breakneck Drummer
-enemy_character_type-10013250,Griffin//c Shield
+enemy_character_type-10013250,Griffin
 enemy_character_type-30013250,
 enemy_character_type-20013251,Bassist with Shades
-enemy_character_type-10013251,Griffin//c Shield
+enemy_character_type-10013251,Griffin
 enemy_character_type-30013251,
 enemy_character_type-20013252,Mysterious Keyboardist
-enemy_character_type-10013252,Griffin//c Shield
+enemy_character_type-10013252,Griffin
 enemy_character_type-30013252,
+enemy_character_type-20013253,Nightmare
+enemy_character_type-10013253,Melee
+enemy_character_type-30013253,
+enemy_character_type-20014070,Xmas Dinergate
+enemy_character_type-10014070,Melee
+enemy_character_type-30014070,
+enemy_character_type-20014001,Corpse Bride
+enemy_character_type-10014001,Normal
+enemy_character_type-30014001,
+enemy_character_type-20014002,Phantom
+enemy_character_type-10014002,Melee
+enemy_character_type-30014002,
+enemy_character_type-20014003,Crab Cannon
+enemy_character_type-10014003,Armor//c Danger
+enemy_character_type-30014003,
+enemy_character_type-20014004,Mechanical Crab
+enemy_character_type-10014004,Elite//c Armor//c Minelayer
+enemy_character_type-30014004,
+enemy_character_type-20014005,Watermelon House
+enemy_character_type-10014005,Armor//c Spawner
+enemy_character_type-30014005,
+enemy_character_type-20014006,Faux Watermelon
+enemy_character_type-10014006,Melee//c Armor
+enemy_character_type-30014006,
+enemy_character_type-20014111,Demonic Knight
+enemy_character_type-10014111,Melee//c Armor
+enemy_character_type-30014111,
+enemy_character_type-20014112,Demonic Steed
+enemy_character_type-10014112,Armor
+enemy_character_type-30014112,
+enemy_character_type-20014117,Pumpkin Ripper
+enemy_character_type-10014117,Melee
+enemy_character_type-30014117,
+enemy_character_type-20014118,Phantom Jaeger
+enemy_character_type-10014118,Assault//c Precise
+enemy_character_type-30014118,
+enemy_character_type-20014119,Witch Dragoon
+enemy_character_type-10014119,High speed
+enemy_character_type-30014119,
+enemy_character_type-20014123,Dinereindeer
+enemy_character_type-10014123,Melee
+enemy_character_type-30014123,
+enemy_character_type-20014124,Gingerbread Guard
+enemy_character_type-10014124,Melee
+enemy_character_type-30014124,
+enemy_character_type-20014217,Jaws Paradise
+enemy_character_type-10014217,Armor//c Spawner
+enemy_character_type-30014217,
+enemy_character_type-20014218,Shark Row
+enemy_character_type-10014218,Melee//c Armor
+enemy_character_type-30014218,
+enemy_character_type-20014219,Maritime Bartender
+enemy_character_type-10014219,Elite//c AoE Damage
+enemy_character_type-30014219,
+enemy_character_type-20014225,Dessertgate
+enemy_character_type-10014225,Melee
+enemy_character_type-30014225,
+enemy_character_type-20014226,Black Chococalorie Bomb
+enemy_character_type-10014226,Destructive//c Keep Away!
+enemy_character_type-30014226,
+enemy_character_type-20014227,White Chococalorie Bomb
+enemy_character_type-10014227,Destructive//c Keep Away!
+enemy_character_type-30014227,
+enemy_character_type-20014228,Truffle Chococalorie Bomb
+enemy_character_type-10014228,Destructive//c Keep Away!
+enemy_character_type-30014228,
+enemy_character_type-20014229,Black Chococalorie Bomb
+enemy_character_type-10014229,Destructive//c Keep Away!
+enemy_character_type-30014229,
+enemy_character_type-20014230,White Chococalorie Bomb
+enemy_character_type-10014230,Destructive//c Keep Away!
+enemy_character_type-30014230,
+enemy_character_type-20014231,Truffle Chococalorie Bomb
+enemy_character_type-10014231,Destructive//c Keep Away!
+enemy_character_type-30014231,
+enemy_character_type-20014232,Roaming Fool
+enemy_character_type-10014232,Colossal//c Armor//c Force Field//c Debuff
+enemy_character_type-30014232,
+enemy_character_type-20014233,Spearfishing Seer
+enemy_character_type-10014233,Jumps//c Laser//c Forcefield
+enemy_character_type-30014233,
+enemy_character_type-20014234,Lycan Surfer
+enemy_character_type-10014234,High Threat//cForce Field//cWeaken
+enemy_character_type-30014234,
 enemy_character_type-20090001,Drone-Type Practice Target
 enemy_character_type-10090001,Elite//c for training
 enemy_character_type-30090001,
@@ -916,10 +1045,10 @@ enemy_character_type-30800007,
 enemy_character_type-20800008,RPK-16
 enemy_character_type-10800008,???
 enemy_character_type-30800008,
-enemy_character_type-20800009,
-enemy_character_type-10800009,Elite//c Piercing
+enemy_character_type-20800009,Miss Eve
+enemy_character_type-10800009,Elite//c Piercing//c Colossal
 enemy_character_type-30800009,
-enemy_character_type-20800010,
+enemy_character_type-20800010,Babushka Lyuba 
 enemy_character_type-10800010,Elite//c Certain Death//c
 enemy_character_type-30800010,
 enemy_character_type-20900010,Executioner
@@ -965,16 +1094,16 @@ enemy_character_type-20900024,Ouroboros
 enemy_character_type-10900024,Elite//c Ouroboros//c Armor
 enemy_character_type-30900024,
 enemy_character_type-20900025,Manticore
-enemy_character_type-10900025,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10900025,High-Threat//c Colossal//c Armor//c Dangerous
 enemy_character_type-30900025,
 enemy_character_type-20900026,Manticore
-enemy_character_type-10900026,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10900026,High-Threat//c Colossal//c Armor//c Dangerous
 enemy_character_type-30900026,
 enemy_character_type-20900027,Manticore
-enemy_character_type-10900027,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10900027,High-Threat//c Colossal//c Armor//c Dangerous
 enemy_character_type-30900027,
 enemy_character_type-20900028,Manticore
-enemy_character_type-10900028,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10900028,High-Threat//c Colossal//c Armor//c Dangerous
 enemy_character_type-30900028,
 enemy_character_type-20900029,Drone-Type Practice Target
 enemy_character_type-10900029,Elite//c for training
@@ -986,7 +1115,7 @@ enemy_character_type-20900031,Drone-Type Practice Target
 enemy_character_type-10900031,Elite//c for training
 enemy_character_type-30900031,
 enemy_character_type-20900032,Manticore
-enemy_character_type-10900032,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10900032,High-Threat//c Colossal//c Armor//c Dangerous
 enemy_character_type-30900032,
 enemy_character_type-20900033,Alchemist
 enemy_character_type-10900033,Elite//c Alchemist
@@ -998,7 +1127,7 @@ enemy_character_type-20900035,Dragoon
 enemy_character_type-10900035,High speed
 enemy_character_type-30900035,
 enemy_character_type-20900036,Manticore
-enemy_character_type-10900036,Fully Armed//c Precision Targeting//c Invincible
+enemy_character_type-10900036,High-Threat//c Colossal//c Armor//c Dangerous
 enemy_character_type-30900036,
 enemy_character_type-20900037,Gager
 enemy_character_type-10900037,Elite//c Gager
@@ -1043,7 +1172,7 @@ enemy_character_type-20900050,Dreamer
 enemy_character_type-10900050,Elite//c Dreamer
 enemy_character_type-30900050,
 enemy_character_type-20900051,Jupiter
-enemy_character_type-10900051,Armor//c Auto Defensive Facility
+enemy_character_type-10900051,High-Threat//c Colossal//c Armor//c Auto Defense Facility
 enemy_character_type-30900051,
 enemy_character_type-20900052,Gager
 enemy_character_type-10900052,Elite//c Gager
@@ -1241,7 +1370,7 @@ enemy_character_type-20900116,Nyto
 enemy_character_type-10900116,Elite//c "Nyto"//c Armor//c Force Field
 enemy_character_type-30900116,
 enemy_character_type-20900117,BOSS Zombie
-enemy_character_type-10900117,Elite//c Danger
+enemy_character_type-10900117,Elite//c Colossal//c Dangerous
 enemy_character_type-30900117,
 enemy_character_type-20900118,Scarecrow
 enemy_character_type-10900118,Elite//c Scarecrow
@@ -1388,10 +1517,10 @@ enemy_character_type-20900165,M4A1
 enemy_character_type-10900165,
 enemy_character_type-30900165,
 enemy_character_type-20900166,BOSS Zombie
-enemy_character_type-10900166,Elite//c Danger
+enemy_character_type-10900166,Elite//c Colossal//c Dangerous
 enemy_character_type-30900166,
 enemy_character_type-20900167,BOSS Zombie
-enemy_character_type-10900167,Elite//c Danger
+enemy_character_type-10900167,Elite//c Colossal//c Dangerous
 enemy_character_type-30900167,
 enemy_character_type-20900168,Failed Isomer
 enemy_character_type-10900168,Elite//c Armor//c Failed Isomer
@@ -1427,7 +1556,7 @@ enemy_character_type-20900178,Argonauts - Puppis
 enemy_character_type-10900178,
 enemy_character_type-30900178,
 enemy_character_type-20900179,BOSS Zombie
-enemy_character_type-10900179,Elite//c Danger
+enemy_character_type-10900179,Elite//c Colossal//c Dangerous
 enemy_character_type-30900179,
 enemy_character_type-20900180,Failed Isomer
 enemy_character_type-10900180,Elite//c Armor//c Failed Isomer
@@ -1475,7 +1604,7 @@ enemy_character_type-20900194,Nimogen
 enemy_character_type-10900194,
 enemy_character_type-30900194,
 enemy_character_type-20900195,BOSS Zombie
-enemy_character_type-10900195,Elite//c Danger
+enemy_character_type-10900195,Elite//c Colossal//c Dangerous
 enemy_character_type-30900195,
 enemy_character_type-20900196,Gager
 enemy_character_type-10900196,Elite//c Gager
@@ -1505,10 +1634,10 @@ enemy_character_type-20900202,Elisa
 enemy_character_type-10900202,Elite//c ???
 enemy_character_type-30900202,
 enemy_character_type-20900203,AA-02 Sinner
-enemy_character_type-10900203,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900203,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900203,
 enemy_character_type-20900204,AA-02 Sinner
-enemy_character_type-10900204,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900204,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900204,
 enemy_character_type-20900205,Nyto
 enemy_character_type-10900205,Elite//c "Nyto"//c Armor//c Force Field
@@ -1526,19 +1655,19 @@ enemy_character_type-20900211,M16A1
 enemy_character_type-10900211,Elite//c M16A1//c Armor
 enemy_character_type-30900211,
 enemy_character_type-20900212,AA-02 Sinner
-enemy_character_type-10900212,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900212,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900212,
 enemy_character_type-20900213,AA-02 Sinner
-enemy_character_type-10900213,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900213,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900213,
 enemy_character_type-20900214,AA-02 Sinner
-enemy_character_type-10900214,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900214,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900214,
 enemy_character_type-20900215,AA-02 Sinner
-enemy_character_type-10900215,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900215,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900215,
 enemy_character_type-20900216,AA-02 Sinner
-enemy_character_type-10900216,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900216,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900216,
 enemy_character_type-20900217,M16A1
 enemy_character_type-10900217,Elite//c M16A1//c Armor
@@ -1547,7 +1676,7 @@ enemy_character_type-20900218,Elisa
 enemy_character_type-10900218,Elite//c ???
 enemy_character_type-30900218,
 enemy_character_type-20900219,AA-02 Sinner
-enemy_character_type-10900219,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900219,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900219,
 enemy_character_type-20900220,Henrietta
 enemy_character_type-10900220,Elite//c Danger
@@ -1568,7 +1697,7 @@ enemy_character_type-20900225,Destroyer
 enemy_character_type-10900225,Elite//c Destroyer
 enemy_character_type-30900225,
 enemy_character_type-20900226,BOSS Zombie
-enemy_character_type-10900226,Elite//c Danger
+enemy_character_type-10900226,Elite//c Colossal//c Dangerous
 enemy_character_type-30900226,
 enemy_character_type-20900227,Gager
 enemy_character_type-10900227,Elite//c Gager
@@ -1724,7 +1853,7 @@ enemy_character_type-20900277,Narcissus
 enemy_character_type-10900277,Elite//c Certain Death//c Cyborg
 enemy_character_type-30900277,
 enemy_character_type-20900278,BOSS Zombie
-enemy_character_type-10900278,Elite//c Danger
+enemy_character_type-10900278,Elite//c Colossal//c Dangerous
 enemy_character_type-30900278,
 enemy_character_type-20900279,Lady Gray
 enemy_character_type-10900279,Elite//c Weaken//c Hacking//c Support
@@ -1739,10 +1868,10 @@ enemy_character_type-20900282,Nyto
 enemy_character_type-10900282,Elite//c "Nyto"//c Armor//c Force Field
 enemy_character_type-30900282,
 enemy_character_type-20900283,AA-02 Sinner
-enemy_character_type-10900283,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900283,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900283,
 enemy_character_type-20900284,AA-02 Sinner
-enemy_character_type-10900284,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900284,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900284,
 enemy_character_type-20900285,Yurine's Facsimile
 enemy_character_type-10900285,Elite//c Spawner//c Certain Death
@@ -1753,7 +1882,7 @@ enemy_character_type-30900286,
 enemy_character_type-20900287,Enraged Minos
 enemy_character_type-10900287,Elite//c Certain Death//c
 enemy_character_type-30900287,
-enemy_character_type-20900288,Architect – NVW Model
+enemy_character_type-20900288,Architect - NVW Model
 enemy_character_type-10900288,Elite//c Architect//c Armor
 enemy_character_type-30900288,
 enemy_character_type-20900289,Machlian
@@ -1772,22 +1901,22 @@ enemy_character_type-20900293,Grig
 enemy_character_type-10900293,Elite//c "Nyto"//c Assassin
 enemy_character_type-30900293,
 enemy_character_type-20900294,Eleusinian Mysteries
-enemy_character_type-10900294,Elite//c Blind//c Piercing//c Armor
+enemy_character_type-10900294,Elite//c Colossal//c Blinding//c Piercing//c Armor
 enemy_character_type-30900294,
 enemy_character_type-20900295,Eleusinian Mysteries
-enemy_character_type-10900295,Elite//c Blind//c Piercing//c Armor
+enemy_character_type-10900295,Elite//c Colossal//c Blinding//c Piercing//c Armor
 enemy_character_type-30900295,
 enemy_character_type-20900296,Eleusinian Mysteries
-enemy_character_type-10900296,Elite//c Blind//c Piercing//c Armor
+enemy_character_type-10900296,Elite//c Colossal//c Blinding//c Piercing//c Armor
 enemy_character_type-30900296,
 enemy_character_type-20900297,Eleusinian Mysteries
-enemy_character_type-10900297,Elite//c Blind//c Piercing//c Armor
+enemy_character_type-10900297,Elite//c Colossal//c Blinding//c Piercing//c Armor
 enemy_character_type-30900297,
 enemy_character_type-20900298,Eleusinian Mysteries
-enemy_character_type-10900298,Elite//c Blind//c Piercing//c Armor
+enemy_character_type-10900298,Elite//c Colossal//c Blinding//c Piercing//c Armor
 enemy_character_type-30900298,
 enemy_character_type-20900299,Eleusinian Mysteries
-enemy_character_type-10900299,Elite//c Blind//c Piercing//c Armor
+enemy_character_type-10900299,Elite//c Colossal//c Blinding//c Piercing//c Armor
 enemy_character_type-30900299,
 enemy_character_type-20900300,Grig
 enemy_character_type-10900300,Elite//c "Nyto"//c Assassin
@@ -1808,10 +1937,10 @@ enemy_character_type-20900305,Grig
 enemy_character_type-10900305,Elite//c "Nyto"//c Assassin
 enemy_character_type-30900305,
 enemy_character_type-20900306,AA-02 Sinner
-enemy_character_type-10900306,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900306,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900306,
 enemy_character_type-20900307,AA-02 Sinner
-enemy_character_type-10900307,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900307,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900307,
 enemy_character_type-20900308,Bramedb
 enemy_character_type-10900308,Elite//c Summoner//c Stealer
@@ -1832,9 +1961,9 @@ enemy_character_type-20900313,Bramedb
 enemy_character_type-10900313,Elite//c Summoner//c Stealer
 enemy_character_type-30900313,
 enemy_character_type-20900314,AA-02 Sinner
-enemy_character_type-10900314,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900314,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900314,
-enemy_character_type-20900315,Intruder – Sorceress of the End
+enemy_character_type-20900315,Intruder - Sorceress of the End
 enemy_character_type-10900315,Elite//c Intruder
 enemy_character_type-30900315,
 enemy_character_type-20900316,Px4 Storm
@@ -1843,7 +1972,7 @@ enemy_character_type-30900316,
 enemy_character_type-20900317,Px4 Storm
 enemy_character_type-10900317,Elite//c Griffin
 enemy_character_type-30900317,
-enemy_character_type-20900318,Destroyer – Dashing Reindeer
+enemy_character_type-20900318,Destroyer - Dashing Reindeer
 enemy_character_type-10900318,Elite//c Destroyer
 enemy_character_type-30900318,
 enemy_character_type-20900319,Bramedb
@@ -1949,119 +2078,359 @@ enemy_character_type-20900352,Snackberus
 enemy_character_type-10900352,Elite//c Cerberus//c Armor
 enemy_character_type-30900352,
 enemy_character_type-20900353,BOSS Zombie
-enemy_character_type-10900353,Elite//c Danger
+enemy_character_type-10900353,Elite//c Colossal//c Dangerous
 enemy_character_type-30900353,
 enemy_character_type-20900354,BOSS Zombie
-enemy_character_type-10900354,Elite//c Danger
+enemy_character_type-10900354,Elite//c Colossal//c Dangerous
 enemy_character_type-30900354,
 enemy_character_type-20900355,Alina - Mosasaur Rider
 enemy_character_type-10900355,Elite//c "Nyto"//c Armor//c Force Field
 enemy_character_type-30900355,
-enemy_character_type-20900356,
+enemy_character_type-20900356,Gray
 enemy_character_type-10900356,Elite//c Weaken//c Hacking//c Support
 enemy_character_type-30900356,
 enemy_character_type-20900357,AA-02 Sinner
-enemy_character_type-10900357,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900357,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900357,
-enemy_character_type-20900358,
-enemy_character_type-10900358,Elite//c Piercing
+enemy_character_type-20900358,Miss Eve
+enemy_character_type-10900358,Elite//c Piercing//c Colossal
 enemy_character_type-30900358,
-enemy_character_type-20900359,
-enemy_character_type-10900359,Elite//c Piercing
+enemy_character_type-20900359,Miss Eve
+enemy_character_type-10900359,Elite//c Piercing//c Colossal
 enemy_character_type-30900359,
-enemy_character_type-20900360,
-enemy_character_type-10900360,Elite//c Piercing
+enemy_character_type-20900360,Miss Eve
+enemy_character_type-10900360,Elite//c Piercing//c Colossal
 enemy_character_type-30900360,
-enemy_character_type-20900361,
-enemy_character_type-10900361,Elite//c Piercing
+enemy_character_type-20900361,Miss Eve
+enemy_character_type-10900361,Elite//c Piercing//c Colossal
 enemy_character_type-30900361,
 enemy_character_type-20900362,AA-02 Sinner
-enemy_character_type-10900362,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10900362,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30900362,
-enemy_character_type-20900363,
-enemy_character_type-10900363,Elite//c Piercing
+enemy_character_type-20900363,Miss Eve
+enemy_character_type-10900363,Elite//c Piercing//c Colossal
 enemy_character_type-30900363,
-enemy_character_type-20900364,
-enemy_character_type-10900364,Elite//c Piercing
+enemy_character_type-20900364,Miss Eve
+enemy_character_type-10900364,Elite//c Piercing//c Colossal
 enemy_character_type-30900364,
-enemy_character_type-20900365,
-enemy_character_type-10900365,Elite//c Piercing
+enemy_character_type-20900365,Miss Eve
+enemy_character_type-10900365,Elite//c Piercing//c Colossal
 enemy_character_type-30900365,
-enemy_character_type-20900366,
+enemy_character_type-20900366,Babushka Lyuba 
 enemy_character_type-10900366,Elite//c Certain Death//c
 enemy_character_type-30900366,
-enemy_character_type-20900367,
-enemy_character_type-10900367,
+enemy_character_type-20900367,Executioner â€“ Blood Fiend Huntress
+enemy_character_type-10900367,Elite//c Executioner
 enemy_character_type-30900367,
-enemy_character_type-20900368,
+enemy_character_type-20900368,Tareus
 enemy_character_type-10900368,Elite//c Piercing
 enemy_character_type-30900368,
 enemy_character_type-20900369,Failed Isomer
 enemy_character_type-10900369,Elite//c Armor//c Failed Isomer
 enemy_character_type-30900369,
-enemy_character_type-20900501,
+enemy_character_type-20900370,Snackberus
+enemy_character_type-10900370,Elite//c Cerberus//c Armor
+enemy_character_type-30900370,
+enemy_character_type-20900371,Scarecrow
+enemy_character_type-10900371,Elite//c Ranged//c Agile//c Accurate
+enemy_character_type-30900371,
+enemy_character_type-20900372,Scarecrow
+enemy_character_type-10900372,Elite//c Ranged//c Agile//c Accurate
+enemy_character_type-30900372,
+enemy_character_type-20900373,Scarecrow
+enemy_character_type-10900373,Elite//c Ranged//c Agile//c Accurate
+enemy_character_type-30900373,
+enemy_character_type-20900374,Scarecrow
+enemy_character_type-10900374,Elite//c Ranged//c Agile//c Accurate
+enemy_character_type-30900374,
+enemy_character_type-20900375,Scarecrow
+enemy_character_type-10900375,Elite//c Ranged//c Agile//c Accurate
+enemy_character_type-30900375,
+enemy_character_type-20900376,Scarecrow
+enemy_character_type-10900376,Elite//c Ranged//c Agile//c Accurate
+enemy_character_type-30900376,
+enemy_character_type-20900377,Architect
+enemy_character_type-10900377,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900377,
+enemy_character_type-20900378,Architect
+enemy_character_type-10900378,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900378,
+enemy_character_type-20900379,Architect
+enemy_character_type-10900379,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900379,
+enemy_character_type-20900380,Architect
+enemy_character_type-10900380,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900380,
+enemy_character_type-20900381,Architect
+enemy_character_type-10900381,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900381,
+enemy_character_type-20900382,Architect
+enemy_character_type-10900382,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900382,
+enemy_character_type-20900383,Intruder
+enemy_character_type-10900383,Elite//c Ranged//c Agile
+enemy_character_type-30900383,
+enemy_character_type-20900384,Intruder
+enemy_character_type-10900384,Elite//c Ranged//c Agile
+enemy_character_type-30900384,
+enemy_character_type-20900385,Intruder
+enemy_character_type-10900385,Elite//c Ranged//c Agile
+enemy_character_type-30900385,
+enemy_character_type-20900386,Intruder
+enemy_character_type-10900386,Elite//c Ranged//c Agile
+enemy_character_type-30900386,
+enemy_character_type-20900387,Intruder
+enemy_character_type-10900387,Elite//c Ranged//c Agile
+enemy_character_type-30900387,
+enemy_character_type-20900388,Intruder
+enemy_character_type-10900388,Elite//c Ranged//c Agile
+enemy_character_type-30900388,
+enemy_character_type-20900389,Destroyer
+enemy_character_type-10900389,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900389,
+enemy_character_type-20900390,Destroyer
+enemy_character_type-10900390,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900390,
+enemy_character_type-20900391,Destroyer
+enemy_character_type-10900391,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900391,
+enemy_character_type-20900392,Destroyer
+enemy_character_type-10900392,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900392,
+enemy_character_type-20900393,Destroyer
+enemy_character_type-10900393,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900393,
+enemy_character_type-20900394,Destroyer
+enemy_character_type-10900394,Elite//c Ranged//c AoE Damage
+enemy_character_type-30900394,
+enemy_character_type-20900395,Judge
+enemy_character_type-10900395,Elite//c Ranged//c Armor//c Accurate
+enemy_character_type-30900395,
+enemy_character_type-20900396,Judge
+enemy_character_type-10900396,Elite//c Ranged//c Armor//c Accurate
+enemy_character_type-30900396,
+enemy_character_type-20900397,Judge
+enemy_character_type-10900397,Elite//c Ranged//c Armor//c Accurate
+enemy_character_type-30900397,
+enemy_character_type-20900398,Judge
+enemy_character_type-10900398,Elite//c Ranged//c Armor//c Accurate
+enemy_character_type-30900398,
+enemy_character_type-20900399,Judge
+enemy_character_type-10900399,Elite//c Ranged//c Armor//c Accurate
+enemy_character_type-30900399,
+enemy_character_type-20900400,Judge
+enemy_character_type-10900400,Elite//c Ranged//c Armor//c Accurate
+enemy_character_type-30900400,
+enemy_character_type-20900501,Minion of Clustering
 enemy_character_type-10900501,Elite//c Scarecrow
 enemy_character_type-30900501,
-enemy_character_type-20900502,
+enemy_character_type-20900502,Minion of Clustering
 enemy_character_type-10900502,Elite//c Scarecrow
 enemy_character_type-30900502,
-enemy_character_type-20900503,
+enemy_character_type-20900503,Knight of Weighting
 enemy_character_type-10900503,Elite//c Gager
 enemy_character_type-30900503,
-enemy_character_type-20900504,
+enemy_character_type-20900504,Knight of Weighting
 enemy_character_type-10900504,Elite//c Gager
 enemy_character_type-30900504,
-enemy_character_type-20900505,
+enemy_character_type-20900505,Puppet of Extremum
 enemy_character_type-10900505,Elite//c Architect//c Armor
 enemy_character_type-30900505,
-enemy_character_type-20900506,
+enemy_character_type-20900506,Commander of Normal Distribution
 enemy_character_type-10900506,Elite//c Agent
 enemy_character_type-30900506,
-enemy_character_type-20900507,
+enemy_character_type-20900507,Cartographer of Discreteness
 enemy_character_type-10900507,Elite//c Executioner//c Armor
 enemy_character_type-30900507,
-enemy_character_type-20900508,
+enemy_character_type-20900508,Cartographer of Discreteness
 enemy_character_type-10900508,Elite//c Executioner//c Armor
 enemy_character_type-30900508,
-enemy_character_type-20900509,
+enemy_character_type-20900509,Shepherd of Variance
 enemy_character_type-10900509,Elite//c Destroyer
 enemy_character_type-30900509,
-enemy_character_type-20900510,
+enemy_character_type-20900510,Shepherd of Variance
 enemy_character_type-10900510,Elite//c Destroyer
 enemy_character_type-30900510,
-enemy_character_type-20900511,
+enemy_character_type-20900511,Guard of Likelihood
 enemy_character_type-10900511,Elite//c Ouroboros//c Armor
 enemy_character_type-30900511,
-enemy_character_type-20900512,
+enemy_character_type-20900512,Singer of Chaos
 enemy_character_type-10900512,Elite//c Dreamer
 enemy_character_type-30900512,
-enemy_character_type-20900513,
+enemy_character_type-20900513,Spinner of Posterior Probability
 enemy_character_type-10900513,Elite//c Hunter//c Armor
 enemy_character_type-30900513,
-enemy_character_type-20900514,
+enemy_character_type-20900514,Spinner of Posterior Probability
 enemy_character_type-10900514,Elite//c Hunter//c Armor
 enemy_character_type-30900514,
-enemy_character_type-20900515,
+enemy_character_type-20900515,Priest of Shifts
 enemy_character_type-10900515,Elite//c Alchemist
 enemy_character_type-30900515,
-enemy_character_type-20900516,
+enemy_character_type-20900516,Priest of Shifts
 enemy_character_type-10900516,Elite//c Alchemist
 enemy_character_type-30900516,
-enemy_character_type-20900517,
+enemy_character_type-20900517,Monk of Disturbance
 enemy_character_type-10900517,Elite//c Intruder
 enemy_character_type-30900517,
-enemy_character_type-20900518,
+enemy_character_type-20900518,Fool of Convergence
 enemy_character_type-10900518,Elite//c Judge//c Armor
 enemy_character_type-30900518,
-enemy_character_type-20900519,
+enemy_character_type-20900519,Spinner of Posterior Probability
 enemy_character_type-10900519,Elite//c Hunter//c Armor
 enemy_character_type-30900519,
-enemy_character_type-20900520,
+enemy_character_type-20900520,Cartographer of Discreteness
 enemy_character_type-10900520,Elite//c Executioner//c Armor
 enemy_character_type-30900520,
-enemy_character_type-20900521,
-enemy_character_type-10900521,Elite//c Scarecrow
+enemy_character_type-20900521,Demonic Abyss
+enemy_character_type-10900521,Elite
 enemy_character_type-30900521,
+enemy_character_type-20900522,RPK-16
+enemy_character_type-10900522,???
+enemy_character_type-30900522,
+enemy_character_type-20900523,Lady Gray
+enemy_character_type-10900523,Elite//c Weaken//c Hacking//c Support
+enemy_character_type-30900523,
+enemy_character_type-20900524,Kennedy
+enemy_character_type-10900524,Elite
+enemy_character_type-30900524,
+enemy_character_type-20900525,Kennedy
+enemy_character_type-10900525,Elite
+enemy_character_type-30900525,
+enemy_character_type-20900526,Morridow
+enemy_character_type-10900526,Elite//c ???
+enemy_character_type-30900526,
+enemy_character_type-20900527,Morridow
+enemy_character_type-10900527,Elite//c ???
+enemy_character_type-30900527,
+enemy_character_type-20900528,Morridow
+enemy_character_type-10900528,Elite//c ???
+enemy_character_type-30900528,
+enemy_character_type-20900529,Nemhran
+enemy_character_type-10900529,Elite
+enemy_character_type-30900529,
+enemy_character_type-20900530,Nemhran
+enemy_character_type-10900530,Elite
+enemy_character_type-30900530,
+enemy_character_type-20900531,Nemhran
+enemy_character_type-10900531,Elite
+enemy_character_type-30900531,
+enemy_character_type-20900532,Sana
+enemy_character_type-10900532,Elite//c "Nyto"
+enemy_character_type-30900532,
+enemy_character_type-20900533,Sana
+enemy_character_type-10900533,Elite//c "Nyto"
+enemy_character_type-30900533,
+enemy_character_type-20900534,Sana
+enemy_character_type-10900534,Elite//c "Nyto"
+enemy_character_type-30900534,
+enemy_character_type-20900535,Sana
+enemy_character_type-10900535,Elite//c "Nyto"
+enemy_character_type-30900535,
+enemy_character_type-20900536,Kennedy
+enemy_character_type-10900536,Elite
+enemy_character_type-30900536,
+enemy_character_type-20900537,M4A1's Dummy
+enemy_character_type-10900537,Griffin
+enemy_character_type-30900537,
+enemy_character_type-20900538,ST AR-15's Dummy
+enemy_character_type-10900538,Griffin
+enemy_character_type-30900538,
+enemy_character_type-20900539,M4 SOPMOD II's Dummy
+enemy_character_type-10900539,Griffin
+enemy_character_type-30900539,
+enemy_character_type-20900540,M16A1
+enemy_character_type-10900540,Griffin
+enemy_character_type-30900540,
+enemy_character_type-20900541,Narcissus
+enemy_character_type-10900541,Elite//c Certain Death//c Cyborg
+enemy_character_type-30900541,
+enemy_character_type-20900542,Narcissus
+enemy_character_type-10900542,Elite//c Certain Death//c Cyborg
+enemy_character_type-30900542,
+enemy_character_type-20900543,Narcissus
+enemy_character_type-10900543,Elite//c Certain Death//c Cyborg
+enemy_character_type-30900543,
+enemy_character_type-20900544,AA-02 Sinner
+enemy_character_type-10900544,Elite//c Colossal//c Armor//c Support//c Debuff
+enemy_character_type-30900544,
+enemy_character_type-20900545,Agent
+enemy_character_type-10900545,Elite//c Agent
+enemy_character_type-30900545,
+enemy_character_type-20900546,Agent
+enemy_character_type-10900546,Elite//c Agent
+enemy_character_type-30900546,
+enemy_character_type-20900547,
+enemy_character_type-10900547,
+enemy_character_type-30900547,
+enemy_character_type-20900601,
+enemy_character_type-10900601,
+enemy_character_type-30900601,
+enemy_character_type-20900602,
+enemy_character_type-10900602,
+enemy_character_type-30900602,
+enemy_character_type-20900603,
+enemy_character_type-10900603,
+enemy_character_type-30900603,
+enemy_character_type-20900604,
+enemy_character_type-10900604,
+enemy_character_type-30900604,
+enemy_character_type-20900605,
+enemy_character_type-10900605,
+enemy_character_type-30900605,
+enemy_character_type-20900606,
+enemy_character_type-10900606,
+enemy_character_type-30900606,
+enemy_character_type-20900607,
+enemy_character_type-10900607,
+enemy_character_type-30900607,
+enemy_character_type-20900608,
+enemy_character_type-10900608,
+enemy_character_type-30900608,
+enemy_character_type-20900609,
+enemy_character_type-10900609,
+enemy_character_type-30900609,
+enemy_character_type-20900610,
+enemy_character_type-10900610,
+enemy_character_type-30900610,
+enemy_character_type-20900611,
+enemy_character_type-10900611,
+enemy_character_type-30900611,
+enemy_character_type-20900612,
+enemy_character_type-10900612,
+enemy_character_type-30900612,
+enemy_character_type-20900613,
+enemy_character_type-10900613,
+enemy_character_type-30900613,
+enemy_character_type-20900614,
+enemy_character_type-10900614,
+enemy_character_type-30900614,
+enemy_character_type-20900615,
+enemy_character_type-10900615,
+enemy_character_type-30900615,
+enemy_character_type-20900616,
+enemy_character_type-10900616,
+enemy_character_type-30900616,
+enemy_character_type-20900617,
+enemy_character_type-10900617,
+enemy_character_type-30900617,
+enemy_character_type-20900618,
+enemy_character_type-10900618,
+enemy_character_type-30900618,
+enemy_character_type-20900619,
+enemy_character_type-10900619,
+enemy_character_type-30900619,
+enemy_character_type-20900620,
+enemy_character_type-10900620,
+enemy_character_type-30900620,
+enemy_character_type-20900621,
+enemy_character_type-10900621,
+enemy_character_type-30900621,
+enemy_character_type-20900622,
+enemy_character_type-10900622,
+enemy_character_type-30900622,
+enemy_character_type-20900623,
+enemy_character_type-10900623,
+enemy_character_type-30900623,
 enemy_character_type-20080001,Shield Girl
 enemy_character_type-10080001,
 enemy_character_type-30080001,
@@ -2163,10 +2532,10 @@ enemy_character_type-10910125,
 enemy_character_type-30910125,
 enemy_character_type-20700001,Destroyer
 enemy_character_type-10700001,Elite//c Destroyer
-enemy_character_type-30700001,Strong Doll//c Slug
+enemy_character_type-30700001,RF
 enemy_character_type-20700002,Gager
 enemy_character_type-10700002,Elite//c Gager
-enemy_character_type-30700002,Strong Doll//c Slug
+enemy_character_type-30700002,HG//c SMG//c AR
 enemy_character_type-20700003,Executioner (Elite)
 enemy_character_type-10700003,Elite//c Executioner//c Armor
 enemy_character_type-30700003,AR//c SMG//c Night Equip//c Slug
@@ -2175,31 +2544,31 @@ enemy_character_type-10700004,Elite//c Hunter//c Armor
 enemy_character_type-30700004,AR//c SMG//c Night Equip//c Slug
 enemy_character_type-20700005,Judge
 enemy_character_type-10700005,Elite//c Judge//c Armor
-enemy_character_type-30700005,SG//c MG//c Slug
+enemy_character_type-30700005,HG//c RF//c SG 
 enemy_character_type-20700006,Gebbennu
 enemy_character_type-10700006,Elite//c Armor
 enemy_character_type-30700006,HG//cRF
 enemy_character_type-20700007,AA-02 Sinner
-enemy_character_type-10700007,Elite//c Armor//c Support//c Weaken
+enemy_character_type-10700007,Elite//c Colossal//c Armor//c Support//c Debuff
 enemy_character_type-30700007,SMG//cRF
 enemy_character_type-20700008,Architect
 enemy_character_type-10700008,Elite//c Architect//c Armor
-enemy_character_type-30700008,
+enemy_character_type-30700008,AR//cMG
 enemy_character_type-20700009,Alchemist
 enemy_character_type-10700009,Elite//c Alchemist
 enemy_character_type-30700009,HG//cRF
 enemy_character_type-20700010,Agent
 enemy_character_type-10700010,Elite//c Agent
-enemy_character_type-30700010,
+enemy_character_type-30700010,SMG//c AR//c Night Vision Equipment
 enemy_character_type-20700011,Elisa
 enemy_character_type-10700011,Elite//c ???
-enemy_character_type-30700011,
+enemy_character_type-30700011,RF//cMG//cSG
 enemy_character_type-20700012,Grig
 enemy_character_type-10700012,Elite//c "Nyto"//c Assassin
-enemy_character_type-30700012,
+enemy_character_type-30700012,Powerful T-Doll
 enemy_character_type-20700013,Narcissus
 enemy_character_type-10700013,Elite//c Certain Death//c Cyborg
-enemy_character_type-30700013,
+enemy_character_type-30700013,MG//c SG
 enemy_character_type-20910126,M4 SOPMOD II
 enemy_character_type-10910126,
 enemy_character_type-30910126,
@@ -2237,7 +2606,7 @@ enemy_character_type-20910134,Strelet
 enemy_character_type-10910134,Force Field
 enemy_character_type-30910134,
 enemy_character_type-20910135,Uhlan
-enemy_character_type-10910135,Missiles//c Crusher//c Forcefield
+enemy_character_type-10910135,Elite//c Colossal//c Armor//c Force Field
 enemy_character_type-30910135,
 enemy_character_type-20910136,Rodelero
 enemy_character_type-10910136,Armor//c Force Field//c Piercing
@@ -2282,8 +2651,17 @@ enemy_character_type-20910149,Watermelon House 1y
 enemy_character_type-10910149,Armor//c Spawner
 enemy_character_type-30910149,
 enemy_character_type-20910150,Seaside Watermelon
-enemy_character_type-10910150,Elite//c for training
+enemy_character_type-10910150,Training Only
 enemy_character_type-30910150,
-enemy_character_type-20910151,
-enemy_character_type-10910151,
+enemy_character_type-20910151,SCAR-L
+enemy_character_type-10910151,Elite
 enemy_character_type-30910151,
+enemy_character_type-20010115,
+enemy_character_type-10010115,
+enemy_character_type-30010115,
+enemy_character_type-20012114,
+enemy_character_type-10012114,
+enemy_character_type-30012114,
+enemy_character_type-20900624,
+enemy_character_type-10900624,
+enemy_character_type-30900624,
