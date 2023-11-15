@@ -2353,6 +2353,10 @@ function theaterdisplay(){
 function enemyoutcal(enemy_team_id) {
   let enemies = {};
   let enemies_ids_in_order = new Set();
+  if (!Enemy_in_team_by_team_id[Number(enemy_team_id)]) {
+    return "<empty team>";
+  }
+
   Enemy_in_team_by_team_id[Number(enemy_team_id)].forEach(({enemy_character_type_id, number}) => {
     if (!(enemy_character_type_id in enemies)) {
       let enemy_character_type = Enemy_charater_type.find((e) => e.id == enemy_character_type_id);
