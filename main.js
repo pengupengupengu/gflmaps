@@ -2237,6 +2237,10 @@ function showDefenseDrill(mission) {
 function efectcal(enemy_team_id, levelOffset, armorCoef) {
   var efect = 0;
   let data = [];
+  if (!Enemy_in_team_by_team_id[Number(enemy_team_id)]) {
+    return 0;
+  }
+
   Enemy_in_team_by_team_id[Number(enemy_team_id)].forEach(({enemy_character_type_id, level, number, def_percent}) => {
     var level = Number(level) + (levelOffset || 0);
     var charatype = Enemy_character_type_by_id[enemy_character_type_id];
