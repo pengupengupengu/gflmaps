@@ -555,7 +555,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // Summer mini-event
     case -40: return 5040;
     // DR
-    case -41: return 3041;
+    case -41:
+    case -63: return 3041;
     // Halloween mini-event 2
     case -42: return 5042;
     // The Division
@@ -592,6 +593,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // -60 is PL+
     case -61: return 5061;
     case -62: return 5062;
+    // -63 is DR1+
     // Grey Zone
     case -404: return 2011;
     // Tutorials
@@ -1605,7 +1607,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     <td width="160px">${teamLeader}<\/td>
     <td width="100px">${teamAlignment}<\/td>
     <td width="114px">${teamAIDisplay}<\/td>
-    <td width="100px">${teamCEPre208} / ${teamCEPost208}*<\/td>
+    <td width="100px">${teamCEPost208}*<\/td>
     <td width="290px">${teamComposition}<\/td>
     <td width="200px">${rareDrops.join(", ")}<\/td>
     <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
@@ -2013,7 +2015,7 @@ function drawmap(func){
                   : UI_TEXT["map_controllable_ally_infinite_supply"]);
             } else {
               enemySubtitle = "[" + spotinfo[i]["seai"] + "] "
-                + (spotinfo[i]["sefectPre208"] + (spotinfo[i]["hasFakeCeError"] ? 1 : 0)) + "/"
+              // + (spotinfo[i]["sefectPre208"] + (spotinfo[i]["hasFakeCeError"] ? 1 : 0)) + "/"
                 + (spotinfo[i]["sefectPost208"] + (spotinfo[i]["hasFakeCeError"] ? 1 : 0));
             }
             con.strokeText(enemySubtitle, coorchange(1, Number(dspot[i].coordinator_x), x_min), coorchange(2, Number(dspot[i].coordinator_y), y_min) + coorchange(3, 180));
