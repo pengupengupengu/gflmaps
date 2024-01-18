@@ -594,6 +594,9 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -61: return 5061;
     case -62: return 5062;
     // -63 is DR1+
+    // -64??
+    // -65??
+    case -66: return 3066;
     // Grey Zone
     case -404: return 2011;
     // Tutorials
@@ -1001,7 +1004,7 @@ function updatemap() {
     }
     
     $("#missioninfo").html(`
-        <table id="Missioninfotable" class="enemydata" style="margin-top: 10px; table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+        <table id="Missioninfotable" class="enemydata" style="display: table;margin-top: 10px; table-layout: auto;width: 100%;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
           ${tableBody}
         </table>
         <p>${notes.join("<br>")}</p>
@@ -1278,16 +1281,16 @@ function windowToCanvas(x,y) {
 }
 
 function buildingdisplay(){
-    var output = `<table id="buildingtable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-        <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-        <th style="width:120px;">${UI_TEXT["building_location"]}<\/th>
-        <th style="width:150px;">${UI_TEXT["building_id"]}<\/th>
-        <th style="width:160px;">${UI_TEXT["building_name"]}<\/th>
-        <th style="width:80px;">${UI_TEXT["building_hp"]}<\/th>
-        <th style="width:140px;">${UI_TEXT["building_destruction_method"]}<\/th>
-        <th style="width:80px;">${UI_TEXT["building_support_range"]}<\/th>
-        <th style="width:560px;">${UI_TEXT["building_notes"]}<\/th>
-        <\/tr><\/thead><tbody id="Buildingbody" style="height:200px; overflow-y:scroll; display:block;">`;
+    var output = `<table id="buildingtable" class="enemydata" style="height: 300px; text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+        <thead style="background-color:#f4c430; color:black;"><tr>
+        <th>${UI_TEXT["building_location"]}<\/th>
+        <th>${UI_TEXT["building_id"]}<\/th>
+        <th>${UI_TEXT["building_name"]}<\/th>
+        <th>${UI_TEXT["building_hp"]}<\/th>
+        <th>${UI_TEXT["building_destruction_method"]}<\/th>
+        <th>${UI_TEXT["building_support_range"]}<\/th>
+        <th>${UI_TEXT["building_notes"]}<\/th>
+        <\/tr><\/thead><tbody id="Buildingbody">`;
 
     for(i in dspot){
         if(dspot[i].building_id == 0) continue;
@@ -1320,7 +1323,7 @@ function buildingdisplay(){
             buildsigndes = buildsigndes.slice(0, buildsigndes.length - 1);
         }
 
-        var thisline = `<tr class="buildingline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="120px">`;
+        var thisline = `<tr class="buildingline" style="border-bottom:2px #f4c43033 solid; cursor:pointer;"><td width="120px">`;
         thisline += dspot[i].id + `<\/td><td width="150px">`;
         thisline += Building[buildnum].id + `<\/td><td width="160px">`;
         thisline += Building[buildnum].name + `<\/td><td width="80px">`;
@@ -1362,20 +1365,20 @@ function buildingdisplay(){
 
 function teleportdisplay(){
     var output = `
-      <table id="teleporttable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-         <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-          <th style="width:100px;">${UI_TEXT["portal_source_layer"]}</th>
-          <th style="width:100px;">${UI_TEXT["portal_source_zone"]}</th>
-          <th style="width:150px;">${UI_TEXT["portal_source_location"]}</th>
-          <th style="width:100px;">${UI_TEXT["portal_to"]}</th>
-          <th style="width:100px;">${UI_TEXT["portal_dest_layer"]}</th>
-          <th style="width:100px;">${UI_TEXT["portal_dest_zone"]}</th>
-          <th style="width:150px;">${UI_TEXT["portal_dest_location"]}<\/th>
-          <th style="width:150px;">${UI_TEXT["portal_controlling_building_id"]}</th>
-          <th style="width:200px;">${UI_TEXT["portal_controlling_building_name"]}</th>
-          <th style="width:170px;"></th>
+      <table id="teleporttable" class="enemydata" style="height: 300px;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+         <thead style="background-color:#f4c430; color:black;"><tr>
+          <th>${UI_TEXT["portal_source_layer"]}</th>
+          <th>${UI_TEXT["portal_source_zone"]}</th>
+          <th>${UI_TEXT["portal_source_location"]}</th>
+          <th>${UI_TEXT["portal_to"]}</th>
+          <th>${UI_TEXT["portal_dest_layer"]}</th>
+          <th>${UI_TEXT["portal_dest_zone"]}</th>
+          <th>${UI_TEXT["portal_dest_location"]}<\/th>
+          <th>${UI_TEXT["portal_controlling_building_id"]}</th>
+          <th>${UI_TEXT["portal_controlling_building_name"]}</th>
+          <th></th>
         </tr></thead>
-        <tbody id="teleportbody" style="height:200px; overflow-y:scroll; display:block;">
+        <tbody id="teleportbody">
     `;
 
     telespot = [];
@@ -1422,7 +1425,7 @@ function teleportdisplay(){
       }
     }
     output += telespot.map(({srcNode, destNode, controllingBuilding}) => `
-      <tr class="teleportline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
+      <tr class="teleportline" style="border-bottom:2px #f4c43033 solid; cursor:pointer;">
         <td width="100px">${UI_TEXT["layer"]} ${srcNode.map_num + 1}<\/td>
         <td width="100px">${srcNode.package}<\/td>
         <td width="150px">${srcNode.id}<\/td>
@@ -1602,7 +1605,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
   });
   eteamspot.push(enemy_team_id);
 
-  return`<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;">
+  return`<tr class="missionline" style="border-bottom:2px #f4c43033 solid; cursor:pointer;">
     <td width="100px">${teamID}<\/td>
     <td width="160px">${teamLeader}<\/td>
     <td width="100px">${teamAlignment}<\/td>
@@ -1626,19 +1629,19 @@ function missiondisplay(){
     spotinfo = [];
     eteamspot = [];
 
-    var output = `<table id="Missiontable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-        <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-        <th style="width:100px;">${UI_TEXT["team_id"]}</th>
-        <th style="width:160px;">${UI_TEXT["team_leader"]}</th>
-        <th style="width:100px;">${UI_TEXT["team_alignment"]}</th>
-        <th style="width:114px;">${UI_TEXT["team_ai"]}</th>
-        <th style="width:100px;">${UI_TEXT["team_ce"]}</th>
-        <th style="width:290px;">${UI_TEXT["team_composition"]}</th>
-        <th style="width:200px;">${UI_TEXT["team_drops"]}</th>
-        <th class="cellacap" style="width:120px; display:table-cell;">${UI_TEXT["team_location"]}</th>
-        <th class="cellbcap" style="width:120px; display:none;">${UI_TEXT["team_count"]}</th>
-        <th style="width:14px;"></th>
-        </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
+    var output = `<table id="Missiontable" class="enemydata" style="height:400px;text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+        <thead style="background-color:#f4c430; color:black;"><tr>
+        <th>${UI_TEXT["team_id"]}</th>
+        <th>${UI_TEXT["team_leader"]}</th>
+        <th>${UI_TEXT["team_alignment"]}</th>
+        <th>${UI_TEXT["team_ai"]}</th>
+        <th>${UI_TEXT["team_ce"]}</th>
+        <th>${UI_TEXT["team_composition"]}</th>
+        <th>${UI_TEXT["team_drops"]}</th>
+        <th class="cellacap" style="display:table-cell;">${UI_TEXT["team_location"]}</th>
+        <th class="cellbcap" style="display:none;">${UI_TEXT["team_count"]}</th>
+        <th></th>
+        </tr></thead><tbody id="Missionbody">`;
 
     
     /*-- 路径点的敌人站位 --*/
@@ -1690,14 +1693,13 @@ function missiondisplay(){
     
     const missionId = Number($("#missionselect").val());
     if (missionId in missionIdToSuspectedSpawns) {
-      output += `<tr><td colspan="8" style="width: 1245px;" class="mission-spawn-separator">${UI_TEXT["team_suspected_spawns"]}</td></tr>`
+      output += `<tr><td colspan="8" class="mission-spawn-separator">${UI_TEXT["team_suspected_spawns"]}</td></tr>`
         + missionIdToSuspectedSpawns[missionId]
           .map((enemyTeamId) => generateEnemyTeamRow(null, enemyTeamId, null, null))
           .join('');
     }
 
-    output += `</tbody></table>
-    <div class="note">Note: "*" means that the 2.09 client added 1 extra CE due to a bug. This bug was fixed in 3.01.</div>`;
+    output += `</tbody></table>`;
 
     $("#missionshow").html(output);
     $(".missionline").mouseover(function(){
@@ -2158,18 +2160,18 @@ function traindisplay(){
     if(setmessage.senemypile == 1) $("#smaphide").click();
 
     var output = `<table id="Missiontable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-        <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-        <th style="width:100px;">${UI_TEXT["target_id"]}</th>
-        <th style="width:160px;">${UI_TEXT["target_name"]}</th>
-        <th style="width:450px;">${UI_TEXT["target_composition"]}</th>
-        <th style="width:490px;">${UI_TEXT["target_description"]}</th>
-        </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
+        <thead style="background-color:#f4c430; color:black;"><tr>
+        <th>${UI_TEXT["target_id"]}</th>
+        <th>${UI_TEXT["target_name"]}</th>
+        <th>${UI_TEXT["target_composition"]}</th>
+        <th>${UI_TEXT["target_description"]}</th>
+        </tr></thead><tbody id="Missionbody">`;
 
     for(i in Mission_targettrain_enemy){
         if(Mission_targettrain_enemy[i].log_fitter_id != $("#missionselect").val()) continue;
         var enemy_team_id = Mission_targettrain_enemy[i].enemy_team_id;
 
-        var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
+        var thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; cursor:pointer;"><td width="100px">`;
         thisline += enemy_team_id + `<\/td><td width="160px">`;
         thisline += Mission_targettrain_enemy[i].name + `<\/td><td width="450px">`;
         thisline += enemyoutcal(enemy_team_id) + `<\/td><td width="480px">`;
@@ -2201,19 +2203,19 @@ function showDefenseDrill(mission) {
   if(setmessage.sspotsign == 1) $("#smaphide").click();
   if(setmessage.senemypile == 1) $("#smaphide").click();
 
-  var output = `<table id="Missiontable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-      <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-      <th style="width:80px;">${UI_TEXT["defdrill_wave"]}</th>
-      <th style="width:100px;">${UI_TEXT["defdrill_team_id"]}</th>
-      <th style="width:820px;">${UI_TEXT["defdrill_composition"]}</th>
-      <th style="width:120px;">${UI_TEXT["defdrill_environment"]}</th>
-      <th style="width:120px;">${UI_TEXT["defdrill_ticket_count"]}</th>
-      </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
+  var output = `<table id="Missiontable" class="enemydata" style="height: 400px; text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+      <thead style="background-color:#f4c430; color:black;"><tr>
+      <th>${UI_TEXT["defdrill_wave"]}</th>
+      <th>${UI_TEXT["defdrill_team_id"]}</th>
+      <th>${UI_TEXT["defdrill_composition"]}</th>
+      <th>${UI_TEXT["defdrill_environment"]}</th>
+      <th>${UI_TEXT["defdrill_ticket_count"]}</th>
+      </tr></thead><tbody id="Missionbody">`;
 
   const trials = mission == "defdrill_wave_110" ? trial_info.filter(({id}) => Number(id) >= 110) : trial_info.filter(({id}) => Number(id) < 110);
 
   output += trials.map((trial) => {
-    let thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="80px">`;
+    let thisline = `<tr class="missionline" style="border-bottom:2px #f4c43033 solid; cursor:pointer;"><td width="80px">`;
     thisline += trial.id + `<td width="100px">`;
     thisline += trial.enemy_team_id + `<\/td><td width="820px">`;
     thisline += enemyoutcal(trial.enemy_team_id) + `<\/td><td width="120px">`;
@@ -2281,16 +2283,16 @@ function theaterdisplay(){
     if(setmessage.sspotsign == 1) $("#smaphide").click();
     if(setmessage.senemypile == 1) $("#smaphide").click();
 
-    var output = `<table id="Missiontable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-        <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-        <th style="width:100px;">${UI_TEXT["theater_team_id"]}</th>
-        <th style="width:160px;">${UI_TEXT["theater_team_leader"]}</th>
-        <th style="width:100px;">${UI_TEXT["theater_team_ce"]}</th>
-        <th style="width:490px;">${UI_TEXT["theater_team_composition"]}</th>
-        <th style="width:60px;">${UI_TEXT["theater_team_environment"]}</th>
-        <th style="width:100px;">${UI_TEXT["theater_team_wave_count"]}</th>
-        <th style="width:200px;">${UI_TEXT["theater_team_other"]}</th>
-        </tr></thead><tbody id="Missionbody" style="height:300px; overflow-y:scroll; display:block;">`;
+    var output = `<table id="Missiontable" class="enemydata" style="height: 400px; text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
+        <thead style="background-color:#f4c430; color:black;"><tr>
+        <th>${UI_TEXT["theater_team_id"]}</th>
+        <th>${UI_TEXT["theater_team_leader"]}</th>
+        <th>${UI_TEXT["theater_team_ce"]}</th>
+        <th>${UI_TEXT["theater_team_composition"]}</th>
+        <th>${UI_TEXT["theater_team_environment"]}</th>
+        <th>${UI_TEXT["theater_team_wave_count"]}</th>
+        <th>${UI_TEXT["theater_team_other"]}</th>
+        </tr></thead><tbody id="Missionbody">`;
 
     /*-- 路径点的敌人站位 --*/
     for(i in Theater_area){
@@ -2322,7 +2324,7 @@ function theaterdisplay(){
               leader_name = Enemy_character_type_by_id[enemy_leader].name;
             }
 
-            var thisline = `<tr class="missionline" data-team-id="${enemy_team_id}" style="border-bottom:2px #f4c43033 solid; display:block; cursor:pointer;"><td width="100px">`;
+            var thisline = `<tr class="missionline" data-team-id="${enemy_team_id}" style="border-bottom:2px #f4c43033 solid; cursor:pointer;"><td width="100px">`;
             thisline += displayTeamId + `<\/td><td width="160px">`;
             thisline += leader_name + `<\/td><td width="100px">`;
             thisline += theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + ' / ' + theaterCeCalc(enemy_team_id, theaterLevelAdjustments, 300) + `<\/td><td width="490px">`;
@@ -2502,7 +2504,7 @@ function enemydisplay(enemy_team_id){
 
         const gunsRowsHtml = guns.map(gun => {
           const equips = gun.equips.length ? gun.equips.map(equip => getEquipName(equip.equip_id)).join(",") : UI_TEXT["ally_no_equipment"];
-          return `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;">
+          return `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid;">
              <td class="enemycell" index="1" width="219px">${gun.name}<\/td>
              <td class="enemycell" index="2" width="59px">${gun.gunInAllyRow.number}<\/td>
              <td class="enemycell" index="3" width="59px">${gun.gunInAllyRow.gun_level}<\/td>
@@ -2520,19 +2522,19 @@ function enemydisplay(enemy_team_id){
               Note: The ally doll stats below do not include equipment stats. I haven't reverse engineered how equipment stats for allied dolls are calculated yet :(
             </div>
             <table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-            <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-              <th style="width:219px;">${UI_TEXT["ally_name"]}<\/th>
-              <th style="width:59px;">${UI_TEXT["ally_links"]}<\/th>
-              <th style="width:59px;">${UI_TEXT["ally_level"]}<\/th>
-              <th style="width:59px;">${UI_TEXT["ally_hp"]}<\/th>
-              <th style="width:59px;">${UI_TEXT["ally_fp"]}<\/th>
-              <th style="width:59px;">${UI_TEXT["ally_rof"]}<\/th>
-              <th style="width:59px;">${UI_TEXT["ally_acc"]}<\/th>
-              <th style="width:59px;">${UI_TEXT["ally_eva"]}<\/th>
-              <th style="width:453px;">${UI_TEXT["ally_equipment"]}<\/th>
-              <th style="width:100px;">${UI_TEXT["ally_position"]}<\/th>
+            <thead style="background-color:#f4c430; color:black;"><tr>
+              <th>${UI_TEXT["ally_name"]}<\/th>
+              <th>${UI_TEXT["ally_links"]}<\/th>
+              <th>${UI_TEXT["ally_level"]}<\/th>
+              <th>${UI_TEXT["ally_hp"]}<\/th>
+              <th>${UI_TEXT["ally_fp"]}<\/th>
+              <th>${UI_TEXT["ally_rof"]}<\/th>
+              <th>${UI_TEXT["ally_acc"]}<\/th>
+              <th>${UI_TEXT["ally_eva"]}<\/th>
+              <th>${UI_TEXT["ally_equipment"]}<\/th>
+              <th>${UI_TEXT["ally_position"]}<\/th>
             <\/tr><\/thead>
-            <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">
+            <tbody id="Eenmybody">
               ${gunsRowsHtml}
             </tbody>
           </table>`;
@@ -2546,7 +2548,7 @@ function enemydisplay(enemy_team_id){
         const allySangvis = getAllySangvis(spotAllyTeam.sangvis);
 
         const sangvisRowsHtml = allySangvis.map(sangvis =>
-          `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;">
+          `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid;">
              <td class="enemycell" index="1" width="219px">${sangvis.name}<\/td>
              <td class="enemycell" index="2" width="866px">TODO<\/td>
              <td class="enemycell" index="3" width="100px">${sangvis.numpadPosition}<\/td><\/tr>`
@@ -2556,12 +2558,12 @@ function enemydisplay(enemy_team_id){
               Note: I haven't reverse engineered how to calculate controllable allied Sangvis units' stats yet :(. I hope we don't get a ranking map with one.
             </div>
             <table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-            <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-              <th style="width:219px;">${UI_TEXT["ally_name"]}<\/th>
-              <th style="width:866px;">TODO<\/th>
-              <th style="width:100px;">${UI_TEXT["ally_position"]}<\/th>
+            <thead style="background-color:#f4c430; color:black;"><tr>
+              <th>${UI_TEXT["ally_name"]}<\/th>
+              <th>TODO<\/th>
+              <th>${UI_TEXT["ally_position"]}<\/th>
             <\/tr><\/thead>
-            <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">
+            <tbody id="Eenmybody">
               ${sangvisRowsHtml}
             </tbody>
           </table>`;
@@ -2605,27 +2607,27 @@ function enemydisplay(enemy_team_id){
       }
       
       output += `<table id="Eenmytable" class="enemydata" style="text-align:center; border:1px #f4c430cc solid; background-color:#111111; margin:4px 0px 14px 0px;" cellspacing="1">
-        <thead style="display:block; background-color:#f4c430; color:black;"><tr>
-          <th style="width:160px;">${UI_TEXT["enemy_name"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_links"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_level"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_hp"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_fp"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_rof"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_acc"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_eva"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_range"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_mspd"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_ap"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_armor"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_tenacity"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_debuff_res"]}<\/th>
-          <th style="width:59px;">${UI_TEXT["enemy_hp_shield"]}<\/th>
-          <th style="width:79px;">${UI_TEXT["enemy_forceshield_max"]}<\/th>
-          <th style="width:79px;">${UI_TEXT["enemy_forceshield_initial_pct"]}<\/th>
-          <th style="width:100px;">${UI_TEXT["enemy_coordinates"]}<\/th>
+        <thead style="background-color:#f4c430; color:black;"><tr>
+          <th>${UI_TEXT["enemy_name"]}<\/th>
+          <th>${UI_TEXT["enemy_links"]}<\/th>
+          <th>${UI_TEXT["enemy_level"]}<\/th>
+          <th>${UI_TEXT["enemy_hp"]}<\/th>
+          <th>${UI_TEXT["enemy_fp"]}<\/th>
+          <th>${UI_TEXT["enemy_rof"]}<\/th>
+          <th>${UI_TEXT["enemy_acc"]}<\/th>
+          <th>${UI_TEXT["enemy_eva"]}<\/th>
+          <th>${UI_TEXT["enemy_range"]}<\/th>
+          <th>${UI_TEXT["enemy_mspd"]}<\/th>
+          <th>${UI_TEXT["enemy_ap"]}<\/th>
+          <th>${UI_TEXT["enemy_armor"]}<\/th>
+          <th>${UI_TEXT["enemy_tenacity"]}<\/th>
+          <th>${UI_TEXT["enemy_debuff_res"]}<\/th>
+          <th>${UI_TEXT["enemy_hp_shield"]}<\/th>
+          <th>${UI_TEXT["enemy_forceshield_max"]}<\/th>
+          <th>${UI_TEXT["enemy_forceshield_initial_pct"]}<\/th>
+          <th>${UI_TEXT["enemy_coordinates"]}<\/th>
         <\/tr><\/thead>
-        <tbody id="Eenmybody" style="height:300px; overflow-y:scroll; display:block;">`;
+        <tbody id="Eenmybody">`;
 
       Enemy_in_team_by_team_id[Number(enemy_team_id)].forEach(({enemy_character_type_id, level, number, def_percent, coordinator_x, coordinator_y}) => {
         /*-- 敌人type 基础属性/当前属性 --*/
@@ -2691,25 +2693,25 @@ function enemydisplay(enemy_team_id){
           };
         }
 
-        var thisline = `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid; display:block;"><td class="enemycell" index="1" width="160px">`;
-        thisline += charatype["name"] + `<\/td><td class="enemycell" index="2" width="59px">`;
-        thisline += Number(number) + `<\/td><td class="enemycell" index="3" width="59px">`;
-        thisline += displayedValues.level + `<\/td><td class="enemycell" index="4" width="59px">`;
-        thisline += displayedValues.hp + `<\/td><td class="enemycell" index="5" width="59px">`;
-        thisline += displayedValues.pow + `<\/td><td class="enemycell" index="6" width="59px">`;
-        thisline += displayedValues.rate + `<\/td><td class="enemycell" index="7" width="59px">`;
-        thisline += displayedValues.hit + `<\/td><td class="enemycell" index="8" width="59px">`;
-        thisline += displayedValues.dodge + `<\/td><td class="enemycell" index="9" width="59px">`;
-        thisline += displayedValues.range + `<\/td><td class="enemycell" index="10" width="59px">`;
-        thisline += displayedValues.speed + `<\/td><td class="enemycell" index="11" width="59px">`;
-        thisline += displayedValues.armor_piercing + `<\/td><td class="enemycell" index="12" width="59px">`;
-        thisline += displayedValues.armor + `<\/td><td class="enemycell" index="13" width="59px">`;
-        thisline += displayedValues.tenacity + `<\/td><td class="enemycell" index="14" width="59px">`;
-        thisline += displayedValues.debuff_resistance + `<\/td><td class="enemycell" index="15" width="59px">`;
-        thisline += displayedValues.shield + `<\/td><td class="enemycell" index="16" width="59px">`;
+        var thisline = `<tr class="enemyline" style="border-bottom:2px #f4c43033 solid;"><td class="enemycell" index="1">`;
+        thisline += charatype["name"] + `<\/td><td class="enemycell" index="2">`;
+        thisline += Number(number) + `<\/td><td class="enemycell" index="3">`;
+        thisline += displayedValues.level + `<\/td><td class="enemycell" index="4">`;
+        thisline += displayedValues.hp + `<\/td><td class="enemycell" index="5">`;
+        thisline += displayedValues.pow + `<\/td><td class="enemycell" index="6">`;
+        thisline += displayedValues.rate + `<\/td><td class="enemycell" index="7">`;
+        thisline += displayedValues.hit + `<\/td><td class="enemycell" index="8">`;
+        thisline += displayedValues.dodge + `<\/td><td class="enemycell" index="9">`;
+        thisline += displayedValues.range + `<\/td><td class="enemycell" index="10">`;
+        thisline += displayedValues.speed + `<\/td><td class="enemycell" index="11">`;
+        thisline += displayedValues.armor_piercing + `<\/td><td class="enemycell" index="12">`;
+        thisline += displayedValues.armor + `<\/td><td class="enemycell" index="13">`;
+        thisline += displayedValues.tenacity + `<\/td><td class="enemycell" index="14">`;
+        thisline += displayedValues.debuff_resistance + `<\/td><td class="enemycell" index="15">`;
+        thisline += displayedValues.shield + `<\/td><td class="enemycell" index="16">`;
         //thisline += displayedValues.def_break + `<\/td><td class="enemycell" index="16" width="79px">`;
-        thisline += displayedValues.def + `<\/td><td class="enemycell" index="17" width="79px">`;
-        thisline += Number(def_percent) + `%<\/td><td class="enemycell" index="18" width="100px">`;
+        thisline += displayedValues.def + `<\/td><td class="enemycell" index="17">`;
+        thisline += Number(def_percent) + `%<\/td><td class="enemycell" index="18">`;
         thisline += "(" + coordinator_x + "," + coordinator_y + `)<\/td><\/tr>`;
 
         output += thisline;
@@ -2902,7 +2904,7 @@ function enemypile(){
         $(".cellbcap").css("display", "none");
         $(".cella").css("display", "table-cell");
         $(".cellb").css("display", "none");
-        $(".missionline").css("display","block");
+        $(".missionline").css("display","table-row");
     }else {
         $(".cellacap").css("display", "none");
         $(".cellbcap").css("display", "table-cell");

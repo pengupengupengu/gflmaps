@@ -68,12 +68,31 @@ body {
   font-family: 'Noto Sans', 'Noto Sans SC', sans-serif;
   color: #EAEAEA;
 }
+table {
+  display: block;
+  max-height: 70vw;
+  overflow: scroll;
+}
+thead {
+  display: table-header-group;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+tbody {
+  display: table-row-group;
+}
+tr {
+  display: table-row;
+}
 th, td {
-  padding: 4px 3px;
+  padding: 8px 6px;
+  position: relative;
 }
 th {
   vertical-align: middle;
 }
+
 #thisdiv {
   width: 80%;
   display: flex;
