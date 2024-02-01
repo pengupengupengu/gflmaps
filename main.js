@@ -1610,7 +1610,7 @@ const generateEnemyTeamRow = (spot, enemy_team_id, spotAllyTeam, controllableAll
     <td width="160px">${teamLeader}<\/td>
     <td width="100px">${teamAlignment}<\/td>
     <td width="114px">${teamAIDisplay}<\/td>
-    <td width="100px">${teamCEPost208}*<\/td>
+    <td width="100px">${teamCEPost208}<\/td>
     <td width="290px">${teamComposition}<\/td>
     <td width="200px">${rareDrops.join(", ")}<\/td>
     <td class="cella" width="120px" style="display:table-cell;">${teamLocation}<\/td>
@@ -2258,11 +2258,20 @@ function efectcal(enemy_team_id, levelOffset, armorCoef) {
     var attr_dodge = enemyattribute(charatype , "dodge" , level);
     var attr_armor = enemyattribute(charatype , "armor" , level);
     var attr_def = enemyattribute(charatype , "def" , level);
+    var attr_tenacity = enemyattribute(charatype , "tenacity", level);
     var attr_def_percent = Number(def_percent);
     /*-- 攻击：ceiling：22*扩编数*((pow + def_break*0.85) * rate/50 * hit/(hit+35) +2) --*/
     var efect_att = ceiling(22*attr_number*((attr_pow + attr_def_break*0.85) * attr_rate/50 * attr_hit/(attr_hit+35) +2));
     /*-- 防御：ceiling：0.25*(maxlife * (35+dodge)/35 * armorCoef/(armorCoef-armor) + 100) * (def_max*2-def+1200*2)/(def_max-def+1200) /2 --*/
-    var efect_def = ceiling(0.25*(bround(attr_number * attr_maxlife) * (35+attr_dodge)/35 * armorCoef/(armorCoef-attr_armor) + 100) * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)/(attr_def - attr_def*attr_def_percent/100 + 1200) /2);
+    var efect_def = ceiling(
+      0.25
+        * (bround(attr_number * attr_maxlife)
+             * (35+attr_dodge)/35 * armorCoef/(armorCoef-attr_armor)
+             * (/* MICAAAAAAAAAAAAAAAAAAAAAAA */ Math.trunc(attr_tenacity / 100) + 1.0 - 0.6/100)
+             + 100)
+        * (attr_def*2 - attr_def*attr_def_percent/100 + 1200*2)
+        / (attr_def - attr_def*attr_def_percent/100 + 1200)
+      / 2);
     efect += ceiling(Number(charatype.effect_ratio) * (efect_att + efect_def));
   });
   return efect;
