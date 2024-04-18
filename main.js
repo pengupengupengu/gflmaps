@@ -599,8 +599,10 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // GitS
     case -64: return 4064;
     // -65??
-    // Likely Blazar Backscatter
-    case -66: return 3066;
+    // Likely Blazar Backscatter?
+    // case -66: return 3066;
+    // 错构之泉
+    case -68: return 3068;
     // Grey Zone
     case -404: return 2011;
     // Tutorials
