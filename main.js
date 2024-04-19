@@ -2254,6 +2254,10 @@ function efectcal(enemy_team_id, levelOffset, armorCoef) {
   Enemy_in_team_by_team_id[Number(enemy_team_id)].forEach(({enemy_character_type_id, level, number, def_percent}) => {
     var level = Number(level) + (levelOffset || 0);
     var charatype = Enemy_character_type_by_id[enemy_character_type_id];
+    if (!charatype) {
+      console.error(`Enemy_character_type id=${enemy_character_type_id} not found.`);
+      return;
+    }
 
     var attr_number = Number(number);
     var attr_pow = enemyattribute(charatype , "pow" , level);
