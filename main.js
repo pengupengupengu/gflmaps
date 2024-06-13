@@ -604,6 +604,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // case -66: return 3066;
     // 错构之泉
     case -68: return 3068;
+    // Cartesian Theatre
+    case -69: return 3069;
     // Grey Zone
     case -404: return 2011;
     // Tutorials
