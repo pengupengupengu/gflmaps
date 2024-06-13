@@ -562,7 +562,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // The Division
     case -43: return 4043;
     // MS
-    case -44: return 3044;
+    case -44:
+    case -65: return 3044;
     // -45 is CT+
     // Jashin-chan
     case -46: return 4046;
@@ -598,7 +599,7 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // -63 is DR1+
     // GitS
     case -64: return 4064;
-    // -65??
+    // -65 is MS2+
     // Likely Blazar Backscatter?
     // case -66: return 3066;
     // 错构之泉
