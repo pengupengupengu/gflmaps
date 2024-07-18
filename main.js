@@ -570,7 +570,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // Summer mini-event 2
     case -47: return 5047;
     // PR
-    case -48: return 3048;
+    case -48:
+    case -67: return 3048;
     // Xmas mini-event 2
     case -49: return 5049;
     // FP
@@ -602,10 +603,13 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     // -65 is MS2+
     // Likely Blazar Backscatter?
     // case -66: return 3066;
+    // -67 is PR+
     // 错构之泉
     case -68: return 3068;
     // Cartesian Theatre
     case -69: return 3069;
+    // Zero Charge
+    case -70: return 3070;
     // Grey Zone
     case -404: return 2011;
     // Tutorials
