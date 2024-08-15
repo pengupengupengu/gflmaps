@@ -610,6 +610,8 @@ function convertGameCampaignToUiCampaign(gameCampaign) {
     case -69: return 3069;
     // Zero Charge
     case -70: return 3070;
+    // Angular Gyrus
+    case -71: return 3071;
     // Grey Zone
     case -404: return 2011;
     // Tutorials
